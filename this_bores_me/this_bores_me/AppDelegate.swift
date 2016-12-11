@@ -11,6 +11,9 @@
 import UIKit
 import Parse
 import Bolts
+import FBSDKCoreKit
+
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,6 +25,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // configuration of using Parse code in Heroku
         
+        return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+    
+    
+        
+    
         let parseConfig = ParseClientConfiguration {
             (ParseMutableClientConfiguration) in
             
@@ -34,12 +42,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Parse.initializeWithConfiguration(parseConfig)
         
         // call login function
-        login()
+//        login()
         
         // color of window
         window?.backgroundColor = UIColor.whiteColor()
         
         return true
+    }
+    
+    func application(application: UIApplication,
+                     openURL url: NSURL,
+                             sourceApplication: String?,
+                             annotation: AnyObject?) -> Bool {
+        return FBSDKApplicationDelegate.sharedInstance().application(
+            application,
+            openURL: url,
+            sourceApplication: sourceApplication,
+            annotation: annotation)
     }
 
     func applicationWillResignActive(application: UIApplication) {
@@ -64,17 +83,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    func login() {
-        let username : String? = NSUserDefaults.standardUserDefaults().stringForKey("username")
-        
-        // if logged in
-        if username != nil {
-            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let myTabBar = storyboard.instantiateViewControllerWithIdentifier("tabBar") as! UITabBarController
-            
-            window?.rootViewController = myTabBar
-        }
-    }
+    // PARSE - login recognize
+//    func login() {
+//        let username : String? = NSUserDefaults.standardUserDefaults().stringForKey("username")
+//        
+//        // if logged in
+//        if username != nil {
+//            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//            let myTabBar = storyboard.instantiateViewControllerWithIdentifier("tabBar") as! UITabBarController
+//            
+//            window?.rootViewController = myTabBar
+//        }
+//    }
+    
 
 
 

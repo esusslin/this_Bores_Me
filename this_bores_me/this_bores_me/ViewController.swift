@@ -7,33 +7,42 @@
 //
 
 import UIKit
+import Bolts
 import Parse
+import FBSDKCoreKit
+import FBSDKLoginKit
+
+
 
 class ViewController: UIViewController {
+    
+    let permissions = ["public_profile"]
+    
+    var userId: String?
+    var userFirstName:String?
+    var userLastName:String?
+    var userEmail:String?
 
+
+    @IBOutlet weak var fbLoginButton: FBSDKLoginButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let object = PFObject(className: "testObject")
-        object["name"] = "bill"
-        object["lastname"] = "Alexander"
-        object.saveInBackgroundWithBlock { (done:Bool, error:NSError?) in
-            
-            if done {
-                print("saved in server")
-            } else {
-                print(error)
-            }
+        if (FBSDKAccessToken.currentAccessToken() != nil)
+        {
+            // User is already logged in, do work such as go to next view controller.
         }
+        else
+        {
+            print("loller")
+        }
+        
+    }
         
     
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 
 
-}
 
