@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // configuration of using Parse code in Heroku
         
-        return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     
     
         
@@ -50,16 +50,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func application(application: UIApplication,
-                     openURL url: NSURL,
-                             sourceApplication: String?,
-                             annotation: AnyObject?) -> Bool {
-        return FBSDKApplicationDelegate.sharedInstance().application(
-            application,
-            openURL: url,
-            sourceApplication: sourceApplication,
-            annotation: annotation)
-    }
+//    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+//        return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
+//    }
 
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -96,6 +89,53 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        }
 //    }
     
+    //MARK: FacebookLogin
+    
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+        
+        let result = FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication:sourceApplication, annotation: annotation)
+        
+        if result {
+//            let token = FBSDKAccessToken.currentAccessToken()
+//            
+////            print(token)
+//            
+//            let request = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"email"], tokenString: token.tokenString, version: nil, HTTPMethod: "GET")
+//            
+//            request.startWithCompletionHandler({ (connection, result, error : NSError!) in
+//                
+//                if error == nil {
+//                    let facebookId = result["id"]! as! String
+//                    
+//                    let avatarUrl = "https://graph.facebook.com/\(facebookId)/picture??type=nomral"
+//                    
+//                    //update backendless user with facebook avatar link
+////                    updateBackendlessUser(facebookId, avatarUrl: avatarUrl)
+            
+                } else {
+                    print("Facebook request error")
+//                }
+//            })
+            
+//            let fieldsMapping = ["id" : "facebookId", "name" : "name", "email" : "email"]
+    
+//            backendless.userService.loginWithFacebookSDK(token, fieldsMapping: fieldsMapping)
+        }
+        
+        return result
+    }
+
+    func login() {
+        let username : String? = NSUserDefaults.standardUserDefaults().stringForKey("username")
+        
+        // if logged in
+        if username != nil {
+            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let username = storyboard.instantiateViewControllerWithIdentifier("usernameVC") as! UIViewController
+            
+            window?.rootViewController = username
+        }
+    }
 
 
 

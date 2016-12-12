@@ -1,19 +1,26 @@
 //
-//  protectedVC.swift
+//  usernameVC.swift
 //  this_bores_me
 //
-//  Created by Emmet Susslin on 12/10/16.
+//  Created by Emmet Susslin on 12/11/16.
 //  Copyright © 2016 Emmet Susslin. All rights reserved.
 //
 
 import UIKit
+import Parse
 
-class protectedVC: UIViewController {
+class usernameVC: UIViewController {
 
+    @IBOutlet weak var avaImg: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        let avaQuery = PFUser.currentUser()?.objectForKey("ava") as! PFFile
+        avaQuery.getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) in
+            self.avaImg.image = UIImage(data: data!)
+        }
+
     }
 
     override func didReceiveMemoryWarning() {
