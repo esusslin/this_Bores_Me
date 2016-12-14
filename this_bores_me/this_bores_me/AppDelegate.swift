@@ -11,7 +11,9 @@
 import UIKit
 import Parse
 import Bolts
+import CoreData
 import FBSDKCoreKit
+import ParseFacebookUtilsV4
 
 
 
@@ -19,40 +21,60 @@ import FBSDKCoreKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        // configuration of using Parse code in Heroku
+        //X's replace my actual Parse information
         
-        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-    
-    
+//        Parse.setApplicationId("this-bores-me", clientKey: "lordofthebored")
+
+                let parseConfig = ParseClientConfiguration {
+                    (ParseMutableClientConfiguration) in
         
-    
-        let parseConfig = ParseClientConfiguration {
-            (ParseMutableClientConfiguration) in
-            
-            // accessing Heroku App via id & keys
-            ParseMutableClientConfiguration.applicationId = "this-bores-me"
-            ParseMutableClientConfiguration.clientKey = "lordofthebored"
-            ParseMutableClientConfiguration.server = "http://this-bores-me.herokuapp.com/parse"
-        }
+                    // accessing Heroku App via id & keys
+                    ParseMutableClientConfiguration.applicationId = "this-bores-me"
+                    ParseMutableClientConfiguration.clientKey = "lordofthebored"
+                    ParseMutableClientConfiguration.server = "http://this-bores-me.herokuapp.com/parse"
+                }
         
-        Parse.initializeWithConfiguration(parseConfig)
+        PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
         
-        // call login function
-//        login()
+        PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
         
-        // color of window
-        window?.backgroundColor = UIColor.whiteColor()
+        return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
-        return true
     }
-    
-//    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
-//        return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
+
+
+//    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+//        
+//        // configuration of using Parse code in Heroku
+//        
+//        Parse.setApplicationId("this-bores-me", clientKey:"lordofthebored")
+//        PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
+//
+//
+//        
+////    
+//        let parseConfig = ParseClientConfiguration {
+//            (ParseMutableClientConfiguration) in
+//            
+//            // accessing Heroku App via id & keys
+//            ParseMutableClientConfiguration.applicationId = "this-bores-me"
+//            ParseMutableClientConfiguration.clientKey = "lordofthebored"
+//            ParseMutableClientConfiguration.server = "http://this-bores-me.herokuapp.com/parse"
+//        }
+//
+////        Parse.initializeWithConfiguration(parseConfig)
+//        
+//
+//        
+//        return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+//        
+//
 //    }
+    
+
 
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -70,72 +92,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        FBSDKAppEvents.activateApp()
     }
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+//        self.saveContext()
     }
     
-    // PARSE - login recognize
-//    func login() {
-//        let username : String? = NSUserDefaults.standardUserDefaults().stringForKey("username")
-//        
-//        // if logged in
-//        if username != nil {
-//            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-//            let myTabBar = storyboard.instantiateViewControllerWithIdentifier("tabBar") as! UITabBarController
-//            
-//            window?.rootViewController = myTabBar
-//        }
-//    }
-    
-    //MARK: FacebookLogin
-    
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
-        
-        let result = FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication:sourceApplication, annotation: annotation)
-        
-        if result {
-//            let token = FBSDKAccessToken.currentAccessToken()
-//            
-////            print(token)
-//            
-//            let request = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"email"], tokenString: token.tokenString, version: nil, HTTPMethod: "GET")
-//            
-//            request.startWithCompletionHandler({ (connection, result, error : NSError!) in
-//                
-//                if error == nil {
-//                    let facebookId = result["id"]! as! String
-//                    
-//                    let avatarUrl = "https://graph.facebook.com/\(facebookId)/picture??type=nomral"
-//                    
-//                    //update backendless user with facebook avatar link
-////                    updateBackendlessUser(facebookId, avatarUrl: avatarUrl)
-            
-                } else {
-                    print("Facebook request error")
-//                }
-//            })
-            
-//            let fieldsMapping = ["id" : "facebookId", "name" : "name", "email" : "email"]
-    
-//            backendless.userService.loginWithFacebookSDK(token, fieldsMapping: fieldsMapping)
-        }
-        
-        return result
-    }
-
-    func login() {
-        let username : String? = NSUserDefaults.standardUserDefaults().stringForKey("username")
-        
-        // if logged in
-        if username != nil {
-            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let username = storyboard.instantiateViewControllerWithIdentifier("usernameVC") as! UIViewController
-            
-            window?.rootViewController = username
-        }
-    }
 
 
 
