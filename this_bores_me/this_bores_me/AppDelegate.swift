@@ -5,8 +5,6 @@
 //  Created by Emmet Susslin on 12/10/16.
 //  Copyright © 2016 Emmet Susslin. All rights reserved.
 
-//parse-dashboard --appId thisBoresMe --masterKey hesameanonemrgrinch --serverURL "http://thisboresme.herokuapp.com/parse"
-//
 
 import UIKit
 import Parse
@@ -23,57 +21,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        // Override point for customization after application launch.
         
-        //X's replace my actual Parse information
+        // *** Initialize Parse. ***
+        let config = ParseClientConfiguration(block: {
+            (ParseMutableClientConfiguration) -> Void in
+            ParseMutableClientConfiguration.applicationId = "this-bores-me";
+            ParseMutableClientConfiguration.clientKey = "ithatechristmas";
+            ParseMutableClientConfiguration.server = "http://this-bores-me.herokuapp.com/parse";
+        });
         
-//        Parse.setApplicationId("this-bores-me", clientKey: "lordofthebored")
-
-                let parseConfig = ParseClientConfiguration {
-                    (ParseMutableClientConfiguration) in
+        Parse.initializeWithConfiguration(config);
         
-                    // accessing Heroku App via id & keys
-                    ParseMutableClientConfiguration.applicationId = "this-bores-me"
-                    ParseMutableClientConfiguration.clientKey = "lordofthebored"
-                    ParseMutableClientConfiguration.server = "http://this-bores-me.herokuapp.com/parse"
-                }
-        
-        PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
-        
+        // *NOTE: Putting the following line after after Parse.initializeWithConfiguration(config) fixed the issue
+        // After this change, the user is no longer nil and does not print "Uh oh. The user cancelled the Facebook login.". Instead, it executes the `if let user = user` block
         PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
         
-        return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-        
+        return true
     }
-
-
-//    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-//        
-//        // configuration of using Parse code in Heroku
-//        
-//        Parse.setApplicationId("this-bores-me", clientKey:"lordofthebored")
-//        PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
-//
-//
-//        
-////    
-//        let parseConfig = ParseClientConfiguration {
-//            (ParseMutableClientConfiguration) in
-//            
-//            // accessing Heroku App via id & keys
-//            ParseMutableClientConfiguration.applicationId = "this-bores-me"
-//            ParseMutableClientConfiguration.clientKey = "lordofthebored"
-//            ParseMutableClientConfiguration.server = "http://this-bores-me.herokuapp.com/parse"
-//        }
-//
-////        Parse.initializeWithConfiguration(parseConfig)
-//        
-//
-//        
-//        return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-//        
-//
-//    }
     
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+        
+        return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
+    }
 
 
     func applicationWillResignActive(application: UIApplication) {

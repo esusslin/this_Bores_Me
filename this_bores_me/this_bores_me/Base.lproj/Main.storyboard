@@ -13,21 +13,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="aNW-Vd-8PK" customClass="FBSDKLoginButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="aNW-Vd-8PK">
                                 <rect key="frame" x="20" y="402" width="280" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
-                                    <action selector="fbLoginButton_click:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3h5-hb-652"/>
+                                    <action selector="loginBtn_click:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pcC-MO-fhu"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="ykc-de-pV7"/>
-                    <connections>
-                        <outlet property="fbLoginButton" destination="aNW-Vd-8PK" id="Ti1-LO-oaM"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -48,9 +45,6 @@
                         </subviews>
                         <color key="backgroundColor" red="0.92076508970446913" green="0.083120108675354909" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <connections>
-                        <outlet property="avaImg" destination="ryr-CV-mze" id="YJe-X2-3SR"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WMA-VN-av2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

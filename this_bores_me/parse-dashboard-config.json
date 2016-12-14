@@ -1,0 +1,10 @@
+{
+  "apps": [
+    {
+      "serverURL": "http://this-bores-me.herokuapp.com/parse",
+      "appId": "this-bores-me",
+      "masterKey": "ithatechristmas",
+      "appName": "this-bores-me"
+    }
+  ]
+}

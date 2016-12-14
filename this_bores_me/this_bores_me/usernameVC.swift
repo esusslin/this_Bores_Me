@@ -16,10 +16,6 @@ class usernameVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let avaQuery = PFUser.currentUser()?.objectForKey("ava") as! PFFile
-        avaQuery.getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) in
-            self.avaImg.image = UIImage(data: data!)
-        }
 
     }
 
