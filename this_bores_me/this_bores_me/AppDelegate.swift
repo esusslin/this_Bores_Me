@@ -70,6 +70,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        self.saveContext()
     }
     
+    func login() {
+        let email : String? = NSUserDefaults.standardUserDefaults().stringForKey("email")
+        
+        // if logged in
+        if email != nil {
+            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let myTabBar = storyboard.instantiateViewControllerWithIdentifier("tabBar") as! UITabBarController
+            
+            window?.rootViewController = myTabBar
+        }
+    }
+    
 
 
 
