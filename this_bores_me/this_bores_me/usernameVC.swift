@@ -17,6 +17,7 @@ class usernameVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
     @IBOutlet weak var welcomeTxt: UILabel!
     @IBOutlet weak var nameTxt: UILabel!
     @IBOutlet weak var signupBtn: UIButton!
+    @IBOutlet weak var usernameTxt: UITextField!
     
     
     override func viewDidLoad() {
@@ -48,11 +49,6 @@ class usernameVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         picker.sourceType = .PhotoLibrary
         picker.allowsEditing = true
         presentViewController(picker, animated: true, completion: nil)
-        
-//        let avatarData = UIImageJPEGRepresentation(avatarImage.image!, 0.5)
-//        let avaFile = PFFile(name: "ava.jpg", data: avatarData!)
-//        
-//        user["ava"] = avaFile
 
         
     }
@@ -67,7 +63,54 @@ class usernameVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         self.view.endEditing(true)
     }
     
+    func alert (error: String, message : String) {
+        let alert = UIAlertController(title: error, message: message, preferredStyle: .Alert)
+        
+        let ok = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
+        alert.addAction(ok)
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
     
+    @IBAction func signupBtn_click(sender: AnyObject) {
+        
+        print("1")
+        
+        if usernameTxt.text!.isEmpty {
+            alert("USERNAME", message: "please create a username")
+            return
+        } else {
+        
+        let user = PFUser.currentUser()!
+        user.username = usernameTxt.text?.lowercaseString
+        let avaData = UIImageJPEGRepresentation(avatarImg.image!, 0.5)
+        let avaFile = PFFile(name: "ava.jpg", data: avaData!)
+        user["ava"] = avaFile
+        
+        // send executed information to the server
+        
+        user.saveInBackgroundWithBlock ({ (success:Bool, error:NSError?) in
+            if success {
+                
+                print("3")
+                
+                // remember user or save in App Memory
+                NSUserDefaults.standardUserDefaults().setObject(user.username, forKey: "username")
+                NSUserDefaults.standardUserDefaults().synchronize()
+                
+                
+                // call logingfrom AppDelegate.swift
+                let appDelegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                appDelegate.login()
+                
+            } else {
+                print(error!.localizedDescription)
+            }
+        })
+
+        }
+
+        
+    }
 
 
 
