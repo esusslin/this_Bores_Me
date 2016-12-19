@@ -70,6 +70,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        self.saveContext()
     }
     
+    func login() {
+        print("login pressed")
+        let username : String? = NSUserDefaults.standardUserDefaults().stringForKey("username")
+        
+        // if logged in
+        if username != nil {
+            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let myTabBar = storyboard.instantiateViewControllerWithIdentifier("tabVC") as! UITabBarController
+            
+            window?.rootViewController = myTabBar
+        }
+    }
+    
 
 
 

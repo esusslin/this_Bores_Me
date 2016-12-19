@@ -9,30 +9,110 @@
 import UIKit
 import Parse
 
-class usernameVC: UIViewController {
+class usernameVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-    @IBOutlet weak var avaImg: UIImageView!
+    
+    @IBOutlet weak var avatarImg: UIImageView!
+    
+    @IBOutlet weak var welcomeTxt: UILabel!
+    @IBOutlet weak var nameTxt: UILabel!
+    @IBOutlet weak var signupBtn: UIButton!
+    @IBOutlet weak var usernameTxt: UITextField!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+        let avaQuery = PFUser.currentUser()?.objectForKey("ava") as! PFFile
+        avaQuery.getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) in
+            self.avatarImg.image = UIImage(data: data!)
+        }
+        
+        self.nameTxt.text = (PFUser.currentUser()?.objectForKey("firstname") as? String)?.uppercaseString
+        
+        signupBtn.layer.cornerRadius = signupBtn.frame.size.width / 50
+        // round avatar
+        avatarImg.layer.cornerRadius = avatarImg.frame.size.width / 2
+        avatarImg.clipsToBounds = true
+        
+        let avaTap = UITapGestureRecognizer(target: self, action: "loadImg:")
+        avaTap.numberOfTapsRequired = 1
+        avatarImg.userInteractionEnabled = true
+        avatarImg.addGestureRecognizer(avaTap)
     }
     
 
-    /*
-    // MARK: - Navigation
+    func loadImg(recognizer:UITapGestureRecognizer) {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.sourceType = .PhotoLibrary
+        picker.allowsEditing = true
+        presentViewController(picker, animated: true, completion: nil)
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        
     }
-    */
+
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        avatarImg.image = info[UIImagePickerControllerEditedImage] as? UIImage
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    // hide keyboard if tapped
+    func hideKeyboardTap(recoginizer:UITapGestureRecognizer) {
+        self.view.endEditing(true)
+    }
+    
+    func alert (error: String, message : String) {
+        let alert = UIAlertController(title: error, message: message, preferredStyle: .Alert)
+        
+        let ok = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
+        alert.addAction(ok)
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction func signupBtn_click(sender: AnyObject) {
+        
+        print("1")
+        
+        if usernameTxt.text!.isEmpty {
+            alert("USERNAME", message: "please create a username")
+            return
+        } else {
+        
+        let user = PFUser.currentUser()!
+        user.username = usernameTxt.text?.lowercaseString
+        let avaData = UIImageJPEGRepresentation(avatarImg.image!, 0.5)
+        let avaFile = PFFile(name: "ava.jpg", data: avaData!)
+        user["ava"] = avaFile
+        
+        // send executed information to the server
+        
+        user.saveInBackgroundWithBlock ({ (success:Bool, error:NSError?) in
+            if success {
+                
+                print("3")
+                
+                // remember user or save in App Memory
+                NSUserDefaults.standardUserDefaults().setObject(user.username, forKey: "username")
+                NSUserDefaults.standardUserDefaults().synchronize()
+                
+                
+                // call logingfrom AppDelegate.swift
+                let appDelegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                appDelegate.login()
+                
+            } else {
+                print(error!.localizedDescription)
+            }
+        })
+
+        }
+
+        
+    }
+
+
+
 
 }
