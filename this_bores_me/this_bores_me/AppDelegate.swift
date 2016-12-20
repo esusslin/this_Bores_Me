@@ -14,7 +14,6 @@ import FBSDKCoreKit
 import ParseFacebookUtilsV4
 
 
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -40,9 +39,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+    //MARK: FacebookLogin
+    
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
         
-        return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
+        return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication:sourceApplication, annotation: annotation)
+        
     }
 
 
@@ -70,19 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        self.saveContext()
     }
     
-    func login() {
-        print("login pressed")
-        let username : String? = NSUserDefaults.standardUserDefaults().stringForKey("username")
-        
-        // if logged in
-        if username != nil {
-            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let myTabBar = storyboard.instantiateViewControllerWithIdentifier("tabVC") as! UITabBarController
-            
-            window?.rootViewController = myTabBar
-        }
-    }
-    
+
 
 
 
