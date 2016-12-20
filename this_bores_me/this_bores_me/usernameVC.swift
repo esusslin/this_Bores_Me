@@ -85,6 +85,7 @@ class usernameVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         let avaData = UIImageJPEGRepresentation(avatarImg.image!, 0.5)
         let avaFile = PFFile(name: "ava.jpg", data: avaData!)
         user["ava"] = avaFile
+        user["usernameSet"] = true
         
         // send executed information to the server
         
@@ -93,14 +94,10 @@ class usernameVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
                 
                 print("3")
                 
-                // remember user or save in App Memory
-                NSUserDefaults.standardUserDefaults().setObject(user.username, forKey: "username")
-                NSUserDefaults.standardUserDefaults().synchronize()
+                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("tabVC") as! tabVC
+                vc.selectedIndex = 1
                 
-                
-                // call logingfrom AppDelegate.swift
-                let appDelegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-                appDelegate.login()
+                self.presentViewController(vc, animated: true, completion: nil)
                 
             } else {
                 print(error!.localizedDescription)
