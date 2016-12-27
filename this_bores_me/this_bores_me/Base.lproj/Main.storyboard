@@ -140,7 +140,7 @@
             </objects>
             <point key="canvasLocation" x="1620" y="951"/>
         </scene>
-        <!--Share your status-->
+        <!--UploadVC-->
         <scene sceneID="4vf-Fk-n2G">
             <objects>
                 <viewController storyboardIdentifier="uploadVC" id="xa2-IG-nMF" customClass="uploadVC" customModule="this_bores_me" customModuleProvider="target" sceneMemberID="viewController">
@@ -149,7 +149,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="x1A-Zh-HJf">
-                                <rect key="frame" x="20" y="431" width="280" height="41"/>
+                                <rect key="frame" x="0.0" y="478" width="320" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.70220794689601274" green="0.36454684623571521" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
@@ -158,28 +158,33 @@
                                     <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="e8y-d5-Grj">
-                                <rect key="frame" x="20" y="80" width="70" height="70"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo-camera" id="e8y-d5-Grj">
+                                <rect key="frame" x="20" y="83" width="70" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="owG-nR-vWR">
-                                <rect key="frame" x="20" y="158" width="70" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <state key="normal" title="Remove"/>
-                            </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" id="kMV-ht-2T4">
-                                <rect key="frame" x="98" y="80" width="200" height="70"/>
+                                <rect key="frame" x="98" y="83" width="200" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="textColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="owG-nR-vWR">
+                                <rect key="frame" x="20" y="161" width="70" height="19"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="Remove"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6aF-aB-4lz">
+                                <rect key="frame" x="20" y="210" width="278" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Tag Location"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Share your status" id="yJa-vm-j29"/>
+                    <navigationItem key="navigationItem" id="yJa-vm-j29"/>
                     <connections>
                         <outlet property="picImg" destination="e8y-d5-Grj" id="I42-LC-D9D"/>
                         <outlet property="publishBtn" destination="x1A-Zh-HJf" id="UfX-PT-XR6"/>
@@ -204,7 +209,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="81N-eN-z9e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2820" y="1808"/>
+            <point key="canvasLocation" x="3220" y="528"/>
         </scene>
         <!--My #sick Profile-->
         <scene sceneID="qc7-fw-Cc9">
@@ -320,7 +325,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eja-Uv-uOl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3903" y="1808"/>
+            <point key="canvasLocation" x="4551" y="976"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="0vn-Pa-GNt">
@@ -358,10 +363,10 @@
             </objects>
             <point key="canvasLocation" x="1152" y="175"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--NavVC-->
         <scene sceneID="MFp-Tt-cbl">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pBo-2B-IGL" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pBo-2B-IGL" customClass="navVC" customModule="this_bores_me" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="people" id="A0x-qt-RZH"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Thr-ih-tvn">
@@ -375,12 +380,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zW2-9x-M0w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3371" y="1808"/>
+            <point key="canvasLocation" x="3955" y="976"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--NavVC-->
         <scene sceneID="t6M-hv-Bbh">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fSP-M9-F31" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fSP-M9-F31" customClass="navVC" customModule="this_bores_me" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="upload" id="gS4-5c-zL6"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Prx-u6-6dq">
@@ -394,7 +399,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wBG-Xc-68f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1796" y="1808"/>
+            <point key="canvasLocation" x="1784" y="1816"/>
         </scene>
     </scenes>
     <resources>
@@ -402,6 +407,7 @@
         <image name="home-1" width="24" height="24"/>
         <image name="magnifying-glass-1" width="24" height="24"/>
         <image name="people" width="16" height="16"/>
+        <image name="photo-camera" width="16" height="16"/>
         <image name="upload" width="24" height="24"/>
         <image name="users" width="24" height="24"/>
     </resources>
