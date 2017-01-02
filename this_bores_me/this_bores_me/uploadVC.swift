@@ -15,6 +15,7 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     @IBOutlet weak var picImg: UIImageView!
     @IBOutlet weak var titleTxt: UITextView!
     
+    @IBOutlet weak var locationBtn: UIButton!
     @IBOutlet weak var publishBtn: UIButton!
 
     @IBOutlet weak var removeBtn: UIButton!
@@ -30,8 +31,8 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         //hide remove button
         removeBtn.hidden = true
         
-        //standard UI containt
-        picImg.image = UIImage(named: "grey.jpeg")
+//        //standard UI containt
+//        picImg.image = UIImage(named: "grey.jpeg")
         
         
         // hide keyboard tap
@@ -152,7 +153,12 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         
         picImg.frame = CGRectMake(15, 15, width / 4.5, width / 4.5)
         titleTxt.frame = CGRectMake(picImg.frame.size.width + 25, picImg.frame.origin.y, width / 1.488, picImg.frame.size.height)
+        
         publishBtn.frame = CGRectMake(0, height / 1.09, width, width / 8)
+        
+        locationBtn.frame = CGRectMake(0, height / 2.5, width, width / 8)
+        
+        
         removeBtn.frame = CGRectMake(picImg.frame.origin.x, picImg.frame.origin.y + picImg.frame.size.height, picImg.frame.size.width, 20)
     }
     
