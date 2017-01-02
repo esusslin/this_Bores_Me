@@ -26,7 +26,7 @@ class ViewController: UIViewController {
                        print(FBSDKAccessToken.currentAccessToken())
             dispatch_async(dispatch_get_main_queue()) {
                 
-                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("tabVC") as! tabVC
+                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("tabbarVC") as! tabbarVC
                 vc.selectedIndex = 1
                 
                 self.presentViewController(vc, animated: true, completion: nil)
@@ -123,7 +123,7 @@ class ViewController: UIViewController {
                                 
                                 if ((PFUser.currentUser()?.objectForKey("usernameSet")) != nil) {
                                     
-                                    let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("tabVC") as! tabVC
+                                    let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("tabbarVC") as! tabbarVC
                                     vc.selectedIndex = 1
                                     
                                     self.presentViewController(vc, animated: true, completion: nil)

@@ -94,7 +94,7 @@ class usernameVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
                 
                 print("3")
                 
-                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("tabVC") as! tabVC
+                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("tabVC") as! tabbarVC
                 vc.selectedIndex = 1
                 
                 self.presentViewController(vc, animated: true, completion: nil)
