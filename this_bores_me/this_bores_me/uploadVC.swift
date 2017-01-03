@@ -201,14 +201,19 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         object["ava"] = PFUser.currentUser()!.valueForKey("ava") as! PFFile
         object["uuid"] = "\(PFUser.currentUser()!.username) \(NSUUID().UUIDString)"
         
-        object["location"] = self.locationName!
-        object["city"] = self.locationCity!
-        object["state"] = self.locationState!
+        if self.locationName != nil && self.locationCity != nil && self.locationState != nil && self.coordinates != nil {
+            
+            object["location"] = self.locationName!
+            object["city"] = self.locationCity!
+            object["state"] = self.locationState!
+            
+            var lat = self.coordinates?.latitude
+            var long = self.coordinates?.longitude
+            
+            object["coordinate"] = PFGeoPoint(latitude: lat!, longitude: long!)
+
+        }
         
-        var lat = self.coordinates?.latitude
-        var long = self.coordinates?.longitude
-        
-        object["coordinate"] = PFGeoPoint(latitude: lat!, longitude: long!)
         
         let uuid = NSUUID().UUIDString
         object["uuid"] = "\(PFUser.currentUser()!.username) \(uuid)"

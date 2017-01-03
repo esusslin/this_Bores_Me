@@ -8,6 +8,7 @@
 //
 
 import UIKit
+import Parse
 
 let cellId = "cellId"
 
@@ -15,7 +16,8 @@ class Post {
     var name: String?
     var statusText: String?
     var profileImageName: String?
-}
+    
+    }
 
 class FeedController: UICollectionViewController {
     
@@ -37,7 +39,7 @@ class FeedController: UICollectionViewController {
         
         posts.append(postSteve)
         posts.append(postMark)
-        
+//
         navigationItem.title = "Facebook Feed"
         
         collectionView?.alwaysBounceVertical = true

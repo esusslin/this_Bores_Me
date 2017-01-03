@@ -55,6 +55,8 @@ import UIKit
             fatalError("init(coder:) has not been implemented")
         }
         
+        
+        
         let nameLabel: UILabel = {
             let label = UILabel()
             label.translatesAutoresizingMaskIntoConstraints = false

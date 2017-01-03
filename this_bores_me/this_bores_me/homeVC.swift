@@ -13,6 +13,8 @@ private let reuseIdentifier = "Cell"
 
 class homeVC: UICollectionViewController {
     
+    var posts = [PFObject]()
+    
     // refresher variable
     var refresher : UIRefreshControl!
     
@@ -42,10 +44,10 @@ class homeVC: UICollectionViewController {
         
         // receive notificatoin from editVC
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reload:", name: "reload", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(homeVC.reload(_:)), name: "reload", object: nil)
         
         //recieve notificatoin from uploadVC
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "uploaded:", name: "uploaded", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("uploaded:"), name: "uploaded", object: nil)
         
         loadPosts()
         
@@ -83,6 +85,7 @@ class homeVC: UICollectionViewController {
                     // add found data to arrays (holders)
                     self.uuidArray.append(object.valueForKey("uuid") as! String)
                     self.picArray.append(object.valueForKey("pic") as! PFFile)
+                    print(self.picArray.count)
                 }
                 self.collectionView?.reloadData()
             } else {
@@ -120,6 +123,7 @@ class homeVC: UICollectionViewController {
                     for object in objects! {
                         self.uuidArray.append(object.valueForKey("uuid") as! String)
                         self.picArray.append(object.valueForKey("pic") as! PFFile)
+                            self.posts.append(object)
                     }
                     
                     print("loaded +\(self.page)")
@@ -130,10 +134,6 @@ class homeVC: UICollectionViewController {
             })
         }
     }
-    
-    
-    
-    
     
     
     // cell numb
@@ -162,6 +162,7 @@ class homeVC: UICollectionViewController {
         
         return cell
     }
+
     
     // header config
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
@@ -212,25 +213,23 @@ class homeVC: UICollectionViewController {
         
         //STEP 3: implement tap gestures
         
-//        // tap posts
-//        let postsTap = UITapGestureRecognizer(target: self, action: "postsTap")
-//        postsTap.numberOfTapsRequired = 1
-//        header.posts.userInteractionEnabled = true
-//        header.posts.addGestureRecognizer(postsTap)
-//        
-//        // tap followers
-//        let followersTap = UITapGestureRecognizer(target: self, action: "followersTap")
-//        followersTap.numberOfTapsRequired = 1
-//        header.followers.userInteractionEnabled = true
-//        header.followers.addGestureRecognizer(followersTap)
-//        
-//        // tap followings
-//        let followingsTap = UITapGestureRecognizer(target: self, action: "followingsTap")
-//        followingsTap.numberOfTapsRequired = 1
-//        header.following.userInteractionEnabled = true
-//        header.following.addGestureRecognizer(followingsTap)
-//        
-//        
+        // tap posts
+        let postsTap = UITapGestureRecognizer(target: self, action: "postsTap")
+        postsTap.numberOfTapsRequired = 1
+        header.boredScoreNum.userInteractionEnabled = true
+        header.boredScoreNum.addGestureRecognizer(postsTap)
+        
+        // tap followers
+        let followersTap = UITapGestureRecognizer(target: self, action: "followersTap")
+        followersTap.numberOfTapsRequired = 1
+        header.followersNum.userInteractionEnabled = true
+        header.followersNum.addGestureRecognizer(followersTap)
+        
+        // tap followings
+        let followingsTap = UITapGestureRecognizer(target: self, action: "followingsTap")
+        followingsTap.numberOfTapsRequired = 1
+        header.followingNum.userInteractionEnabled = true
+        header.followingNum.addGestureRecognizer(followingsTap)
         
         return header
         
@@ -246,29 +245,7 @@ class homeVC: UICollectionViewController {
             self.collectionView?.scrollToItemAtIndexPath(index, atScrollPosition: UICollectionViewScrollPosition.Top, animated: true)
         }
     }
-//    
-//    // tapped followers
-//    func followersTap() {
-//        
-//        user = PFUser.currentUser()!.username!
-//        
-//        show = "followers"
-//        
-//        let followers = self.storyboard?.instantiateViewControllerWithIdentifier("followersVC") as! followersVC
-//        
-//        self.navigationController?.pushViewController(followers, animated: true)
-//    }
-//    
-//    func followingsTap() {
-//        
-//        user = PFUser.currentUser()!.username!
-//        
-//        show = "following"
-//        
-//        let followings = self.storyboard?.instantiateViewControllerWithIdentifier("followersVC") as! followersVC
-//        
-//        self.navigationController?.pushViewController(followings, animated: true)
-//    }
+
     
     
     // clicked log out
