@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import Parse
 
 protocol HandleMapSearch {
     func dropPinZoomIn(placemark:MKPlacemark)
@@ -15,7 +16,18 @@ protocol HandleMapSearch {
 
 class locationVC: UIViewController {
     
+    var name: String?
+    var city: String?
+    var state: String?
+    var coordinates: CLLocationCoordinate2D?
+//    var coordinate:
+    
     @IBOutlet weak var mapView: MKMapView!
+    
+    @IBOutlet weak var selectBtn: UIButton!
+
+
+    
     let locationManager = CLLocationManager()
     
     var selectedPin:MKPlacemark? = nil
@@ -25,6 +37,8 @@ class locationVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        selectBtn.hidden = true
         
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -37,7 +51,7 @@ class locationVC: UIViewController {
         
         let searchBar = resultSearchController!.searchBar
         searchBar.sizeToFit()
-        searchBar.placeholder = "Search for places"
+        searchBar.placeholder = "Find Location"
         navigationItem.titleView = resultSearchController?.searchBar
         
         resultSearchController?.hidesNavigationBarDuringPresentation = false
@@ -58,14 +72,21 @@ class locationVC: UIViewController {
         let width = self.view.frame.size.width
         let height = self.view.frame.size.height
 
-        
-        
         mapView.frame = CGRectMake(0, 0, width, height)
-        
         
 
     }
 
+    @IBAction func selectBtn_click(sender: AnyObject) {
+        
+        let upload = self.storyboard?.instantiateViewControllerWithIdentifier("uploadVC") as! uploadVC
+        upload.locationName = self.name
+        upload.locationCity = self.city
+        upload.locationState = self.state
+        upload.coordinates = self.coordinates
+        
+        self.navigationController?.pushViewController(upload, animated: true)
+    }
     
 }
 
@@ -95,15 +116,27 @@ extension locationVC: HandleMapSearch {
     func dropPinZoomIn(placemark:MKPlacemark){
         // cache the pin
         selectedPin = placemark
+        
+        selectBtn.hidden = false
+
         // clear existing pins
         mapView.removeAnnotations(mapView.annotations)
         let annotation = MKPointAnnotation()
         annotation.coordinate = placemark.coordinate
         annotation.title = placemark.name
+        
+        self.name = placemark.name
+        self.city = placemark.locality
+        self.state = placemark.administrativeArea
+        self.coordinates = placemark.coordinate
+        
+        print(placemark)
+        
         if let city = placemark.locality,
             let state = placemark.administrativeArea {
-            annotation.subtitle = "(city) (state)"
+            annotation.subtitle = "\(city)" + " " + "\(state)"
         }
+        
         mapView.addAnnotation(annotation)
         let span = MKCoordinateSpanMake(0.05, 0.05)
         let region = MKCoordinateRegionMake(placemark.coordinate, span)

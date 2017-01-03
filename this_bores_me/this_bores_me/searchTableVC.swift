@@ -68,6 +68,7 @@ extension searchTableVC {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell")!
         let selectedItem = matchingItems[indexPath.row].placemark
         cell.textLabel?.text = selectedItem.name
+        
         cell.detailTextLabel?.text = ""
         return cell
     }

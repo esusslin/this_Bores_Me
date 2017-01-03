@@ -204,22 +204,30 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Bc7-hc-gap">
-                                <rect key="frame" x="0.0" y="197" width="320" height="40"/>
+                                <rect key="frame" x="0.0" y="271" width="320" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0002203525641025772" green="0.0002203525641025772" blue="0.0002203525641025772" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="TAG LOCATION">
                                     <color key="titleColor" red="0.38568380679999997" green="0.62147977190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Qbz-OP-01l" kind="push" id="QeN-qm-0uY"/>
+                                    <action selector="locationBtn_click:" destination="xa2-IG-nMF" eventType="touchUpInside" id="YgS-ZZ-ANz"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9Vd-rb-SA7">
+                                <rect key="frame" x="20" y="201" width="278" height="19"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="yJa-vm-j29"/>
                     <connections>
                         <outlet property="locationBtn" destination="Bc7-hc-gap" id="Uc1-Ta-0sd"/>
+                        <outlet property="locationTxt" destination="9Vd-rb-SA7" id="2FM-37-gYc"/>
                         <outlet property="picImg" destination="e8y-d5-Grj" id="I42-LC-D9D"/>
                         <outlet property="publishBtn" destination="x1A-Zh-HJf" id="UfX-PT-XR6"/>
                         <outlet property="removeBtn" destination="owG-nR-vWR" id="BTP-7h-esN"/>
@@ -239,15 +247,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" id="S7h-u2-Sux">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="430"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="479"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jq9-A5-3EC">
+                                <rect key="frame" x="0.0" y="477" width="320" height="91"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="20"/>
+                                <state key="normal" title="SELECT LOCATION">
+                                    <color key="titleColor" red="0.025861378210000001" green="0.025861378210000001" blue="0.025861378210000001" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="selectBtn_click:" destination="Qbz-OP-01l" eventType="touchUpInside" id="Z51-ep-mG9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="fhA-Dt-atv"/>
                     <connections>
                         <outlet property="mapView" destination="S7h-u2-Sux" id="Imr-OR-CxI"/>
+                        <outlet property="selectBtn" destination="jq9-A5-3EC" id="QZC-xw-ReK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D3S-6J-xa0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -267,18 +287,18 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="56"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Sf0-ag-2fe" id="jFl-kw-qbA">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="55.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5Tq-cN-Llr">
-                                            <rect key="frame" x="15" y="12" width="31.5" height="19.5"/>
+                                            <rect key="frame" x="15" y="12" width="32" height="20"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZIF-j6-6vW">
-                                            <rect key="frame" x="15" y="31.5" width="40.5" height="13.5"/>
+                                            <rect key="frame" x="15" y="32" width="41" height="13"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -551,7 +571,4 @@
         <image name="upload" width="24" height="24"/>
         <image name="users" width="24" height="24"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="QeN-qm-0uY"/>
-    </inferredMetricsTieBreakers>
 </document>
