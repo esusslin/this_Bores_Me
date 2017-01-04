@@ -13,7 +13,7 @@ import UIKit
         var post: Post? {
             didSet {
                 
-                if let name = post?.name {
+                if let name = post?.username {
                     
                     let attributedText = NSMutableAttributedString(string: name, attributes: [NSFontAttributeName: UIFont.boldSystemFontOfSize(14)])
                     

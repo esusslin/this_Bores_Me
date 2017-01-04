@@ -18,6 +18,7 @@ import ParseFacebookUtilsV4
 class ViewController: UIViewController {
     
 
+    @IBOutlet weak var nonFBBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()

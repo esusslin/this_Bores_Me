@@ -21,10 +21,18 @@
                                     <action selector="signInBtn_click:" destination="BYZ-38-t0r" eventType="touchUpInside" id="z2s-59-Nlh"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="OHn-Ch-erz">
+                                <rect key="frame" x="20" y="345" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="NON FB"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="ykc-de-pV7"/>
+                    <connections>
+                        <outlet property="nonFBBtn" destination="OHn-Ch-erz" id="Mlo-Fv-FvD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
