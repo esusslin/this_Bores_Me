@@ -11,13 +11,21 @@ import Parse
 
 class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    var locationName: String?
+    var locationCity: String?
+    var locationState: String?
+    var coordinates: CLLocationCoordinate2D?
+
+    
     //UI objects
     @IBOutlet weak var picImg: UIImageView!
     @IBOutlet weak var titleTxt: UITextView!
     
+    @IBOutlet weak var locationBtn: UIButton!
     @IBOutlet weak var publishBtn: UIButton!
 
     @IBOutlet weak var removeBtn: UIButton!
+    @IBOutlet weak var locationTxt: UILabel!
     
     
     
@@ -30,8 +38,8 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         //hide remove button
         removeBtn.hidden = true
         
-        //standard UI containt
-        picImg.image = UIImage(named: "grey.jpeg")
+//        //standard UI containt
+//        picImg.image = UIImage(named: "grey.jpeg")
         
         
         // hide keyboard tap
@@ -147,14 +155,38 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     
     func alignment() {
         
+        if locationName != nil {
+            locationTxt.text = "• " + "\(locationName!)"
+        } else {
+            locationTxt.text = ""
+        }
+        
         let width = self.view.frame.size.width
         let height = self.view.frame.size.height
         
         picImg.frame = CGRectMake(15, 15, width / 4.5, width / 4.5)
         titleTxt.frame = CGRectMake(picImg.frame.size.width + 25, picImg.frame.origin.y, width / 1.488, picImg.frame.size.height)
+        
         publishBtn.frame = CGRectMake(0, height / 1.09, width, width / 8)
+        
+//        locationTxt.frame = CGRectMake(0, height / 1.5, width, width / 8)
+        
+        locationTxt.frame = CGRectMake(titleTxt.frame.origin.x, titleTxt.frame.origin.y + titleTxt.frame.size.height, width, width / 8)
+        
+        locationBtn.frame = CGRectMake(0, height / 2, width, width / 8)
+        
+        
         removeBtn.frame = CGRectMake(picImg.frame.origin.x, picImg.frame.origin.y + picImg.frame.size.height, picImg.frame.size.width, 20)
     }
+    
+    @IBAction func locationBtn_click(sender: AnyObject) {
+        
+        let location = self.storyboard?.instantiateViewControllerWithIdentifier("locationVC") as! locationVC
+        
+        self.navigationController?.pushViewController(location, animated: true)
+        
+    }
+    
     
     
     @IBAction func publishBtn_pressed(sender: AnyObject) {
@@ -168,6 +200,20 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         object["username"] = PFUser.currentUser()!.username
         object["ava"] = PFUser.currentUser()!.valueForKey("ava") as! PFFile
         object["uuid"] = "\(PFUser.currentUser()!.username) \(NSUUID().UUIDString)"
+        
+        if self.locationName != nil && self.locationCity != nil && self.locationState != nil && self.coordinates != nil {
+            
+            object["location"] = self.locationName!
+            object["city"] = self.locationCity!
+            object["state"] = self.locationState!
+            
+            var lat = self.coordinates?.latitude
+            var long = self.coordinates?.longitude
+            
+            object["coordinate"] = PFGeoPoint(latitude: lat!, longitude: long!)
+
+        }
+        
         
         let uuid = NSUUID().UUIDString
         object["uuid"] = "\(PFUser.currentUser()!.username) \(uuid)"

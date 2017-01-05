@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		E20E7DFD1DFE253500AF2275 /* imageSynch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20E7DFC1DFE253500AF2275 /* imageSynch.swift */; };
 		E20E7DFF1DFE26FB00AF2275 /* usernameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20E7DFE1DFE26FB00AF2275 /* usernameVC.swift */; };
+		E23044841E1B0CDE00E5C908 /* searchTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23044831E1B0CDE00E5C908 /* searchTableVC.swift */; };
+		E23044851E1B23C800E5C908 /* locationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23044811E1B0BEE00E5C908 /* locationVC.swift */; };
 		E2323CC31DFCC4EB00F71B06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2323CC21DFCC4EB00F71B06 /* AppDelegate.swift */; };
 		E2323CC51DFCC4EB00F71B06 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2323CC41DFCC4EB00F71B06 /* ViewController.swift */; };
 		E2323CC81DFCC4EB00F71B06 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2323CC61DFCC4EB00F71B06 /* Main.storyboard */; };
@@ -65,6 +67,8 @@
 /* Begin PBXFileReference section */
 		E20E7DFC1DFE253500AF2275 /* imageSynch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = imageSynch.swift; sourceTree = "<group>"; };
 		E20E7DFE1DFE26FB00AF2275 /* usernameVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = usernameVC.swift; sourceTree = "<group>"; };
+		E23044811E1B0BEE00E5C908 /* locationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = locationVC.swift; sourceTree = "<group>"; };
+		E23044831E1B0CDE00E5C908 /* searchTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = searchTableVC.swift; sourceTree = "<group>"; };
 		E2323CBF1DFCC4EB00F71B06 /* this_bores_me.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = this_bores_me.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2323CC21DFCC4EB00F71B06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E2323CC41DFCC4EB00F71B06 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -207,6 +211,8 @@
 				E25A8D711E133339008A1769 /* feedVC.swift */,
 				E25A8D731E1333A2008A1769 /* postCell.swift */,
 				E25A8D751E1339D7008A1769 /* FeedCell.swift */,
+				E23044811E1B0BEE00E5C908 /* locationVC.swift */,
+				E23044831E1B0CDE00E5C908 /* searchTableVC.swift */,
 			);
 			path = this_bores_me;
 			sourceTree = "<group>";
@@ -367,6 +373,7 @@
 				E2323CC51DFCC4EB00F71B06 /* ViewController.swift in Sources */,
 				E2323CC31DFCC4EB00F71B06 /* AppDelegate.swift in Sources */,
 				E25A8D741E1333A2008A1769 /* postCell.swift in Sources */,
+				E23044841E1B0CDE00E5C908 /* searchTableVC.swift in Sources */,
 				E255D1F61E0BBD3F003ED589 /* homeVC.swift in Sources */,
 				E255D1FC1E0BD10F003ED589 /* uploadVC.swift in Sources */,
 				E25A8D6E1E132C64008A1769 /* tabbarVC.swift in Sources */,
@@ -375,6 +382,7 @@
 				E255D1F81E0BC226003ED589 /* headerVC.swift in Sources */,
 				E254DAB71E01143E002D0916 /* this-bores-me-Bridging-Header.m in Sources */,
 				E20E7DFD1DFE253500AF2275 /* imageSynch.swift in Sources */,
+				E23044851E1B23C800E5C908 /* locationVC.swift in Sources */,
 				E25A8D6C1E130FAC008A1769 /* navVC.swift in Sources */,
 				E20E7DFF1DFE26FB00AF2275 /* usernameVC.swift in Sources */,
 			);
