@@ -277,11 +277,11 @@ class homeVC: UICollectionViewController {
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
 //        //send post uuid to "postuuid" variable
-//        postuuid.append(uuidArray[indexPath.row])
+          postuuid.append(uuidArray[indexPath.row])
 //        
-//        //navigate to post view controller
-//        let post = self.storyboard?.instantiateViewControllerWithIdentifier("postVC") as! postVC
-//        self.navigationController?.pushViewController(post, animated: true)
+//          navigate to post view controller
+        let post = self.storyboard?.instantiateViewControllerWithIdentifier("postVC") as! postVC
+        self.navigationController?.pushViewController(post, animated: true)
     }
     
     

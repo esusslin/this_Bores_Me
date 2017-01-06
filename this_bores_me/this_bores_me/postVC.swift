@@ -1,5 +1,5 @@
 //
-//  feedVC.swift
+//  postVC.swift
 //  this_bores_me
 //
 //  Created by Emmet Susslin on 1/5/17.
@@ -9,263 +9,153 @@
 import UIKit
 import Parse
 
-class feedVC: UITableViewController {
+var postuuid = [String]()
+
+
+class postVC: UITableViewController {
     
     
-    @IBOutlet weak var indicator: UIActivityIndicatorView!
-    
-    var refresher = UIRefreshControl()
+    //arrays to hold information from server
     
     var usernameArray = [String]()
     var avaArray = [PFFile]()
     var dateArray = [NSDate?]()
     var picArray = [PFFile]()
-    var titleArray = [String]()
     var uuidArray = [String]()
-    
-    
-    var followArray = [String]()
-    
-    // page size
-    var page : Int = 10
-    
+    var titleArray = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //automatic row height = dynamic cell
-        self.navigationItem.title = "Boredom Bulletin"
+        //title label at the top
+        self.navigationItem.title = "PHOTO"
+        
+        // new back button
+        self.navigationItem.hidesBackButton = true
+        let backBtn = UIBarButtonItem(title: "back", style: UIBarButtonItemStyle.Plain, target: self, action: "back:")
+        self.navigationItem.leftBarButtonItem = backBtn
+        
+        // swipe to go back
+        let backSwipe = UISwipeGestureRecognizer(target: self, action: "back:")
+        backSwipe.direction = UISwipeGestureRecognizerDirection.Right
+        self.view.addGestureRecognizer(backSwipe)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refresh", name: "liked", object: nil)
+        
+        // dynamic cell hieght
+        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 450
         
-        //pull to refresh feed
-        refresher.addTarget(self, action: #selector(feedVC.loadPosts), forControlEvents: UIControlEvents.ValueChanged)
-        tableView.addSubview(refresher)
-        
-        //recieve notificatoin from uploadVC
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(feedVC.uploaded(_:)), name: "uploaded", object: nil)
-        
-        // receive notification from postsCell if picture is liked to update tableview
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(feedVC.refresh), name: "liked", object: nil)
-        
-        // indicator's x(horizontal) center
-        indicator.center.x = tableView.center.x
-        
-        loadPosts()
-    }
-    
-    // refreshign function after like to update degit
-    func refresh() {
-        tableView.reloadData()
-    }
-    
-    //reload function
-    func uploaded(notification:NSNotification) {
-        loadPosts()
-    }
-    
-    // load posts
-    func loadPosts() {
-        
-        // STEP 1. Find posts realted to people who we are following
-        let followQuery = PFQuery(className: "follow")
-        followQuery.whereKey("follower", equalTo: PFUser.currentUser()!.username!)
-        followQuery.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) -> Void in
+        // find posts
+        let postQuery = PFQuery(className: "posts")
+        postQuery.whereKey("uuid", equalTo: postuuid.last!)
+        postQuery.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) in
+            
             if error == nil {
                 
-                // clean up
-                self.followArray.removeAll(keepCapacity: false)
+                //clean up
+                self.avaArray.removeAll(keepCapacity: false)
+                self.usernameArray.removeAll(keepCapacity: false)
+                self.dateArray.removeAll(keepCapacity: false)
+                self.picArray.removeAll(keepCapacity: false)
+                self.uuidArray.removeAll(keepCapacity: false)
+                self.titleArray.removeAll(keepCapacity: false)
                 
-                // find related objects
+                //find related objects
+                
                 for object in objects! {
-                    self.followArray.append(object.objectForKey("followed") as! String)
-                    print(self.followArray.count)
+                    
+                    self.avaArray.append(object.valueForKey("ava") as! PFFile)
+                    self.usernameArray.append(object.valueForKey("username") as! String)
+                    self.dateArray.append(object.createdAt)
+                    self.picArray.append(object.valueForKey("pic") as! PFFile)
+                    self.uuidArray.append(object.valueForKey("uuid") as! String)
+                    self.titleArray.append(object.valueForKey("title") as! String)
+                    
                 }
                 
-                // append current user to see own posts in feed
-                self.followArray.append(PFUser.currentUser()!.username!)
-                
-                // STEP 2. Find posts made by people appended to followArray
-                let query = PFQuery(className: "posts")
-                query.whereKey("username", containedIn: self.followArray)
-                query.limit = self.page
-                query.addDescendingOrder("createdAt")
-                query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-                    if error == nil {
-                        
-                        // clean up
-                        self.usernameArray.removeAll(keepCapacity: false)
-                        self.avaArray.removeAll(keepCapacity: false)
-                        self.dateArray.removeAll(keepCapacity: false)
-                        self.picArray.removeAll(keepCapacity: false)
-                        self.titleArray.removeAll(keepCapacity: false)
-                        self.uuidArray.removeAll(keepCapacity: false)
-                        
-                        // find related objects
-                        for object in objects! {
-                            self.usernameArray.append(object.objectForKey("username") as! String)
-                            self.avaArray.append(object.objectForKey("ava") as! PFFile)
-                            self.dateArray.append(object.createdAt)
-                            self.picArray.append(object.objectForKey("pic") as! PFFile)
-                            self.titleArray.append(object.objectForKey("title") as! String)
-                            self.uuidArray.append(object.objectForKey("uuid") as! String)
-                        }
-                        
-                        // reload tableView & end spinning of refresher
-                        self.tableView.reloadData()
-                        self.refresher.endRefreshing()
-                        
-                    } else {
-                        print(error!.localizedDescription)
-                    }
-                })
-            } else {
-                print(error!.localizedDescription)
+                self.tableView.reloadData()
             }
         })
         
     }
     
-    // scrolled down
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
-        if scrollView.contentOffset.y >= scrollView.contentSize.height - self.view.frame.size.height * 2 {
-            loadMore()
-        }
-    }
-    
-    // pagination
-    func loadMore() {
+    //auto refresh function
+    func refresh() {
         
-        // if posts on the server are more than shown
-        if page <= uuidArray.count {
-            
-            // start animating indicator
-            indicator.startAnimating()
-            
-            // increase page size to load +10 posts
-            page = page + 10
-            
-            // STEP 1. Find posts realted to people who we are following
-            let followQuery = PFQuery(className: "follow")
-            followQuery.whereKey("follower", equalTo: PFUser.currentUser()!.username!)
-            followQuery.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) -> Void in
-                if error == nil {
-                    
-                    // clean up
-                    self.followArray.removeAll(keepCapacity: false)
-                    
-                    // find related objects
-                    for object in objects! {
-                        self.followArray.append(object.objectForKey("following") as! String)
-                    }
-                    
-                    // append current user to see own posts in feed
-                    self.followArray.append(PFUser.currentUser()!.username!)
-                    
-                    // STEP 2. Find posts made by people appended to followArray
-                    let query = PFQuery(className: "posts")
-                    query.whereKey("username", containedIn: self.followArray)
-                    query.limit = self.page
-                    query.addDescendingOrder("createdAt")
-                    query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-                        if error == nil {
-                            
-                            // clean up
-                            self.usernameArray.removeAll(keepCapacity: false)
-                            self.avaArray.removeAll(keepCapacity: false)
-                            self.dateArray.removeAll(keepCapacity: false)
-                            self.picArray.removeAll(keepCapacity: false)
-                            self.titleArray.removeAll(keepCapacity: false)
-                            self.uuidArray.removeAll(keepCapacity: false)
-                            
-                            // find related objects
-                            for object in objects! {
-                                self.usernameArray.append(object.objectForKey("username") as! String)
-                                self.avaArray.append(object.objectForKey("ava") as! PFFile)
-                                self.dateArray.append(object.createdAt)
-                                self.picArray.append(object.objectForKey("pic") as! PFFile)
-                                self.titleArray.append(object.objectForKey("title") as! String)
-                                self.uuidArray.append(object.objectForKey("uuid") as! String)
-                            }
-                            
-                            // reload tableView & stop animating indicator
-                            self.tableView.reloadData()
-                            self.indicator.stopAnimating()
-                            
-                        } else {
-                            print(error!.localizedDescription)
-                        }
-                    })
-                } else {
-                    print(error!.localizedDescription)
-                }
-            })
-            
-        }
-        
+        self.tableView.reloadData()
     }
     
     
-    // cell numb
+    
+    //cell numb
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return uuidArray.count
+        
+        return usernameArray.count
     }
     
-    // cell config
+    //cell config
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        // define cell
+        //define cell
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! postCell
         
-        // connect objects with our information from arrays
+        //connect objects with our information from arrays
         cell.usernameBtn.setTitle(usernameArray[indexPath.row], forState: UIControlState.Normal)
         cell.usernameBtn.sizeToFit()
         cell.uuidLbl.text = uuidArray[indexPath.row]
         cell.titleLbl.text = titleArray[indexPath.row]
         cell.titleLbl.sizeToFit()
         
-        // place profile picture
-        //        avaArray[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
-        //            cell.avaImg.image = UIImage(data: data!)
-        //        }
-        //
-        // place post picture
-        picArray[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
+        //place avatar
+        avaArray[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) in
+            cell.avatarImage.image = UIImage(data: data!)
+        }
+        
+        //place post picture
+        picArray[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) in
             cell.picImg.image = UIImage(data: data!)
         }
         
-        // calculate post date
         let from = dateArray[indexPath.row]
         let now = NSDate()
         let components : NSCalendarUnit = [.Second, .Minute, .Hour, .Day, .WeekOfMonth]
         let difference = NSCalendar.currentCalendar().components(components, fromDate: from!, toDate: now, options: [])
         
-        // logic what to show: seconds, minuts, hours, days or weeks
+        //logic what to show in seconds, minutes, hours, days, or weeks
+        
         if difference.second <= 0 {
             cell.dateLbl.text = "now"
         }
+        
         if difference.second > 0 && difference.minute == 0 {
             cell.dateLbl.text = "\(difference.second)s."
         }
+        
         if difference.minute > 0 && difference.hour == 0 {
-            cell.dateLbl.text = "\(difference.minute)m."
+            cell.dateLbl.text = "\(difference.minute)s."
         }
+        
         if difference.hour > 0 && difference.day == 0 {
-            cell.dateLbl.text = "\(difference.hour)h."
+            cell.dateLbl.text = "\(difference.hour)h"
         }
+        
         if difference.day > 0 && difference.weekOfMonth == 0 {
             cell.dateLbl.text = "\(difference.day)d."
         }
+        
         if difference.weekOfMonth > 0 {
             cell.dateLbl.text = "\(difference.weekOfMonth)w."
+            
+            
         }
         
+        //color like button accordingly
         
-        // manipulate like button depending on did user like it or not
         let didLike = PFQuery(className: "likes")
         didLike.whereKey("by", equalTo: PFUser.currentUser()!.username!)
-        didLike.whereKey("to", equalTo: cell.uuidLbl.text!)
-        didLike.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) -> Void in
-            // if no any likes are found, else found likes
+        didLike.whereKey("to", equalTo: cell.uuidLbl!.text!)
+        didLike.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) in
             if count == 0 {
                 cell.boredBtn.setTitle("unlike", forState: .Normal)
                 cell.boredBtn.setBackgroundImage(UIImage(named: "unlike.png"), forState: .Normal)
@@ -275,19 +165,17 @@ class feedVC: UITableViewController {
             }
         }
         
-        // count total likes of shown post
+        // count total likes
         let countLikes = PFQuery(className: "likes")
         countLikes.whereKey("to", equalTo: cell.uuidLbl.text!)
-        countLikes.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) -> Void in
+        countLikes.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) in
             cell.boredscoreLbl.text = "\(count)"
         }
         
         
-        // asign index
         cell.usernameBtn.layer.setValue(indexPath, forKey: "index")
         cell.commentBtn.layer.setValue(indexPath, forKey: "index")
         cell.moreBtn.layer.setValue(indexPath, forKey: "index")
-        
         
 //        // @mention is tapped
 //        cell.titleLbl.userHandleLinkTapHandler = { label, handle, rang in
@@ -304,7 +192,7 @@ class feedVC: UITableViewController {
 //                self.navigationController?.pushViewController(guest, animated: true)
 //            }
 //        }
-//        
+        
         // #hashtag is tapped
 //        cell.titleLbl.hashtagLinkTapHandler = { label, handle, range in
 //            var mention = handle
@@ -313,24 +201,27 @@ class feedVC: UITableViewController {
 //            let hashvc = self.storyboard?.instantiateViewControllerWithIdentifier("hashtagsVC") as! hashtagsVC
 //            self.navigationController?.pushViewController(hashvc, animated: true)
 //        }
-        
+//        
         return cell
     }
     
-    // clicked username button
+    
+    // username button pressed
     @IBAction func usernameBtn_click(sender: AnyObject) {
         
-        // call index of button
         let i = sender.layer.valueForKey("index") as! NSIndexPath
         
-        // call cell to call further cell data
+        //call cell to call further cell data
+        
         let cell = tableView.cellForRowAtIndexPath(i) as! postCell
         
-        // if user tapped on himself go home, else go guest
         if cell.usernameBtn.titleLabel?.text == PFUser.currentUser()?.username {
+            
+            // if user tapped on himself, go home else go guest
             let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC
             self.navigationController?.pushViewController(home, animated: true)
         } else {
+            
             guestname.append(cell.usernameBtn.titleLabel!.text!)
             let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
             self.navigationController?.pushViewController(guest, animated: true)
@@ -338,14 +229,14 @@ class feedVC: UITableViewController {
         
     }
     
-    
-    // clicked comment button
+    //clicked comment button
     @IBAction func commentBtn_click(sender: AnyObject) {
         
         // call index of button
         let i = sender.layer.valueForKey("index") as! NSIndexPath
         
         // call cell to call further cell data
+        
         let cell = tableView.cellForRowAtIndexPath(i) as! postCell
         
         // send related data to global variables
@@ -357,8 +248,6 @@ class feedVC: UITableViewController {
         self.navigationController?.pushViewController(comment, animated: true)
     }
     
-    
-    // clicked more button
     @IBAction func moreBtn_click(sender: AnyObject) {
         
         // call index of button
@@ -474,8 +363,8 @@ class feedVC: UITableViewController {
         
         // show menu
         self.presentViewController(menu, animated: true, completion: nil)
+        
     }
-    
     
     // alert action
     func alert (title: String, message : String) {
@@ -483,6 +372,18 @@ class feedVC: UITableViewController {
         let ok = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
         alert.addAction(ok)
         presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    // go back function
+    func back(sender: UIBarButtonItem) {
+        
+        // push back
+        self.navigationController?.popViewControllerAnimated(true)
+        
+        //clean post uuid from last hold
+        if !postuuid.isEmpty {
+            postuuid.removeLast()
+        }
     }
     
     
