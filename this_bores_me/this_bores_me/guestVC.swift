@@ -1,98 +1,114 @@
 //
-//  homeVC.swift
+//  guestVC.swift
 //  this_bores_me
 //
-//  Created by Emmet Susslin on 12/21/16.
-//  Copyright © 2016dd Emmet Susslin. All rights reserved.
+//  Created by Emmet Susslin on 1/5/17.
+//  Copyright © 2017 Emmet Susslin. All rights reserved.
 //
 
 import UIKit
 import Parse
 
-private let reuseIdentifier = "Cell"
+var guestname = [String]()
 
-class homeVC: UICollectionViewController {
+class guestVC: UICollectionViewController {
     
-    var posts = [PFObject]()
-    
-    // refresher variable
     var refresher : UIRefreshControl!
-    
-    // size of page
-    
-    var page : Int = 10
+    var page : Int = 12
     
     var uuidArray = [String]()
     var picArray = [PFFile]()
     
     override func viewDidLoad() {
+        
+        
         super.viewDidLoad()
         
-        //always vertical scroll
-        self.collectionView?.alwaysBounceVertical = true
+        self.collectionView?.backgroundColor = UIColor.whiteColor()
+        
+        // allow vertical scroll
+        self.collectionView!.alwaysBounceVertical = true
         
         //background color
-        collectionView?.backgroundColor = .whiteColor()
+        self.collectionView?.backgroundColor = UIColor.whiteColor()
         
-        // title at the top
-        self.navigationItem.title = PFUser.currentUser()?.username?.uppercaseString
+        // top title
+        self.navigationItem.title = guestname.last?.uppercaseString
+        
+        // new back button
+        // new back button
+        self.navigationItem.hidesBackButton = true
+        let backBtn = UIBarButtonItem(image: UIImage(named: "back.png"), style: .Plain, target: self, action: #selector(hashtagsVC.back(_:)))
+        self.navigationItem.leftBarButtonItem = backBtn
+        
+        //swipe to go back
+        let backSwipe = UISwipeGestureRecognizer(target: self, action: "back:")
+        backSwipe.direction = UISwipeGestureRecognizerDirection.Right
+        self.view.addGestureRecognizer(backSwipe)
         
         //pull to refresh
         refresher = UIRefreshControl()
         refresher.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
         collectionView?.addSubview(refresher)
         
-        // receive notificatoin from editVC
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(homeVC.reload(_:)), name: "reload", object: nil)
-        
-        //recieve notificatoin from uploadVC
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("uploaded:"), name: "uploaded", object: nil)
-        
+        // call load posts
         loadPosts()
         
     }
     
-    func refresh(notification:NSNotification) {
+    // back function
+    func back(sender : UIBarButtonItem) {
         
-        //reload data information
+        //push back
+        self.navigationController?.popViewControllerAnimated(true)
+        
+        //clean guest username or deduct the last guest username from guestname =Array
+        
+        if !guestname.isEmpty {
+            guestname.removeLast()
+        }
+    }
+    
+    func refresh() {
         collectionView?.reloadData()
-        
         refresher.endRefreshing()
     }
     
-    //reload after recieving notification
-    func reload(notification:NSNotification) {
-        collectionView?.reloadData()
-    }
-    
-    
-    
     func loadPosts() {
+        
+        print("load posts?")
+        print(guestname.last!)
+        
+        //load posts
         let query = PFQuery(className: "posts")
-        query.whereKey("username", equalTo: PFUser.currentUser()!.username!)
+        query.whereKey("username", equalTo: guestname.last!)
         query.limit = page
+        
         query.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) in
+            
             if error == nil {
                 
                 //clean up
                 self.uuidArray.removeAll(keepCapacity: false)
                 self.picArray.removeAll(keepCapacity: false)
                 
-                // find objects related to the request
+                //find related objects
                 for object in objects! {
                     
-                    // add found data to arrays (holders)
+                    
+                    //hold pulled information in arrays
+                    
                     self.uuidArray.append(object.valueForKey("uuid") as! String)
                     self.picArray.append(object.valueForKey("pic") as! PFFile)
-                    print(self.picArray.count)
                 }
+                
                 self.collectionView?.reloadData()
             } else {
                 print(error!.localizedDescription)
             }
         })
     }
+    
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
         
@@ -110,7 +126,7 @@ class homeVC: UICollectionViewController {
             
             //load more posts
             let query = PFQuery(className: "posts")
-            query.whereKey("username", equalTo: PFUser.currentUser()!.username!)
+            query.whereKey("username", equalTo: guestname.last!)
             query.limit = page
             query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) in
                 if error == nil {
@@ -123,7 +139,6 @@ class homeVC: UICollectionViewController {
                     for object in objects! {
                         self.uuidArray.append(object.valueForKey("uuid") as! String)
                         self.picArray.append(object.valueForKey("pic") as! PFFile)
-                            self.posts.append(object)
                     }
                     
                     print("loaded +\(self.page)")
@@ -136,9 +151,8 @@ class homeVC: UICollectionViewController {
     }
     
     
-    // cell numb
+    
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         return picArray.count
     }
     
@@ -150,68 +164,112 @@ class homeVC: UICollectionViewController {
         
     }
     
+    //cell config
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
+        //define cell
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! pictureCell
         
-        picArray[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) in
+        // connect data from array to picIMg object from pictureCell class
+        
+        picArray[indexPath.row].getDataInBackgroundWithBlock ({ (data:NSData?, error:NSError?) in
+            
             if error == nil {
                 cell.picImg.image = UIImage(data: data!)
+            } else {
+                print(error!.localizedDescription)
             }
-        }
+        })
         
         return cell
     }
-
     
-    // header config
+    //header config
+    
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         
         let header = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "Header", forIndexPath: indexPath) as! headerVC
         
-        // STEP 1: Get user data
+        //STEP 1. load data of guest
+        let infoQuery = PFQuery(className: "_User")
+        infoQuery.whereKey("username", equalTo: guestname.last!)
+        infoQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) in
+            
+            if error == nil {
+                
+                if objects!.isEmpty {
+                    let alert = UIAlertController(title: "\(guestname.last!.uppercaseString)", message: "user does not exist", preferredStyle: UIAlertControllerStyle.Alert)
+                    let ok = UIAlertAction(title: "ok", style: UIAlertActionStyle.Default, handler: { (UIAlertAction) in
+                        self.navigationController?.popViewControllerAnimated(true)
+                    })
+                    alert.addAction(ok)
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
+                
+                // find related to user
+                for object in objects! {
+                    header.usernameLbl.text = (object.objectForKey("username") as? String)?.uppercaseString
+                    let avaFile : PFFile = (object.objectForKey("ava") as? PFFile)!
+                    avaFile.getDataInBackgroundWithBlock({ (data:NSData?, error:NSError?) in
+                        header.avaImg.image = UIImage(data: data!)
+                    })
+                }
+            } else {
+                print(error?.localizedDescription)
+            }
+        })
         
-        header.usernameLbl.text = (PFUser.currentUser()?.objectForKey("username") as? String)?.uppercaseString
-        header.button.setTitle("edit profile", forState: UIControlState.Normal)
+//        //        //Step 2. show if current user follows guest
+//        let followQuery = PFQuery(className: "follow")
+//        followQuery.whereKey("follower", equalTo: PFUser.currentUser()!.username!)
+//        followQuery.whereKey("followed", equalTo: guestname.last!)
+//        followQuery.countObjectsInBackgroundWithBlock ({ (count:Int32, error:NSError?) in
+//            
+//            if error == nil {
+//                
+//                if count == 0 {
+//                    header.button.setTitle("FOLLOW", forState: .Normal)
+//                    header.button.backgroundColor = UIColor.lightGrayColor()
+//                } else {
+//                    header.button.setTitle("FOLLOWING", forState: UIControlState.Normal)
+//                    header.button.backgroundColor = UIColor.greenColor()
+//                }
+//            } else {
+//                print(error?.localizedDescription)
+//            }
+//        })
         
-        let avaQuery = PFUser.currentUser()?.objectForKey("ava") as! PFFile
-        avaQuery.getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) in
-            header.avaImg.image = UIImage(data: data!)
-        }
+        //STEP 3. Count statistics
+        //count posts
         
-        header.button.setTitle("edit profile", forState: UIControlState.Normal)
-        
-        
-        // STEP 2: Get user stats
-        
-        //count total posts
         let posts = PFQuery(className: "posts")
-        posts.whereKey("username", equalTo: PFUser.currentUser()!.username!)
+        posts.whereKey("username", equalTo: guestname.last!)
         posts.countObjectsInBackgroundWithBlock ({ (count:Int32, error:NSError?) in
             if error == nil {
+                
                 header.boredScoreNum.text = "\(count)"
+            } else {
+                print(error?.localizedDescription)
             }
         })
         
         // count total followers
         let followers = PFQuery(className: "follow")
-        followers.whereKey("followed", equalTo: PFUser.currentUser()!.username!)
+        followers.whereKey("followed", equalTo: guestname.last!)
         followers.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) in
             if error == nil {
-                header.followersNum.text = "\(count)"
+                header.followersLbl.text = "\(count)"
             }
         }
         
         // count total followed
         let followed = PFQuery(className: "follow")
-        followed.whereKey("follower", equalTo: PFUser.currentUser()!.username!)
+        followed.whereKey("follower", equalTo: guestname.last!)
         followed.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) in
             if error == nil {
-                header.followingNum.text = "\(count)"
+                header.followingLbl.text = "\(count)"
             }
         }
-        
-        //STEP 3: implement tap gestures
         
         // tap posts
         let postsTap = UITapGestureRecognizer(target: self, action: "postsTap")
@@ -222,19 +280,18 @@ class homeVC: UICollectionViewController {
         // tap followers
         let followersTap = UITapGestureRecognizer(target: self, action: "followersTap")
         followersTap.numberOfTapsRequired = 1
-        header.followersNum.userInteractionEnabled = true
-        header.followersNum.addGestureRecognizer(followersTap)
+        header.followersLbl.userInteractionEnabled = true
+        header.followersLbl.addGestureRecognizer(followersTap)
         
         // tap followings
         let followingsTap = UITapGestureRecognizer(target: self, action: "followingsTap")
         followingsTap.numberOfTapsRequired = 1
-        header.followingNum.userInteractionEnabled = true
-        header.followingNum.addGestureRecognizer(followingsTap)
+        header.followingLbl.userInteractionEnabled = true
+        header.followingLbl.addGestureRecognizer(followingsTap)
         
         return header
         
     }
-    
     
     // taped post label
     
@@ -245,44 +302,41 @@ class homeVC: UICollectionViewController {
             self.collectionView?.scrollToItemAtIndexPath(index, atScrollPosition: UICollectionViewScrollPosition.Top, animated: true)
         }
     }
-
     
-    
-    // clicked log out
-    @IBAction func logout(sender: AnyObject) {
+    // tapped followers
+    func followersTap() {
         
-        PFUser.logOutInBackgroundWithBlock { (error:NSError?) in
-            
-            if error == nil {
-                
-                print("log out pressed")
-                
-                //remove logged in user from App memory
-                
-                NSUserDefaults.standardUserDefaults().removeObjectForKey("username")
-                NSUserDefaults.standardUserDefaults().synchronize()
-//                
-//                let signin = self.storyboard?.instantiateViewControllerWithIdentifier("signInVC") as! signInVC
-//                let appDelegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-//                appDelegate.window?.rootViewController = signin
-            }
-        }
+        user = guestname.last!
         
+        show = "followers"
         
+        let followers = self.storyboard?.instantiateViewControllerWithIdentifier("followersVC") as! followersVC
+        
+        self.navigationController?.pushViewController(followers, animated: true)
     }
     
-    
+    func followingsTap() {
+        
+        user = guestname.last!
+        
+        show = "following"
+        
+        let followings = self.storyboard?.instantiateViewControllerWithIdentifier("followersVC") as! followersVC
+        
+        self.navigationController?.pushViewController(followings, animated: true)
+    }
     
     // go post
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
-//        //send post uuid to "postuuid" variable
-          postuuid.append(uuidArray[indexPath.row])
-//        
-//          navigate to post view controller
+        //send post uuid to "postuuid" variable
+        postuuid.append(uuidArray[indexPath.row])
+        
+        //navigate to post view controller
         let post = self.storyboard?.instantiateViewControllerWithIdentifier("postVC") as! postVC
         self.navigationController?.pushViewController(post, animated: true)
     }
+    
     
     
 }

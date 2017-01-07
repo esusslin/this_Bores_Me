@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class headerVC: UICollectionReusableView {
     
@@ -21,7 +22,8 @@ class headerVC: UICollectionReusableView {
     @IBOutlet weak var usernameLbl: UILabel!
     @IBOutlet weak var realNameLbl: UILabel!
         
-    @IBOutlet weak var editProfile: UIButton!
+
+    @IBOutlet weak var button: UIButton!
     
     
     override func awakeFromNib() {
@@ -39,8 +41,8 @@ class headerVC: UICollectionReusableView {
         followersLbl.center = CGPointMake(followersNum.center.x, followersNum.center.y + 20)
         followingLbl.center = CGPointMake(followingNum.center.x, followingNum.center.y + 20)
         
-//        editProfile.frame = CGRectMake(postsTitle.frame.origin.x, postsTitle.center.y + 20, width - postsTitle.frame.origin.x - 10, 30)
-        editProfile.layer.cornerRadius = editProfile.frame.size.width / 50
+//        button.frame = CGRectMake(boredScoreLbl.frame.origin.x, boredScoreLbl.center.y + 20, width - boredScoreLbl.frame.origin.x - 10, 30)
+//        button.layer.cornerRadius = button.frame.size.width / 50
         
         usernameLbl.frame = CGRectMake(avaImg.frame.origin.x, avaImg.frame.origin.y + avaImg.frame.size.height, width - 20, 20)
  
@@ -52,80 +54,80 @@ class headerVC: UICollectionReusableView {
     
     //clicked follow button
     
-//    @IBAction func followBtn_clicked(sender: AnyObject) {
-//        
-//        print("follow button clicked")
-//        
-//        let title = button.titleForState(.Normal)
-//        
-//        if title == "FOLLOW" {
-//            let object = PFObject(className: "follow")
-//            object["follower"] = PFUser.currentUser()?.username
-//            object["followed"] = guestname.last!
-//            object.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) in
-//                
-//                if success {
-//                    self.button.setTitle("FOLLOWING", forState: UIControlState.Normal)
-//                    self.button.backgroundColor = UIColor.greenColor()
-//                    
-//                    let newsObj = PFObject(className: "news")
-//                    newsObj["by"] = PFUser.currentUser()?.username
-//                    newsObj["ava"] = PFUser.currentUser()?.objectForKey("ava") as! PFFile
-//                    newsObj["to"] = guestname.last
-//                    newsObj["owner"] = ""
-//                    newsObj["uuid"] = ""
-//                    newsObj["type"] = "follow"
-//                    newsObj["checked"] = "no"
-//                    newsObj.saveEventually()
-//                    
-//                    
-//                } else {
-//                    print(error?.localizedDescription)
-//                }
-//            })
-//            
-//            //unfollow
-//        } else {
-//            let query = PFQuery(className: "follow")
-//            query.whereKey("follower", equalTo: PFUser.currentUser()!.username!)
-//            query.whereKey("followed", equalTo: guestname.last!)
-//            query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) in
-//                if error == nil {
-//                    for object in objects! {
-//                        object.deleteInBackgroundWithBlock({ (success:Bool, error:NSError?) in
-//                            if success {
-//                                self.button.setTitle("FOLLOW", forState: UIControlState.Normal)
-//                                self.button.backgroundColor = UIColor.lightGrayColor()
-//                                
-//                                // delete follow notification
-//                                let newsQuery = PFQuery(className: "news")
-//                                newsQuery.whereKey("by", equalTo: PFUser.currentUser()!.username!)
-//                                newsQuery.whereKey("to", equalTo: guestname.last!)
-//   
-//                             newsQuery.whereKey("type", equalTo: "follow")
-//                                newsQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-//                                    if error == nil {
-//                                        for object in objects! {
-//                                            object.deleteEventually()
-//                                        }
-//                                    }
-//                                })
-//                                
-//                                
-//                            } else {
-//                                print(error?.localizedDescription)
-//                            }
-//                            
-//                        })
-//                    }
-//                } else {
-//                    print(error?.localizedDescription)
-//                }
-//            })
-//        }
-//        
-//        
-//        
-//    }
+    @IBAction func followBtn_clicked(sender: AnyObject) {
+        
+        print("follow button clicked")
+        
+        let title = button.titleForState(.Normal)
+        
+        if title == "FOLLOW" {
+            let object = PFObject(className: "follow")
+            object["follower"] = PFUser.currentUser()?.username
+            object["followed"] = guestname.last!
+            object.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) in
+                
+                if success {
+                    self.button.setTitle("FOLLOWING", forState: UIControlState.Normal)
+                    self.button.backgroundColor = UIColor.greenColor()
+                    
+                    let newsObj = PFObject(className: "news")
+                    newsObj["by"] = PFUser.currentUser()?.username
+                    newsObj["ava"] = PFUser.currentUser()?.objectForKey("ava") as! PFFile
+                    newsObj["to"] = guestname.last
+                    newsObj["owner"] = ""
+                    newsObj["uuid"] = ""
+                    newsObj["type"] = "follow"
+                    newsObj["checked"] = "no"
+                    newsObj.saveEventually()
+                    
+                    
+                } else {
+                    print(error?.localizedDescription)
+                }
+            })
+            
+            //unfollow
+        } else {
+            let query = PFQuery(className: "follow")
+            query.whereKey("follower", equalTo: PFUser.currentUser()!.username!)
+            query.whereKey("followed", equalTo: guestname.last!)
+            query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) in
+                if error == nil {
+                    for object in objects! {
+                        object.deleteInBackgroundWithBlock({ (success:Bool, error:NSError?) in
+                            if success {
+                                self.button.setTitle("FOLLOW", forState: UIControlState.Normal)
+                                self.button.backgroundColor = UIColor.lightGrayColor()
+                                
+                                // delete follow notification
+                                let newsQuery = PFQuery(className: "news")
+                                newsQuery.whereKey("by", equalTo: PFUser.currentUser()!.username!)
+                                newsQuery.whereKey("to", equalTo: guestname.last!)
+   
+                             newsQuery.whereKey("type", equalTo: "follow")
+                                newsQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+                                    if error == nil {
+                                        for object in objects! {
+                                            object.deleteEventually()
+                                        }
+                                    }
+                                })
+                                
+                                
+                            } else {
+                                print(error?.localizedDescription)
+                            }
+                            
+                        })
+                    }
+                } else {
+                    print(error?.localizedDescription)
+                }
+            })
+        }
+        
+        
+        
+    }
 
 }
