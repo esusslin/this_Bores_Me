@@ -171,15 +171,15 @@ class homeVC: UICollectionViewController {
         
         // STEP 1: Get user data
         
-        header.usernameLbl.text = (PFUser.currentUser()?.objectForKey("fullname") as? String)?.uppercaseString
-        header.editProfile.setTitle("edit profile", forState: UIControlState.Normal)
+        header.usernameLbl.text = (PFUser.currentUser()?.objectForKey("username") as? String)?.uppercaseString
+        header.button.setTitle("edit profile", forState: UIControlState.Normal)
         
         let avaQuery = PFUser.currentUser()?.objectForKey("ava") as! PFFile
         avaQuery.getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) in
             header.avaImg.image = UIImage(data: data!)
         }
         
-        header.editProfile.setTitle("edit profile", forState: UIControlState.Normal)
+        header.button.setTitle("edit profile", forState: UIControlState.Normal)
         
         
         // STEP 2: Get user stats

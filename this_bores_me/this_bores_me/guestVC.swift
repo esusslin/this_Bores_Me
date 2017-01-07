@@ -38,8 +38,8 @@ class guestVC: UICollectionViewController {
         // new back button
         // new back button
         self.navigationItem.hidesBackButton = true
-//        let backBtn = UIBarButtonItem(image: UIImage(named: "back.png"), style: .Plain, target: self, action: #selector(hashtagsVC.back(_:)))
-//        self.navigationItem.leftBarButtonItem = backBtn
+        let backBtn = UIBarButtonItem(image: UIImage(named: "back.png"), style: .Plain, target: self, action: #selector(hashtagsVC.back(_:)))
+        self.navigationItem.leftBarButtonItem = backBtn
         
         //swipe to go back
         let backSwipe = UISwipeGestureRecognizer(target: self, action: "back:")
@@ -188,7 +188,7 @@ class guestVC: UICollectionViewController {
     
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         
-        let header = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "headerVC", forIndexPath: indexPath) as! headerVC
+        let header = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "Header", forIndexPath: indexPath) as! headerVC
         
         //STEP 1. load data of guest
         let infoQuery = PFQuery(className: "_User")
@@ -208,11 +208,7 @@ class guestVC: UICollectionViewController {
                 
                 // find related to user
                 for object in objects! {
-                    header.usernameLbl.text = (object.objectForKey("fullname") as? String)?.uppercaseString
-//                    header.bio.text = object.objectForKey("bio") as? String
-//                    header.bio.sizeToFit()
-//                    header.website.text = object.objectForKey("web") as? String
-//                    header.website.sizeToFit()
+                    header.usernameLbl.text = (object.objectForKey("username") as? String)?.uppercaseString
                     let avaFile : PFFile = (object.objectForKey("ava") as? PFFile)!
                     avaFile.getDataInBackgroundWithBlock({ (data:NSData?, error:NSError?) in
                         header.avaImg.image = UIImage(data: data!)
@@ -223,25 +219,25 @@ class guestVC: UICollectionViewController {
             }
         })
         
-        //        //Step 2. show if current user follows guest
-        let followQuery = PFQuery(className: "follow")
-        followQuery.whereKey("follower", equalTo: PFUser.currentUser()!.username!)
-        followQuery.whereKey("followed", equalTo: guestname.last!)
-        followQuery.countObjectsInBackgroundWithBlock ({ (count:Int32, error:NSError?) in
-            
-            if error == nil {
-                
-                if count == 0 {
-                    header.editProfile.setTitle("FOLLOW", forState: .Normal)
-                    header.editProfile.backgroundColor = UIColor.lightGrayColor()
-                } else {
-                    header.editProfile.setTitle("FOLLOWING", forState: UIControlState.Normal)
-                    header.editProfile.backgroundColor = UIColor.greenColor()
-                }
-            } else {
-                print(error?.localizedDescription)
-            }
-        })
+//        //        //Step 2. show if current user follows guest
+//        let followQuery = PFQuery(className: "follow")
+//        followQuery.whereKey("follower", equalTo: PFUser.currentUser()!.username!)
+//        followQuery.whereKey("followed", equalTo: guestname.last!)
+//        followQuery.countObjectsInBackgroundWithBlock ({ (count:Int32, error:NSError?) in
+//            
+//            if error == nil {
+//                
+//                if count == 0 {
+//                    header.button.setTitle("FOLLOW", forState: .Normal)
+//                    header.button.backgroundColor = UIColor.lightGrayColor()
+//                } else {
+//                    header.button.setTitle("FOLLOWING", forState: UIControlState.Normal)
+//                    header.button.backgroundColor = UIColor.greenColor()
+//                }
+//            } else {
+//                print(error?.localizedDescription)
+//            }
+//        })
         
         //STEP 3. Count statistics
         //count posts

@@ -12,6 +12,7 @@ import Parse
 class feedVC: UITableViewController {
     
     
+    //UI objects
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     
     var refresher = UIRefreshControl()
@@ -305,7 +306,7 @@ class feedVC: UITableViewController {
 //            }
 //        }
 //        
-        // #hashtag is tapped
+//         #hashtag is tapped
 //        cell.titleLbl.hashtagLinkTapHandler = { label, handle, range in
 //            var mention = handle
 //            mention = String(mention.characters.dropFirst())
