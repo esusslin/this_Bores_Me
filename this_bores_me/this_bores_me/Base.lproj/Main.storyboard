@@ -604,7 +604,7 @@
         <scene sceneID="MFp-Tt-cbl">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pBo-2B-IGL" customClass="navVC" customModule="this_bores_me" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="people" id="A0x-qt-RZH"/>
+                    <tabBarItem key="tabBarItem" title="" image="user" id="A0x-qt-RZH"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Thr-ih-tvn">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -726,7 +726,7 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title label with description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5vl-ca-Cbv">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title label with description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5vl-ca-Cbv" customClass="KILabel">
                                             <rect key="frame" x="10" y="392" width="300" height="50"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -751,7 +751,7 @@
                                     <outlet property="dateLbl" destination="4UL-aZ-arc" id="mZv-Rn-7RH"/>
                                     <outlet property="moreBtn" destination="bWo-2N-Wfv" id="foN-DO-KMh"/>
                                     <outlet property="picImg" destination="Zk6-JQ-C7j" id="eOZ-m4-GsG"/>
-                                    <outlet property="titleLbl" destination="5vl-ca-Cbv" id="e77-xT-hwI"/>
+                                    <outlet property="titleLbl" destination="5vl-ca-Cbv" id="fXT-6i-Xzf"/>
                                     <outlet property="usernameBtn" destination="28f-gu-Pxd" id="Zxs-ZT-Qac"/>
                                     <outlet property="uuidLbl" destination="Sfl-IQ-o4A" id="cXC-a8-36w"/>
                                 </connections>
@@ -785,18 +785,19 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Kr3-SZ-GoX">
                                 <rect key="frame" x="260" y="528" width="50" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="send"/>
                                 <connections>
                                     <action selector="sendBtn_click:" destination="3eI-fJ-aHP" eventType="touchUpInside" id="cp9-WS-VVP"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" id="WqO-Me-AVV">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" id="WqO-Me-AVV">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="518"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="60" id="9KE-HQ-Otf" customClass="commentCell" customModule="this_bores_me" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="60" id="9KE-HQ-Otf" customClass="commentCell" customModule="this_bores_me" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9KE-HQ-Otf" id="8ik-cR-ROs" userLabel="View">
@@ -812,8 +813,11 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <state key="normal" title="username"/>
+                                                    <connections>
+                                                        <action selector="usernameBtn_click:" destination="3eI-fJ-aHP" eventType="touchUpInside" id="F9S-Oe-L6s"/>
+                                                    </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="comment label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="m2O-QO-hpl">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="comment label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="m2O-QO-hpl" customClass="KILabel">
                                                     <rect key="frame" x="65" y="37" width="247" height="15"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -831,7 +835,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="avaImg" destination="yrz-DX-fZE" id="u3B-tr-kYP"/>
-                                            <outlet property="commentLbl" destination="m2O-QO-hpl" id="HdE-u2-KIz"/>
+                                            <outlet property="commentLbl" destination="m2O-QO-hpl" id="9wo-3n-6Ck"/>
                                             <outlet property="dateLbl" destination="26t-xQ-zTG" id="Sc7-Kq-GzW"/>
                                             <outlet property="usernameBtn" destination="fHA-Fv-w5H" id="B2M-mv-tBL"/>
                                         </connections>
@@ -839,7 +843,7 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="commentTxt" destination="EJ0-hd-Prc" id="Sy8-eL-dqS"/>
@@ -858,27 +862,30 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Hex-NJ-OUh">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="JCc-Q9-09j">
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="JCc-Q9-09j">
                             <size key="itemSize" width="105" height="105"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="UDL-Bi-cPw" customClass="pictureCell" customModule="this_bores_me" customModuleProvider="target">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="UDL-Bi-cPw" customClass="pictureCell" customModule="this_bores_me" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="105" height="105"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="105" height="105"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="grey" id="tmj-Xz-iqy">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Aaw-eO-Ql5">
                                             <rect key="frame" x="0.0" y="0.0" width="105" height="105"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <connections>
+                                    <outlet property="picImg" destination="Aaw-eO-Ql5" id="d49-vg-K0h"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -1306,9 +1313,9 @@
         <image name="home-1" width="24" height="24"/>
         <image name="magnifying-glass-1" width="24" height="24"/>
         <image name="more" width="795" height="765"/>
-        <image name="people" width="16" height="16"/>
         <image name="photo-camera-1" width="24" height="24"/>
         <image name="upload" width="24" height="24"/>
+        <image name="user" width="24" height="24"/>
         <image name="users" width="24" height="24"/>
     </resources>
 </document>
