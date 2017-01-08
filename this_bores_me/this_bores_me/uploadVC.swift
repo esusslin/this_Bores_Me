@@ -9,14 +9,19 @@
 import UIKit
 import Parse
 
-class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
+class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    let locationManager = CLLocationManager()
+    
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     //UI objects
     @IBOutlet weak var picImg: UIImageView!
     @IBOutlet weak var titleTxt: UITextView!
     
-    @IBOutlet weak var locationBtn: UIButton!
+    @IBOutlet weak var currentLocationBtn: UIButton!
+    @IBOutlet weak var selectLocationBtn: UIButton!
     @IBOutlet weak var publishBtn: UIButton!
 
     @IBOutlet weak var removeBtn: UIButton!
@@ -26,6 +31,8 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+
         
         publishBtn.enabled = false
         publishBtn.backgroundColor = UIColor.lightGrayColor()
@@ -62,6 +69,13 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     
     func hideKeyboardTap() {
         self.view.endEditing(true)
+    }
+    
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        var userLocation:CLLocation = locations[0] as! CLLocation
+        let long = userLocation.coordinate.longitude;
+        let lat = userLocation.coordinate.latitude;
+        //Do What ever you want with it
     }
     
     
@@ -145,6 +159,51 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     }
     
     
+    @IBAction func currentLocation_click(sender: AnyObject) {
+        
+        let currentLocation = locationManager.location
+        
+        print(currentLocation)
+        
+        
+            
+            let location = CLLocation(latitude: (currentLocation!.coordinate.latitude), longitude: (currentLocation!.coordinate.longitude)) //changed!!!
+            print(location)
+            
+            CLGeocoder().reverseGeocodeLocation(location, completionHandler: {(placemarks, error) -> Void in
+                print(location)
+                
+                if error != nil {
+                    print("Reverse geocoder failed with error" + error!.localizedDescription)
+                    return
+                }
+                
+                if placemarks!.count > 0 {
+                    let pm = placemarks![0] as! CLPlacemark
+                    
+                    print(pm.locality)
+                    print(pm.administrativeArea)
+                    print(pm.country)
+                    
+                    
+                    
+                    locationName = nil
+                    locationCity = pm.locality
+                    locationState = pm.administrativeArea
+                    locationCoordinates = CLLocationCoordinate2D(latitude: (currentLocation!.coordinate.latitude), longitude: (currentLocation!.coordinate.longitude))
+                    
+                    self.alignment()
+                    
+                    self.removeBtn.hidden = false
+                    
+                }
+                else {
+                    print("Problem with the data received from geocoder")
+                }
+            })
+        
+        
+    }
     
     
     
@@ -155,7 +214,12 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         if locationName != nil {
             locationTxt.text = "• " + "\(locationName!)"
         } else {
-            locationTxt.text = ""
+            if locationCity != nil {
+                locationTxt.text = "\(locationCity!)" + "," + " \(locationState!)"
+            } else {
+                locationTxt.text = ""
+            }
+            
         }
         
         let width = self.view.frame.size.width
@@ -166,11 +230,12 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         
         publishBtn.frame = CGRectMake(0, height / 1.09, width, width / 8)
         
-//        locationTxt.frame = CGRectMake(0, height / 1.5, width, width / 8)
+
         
         locationTxt.frame = CGRectMake(titleTxt.frame.origin.x, titleTxt.frame.origin.y + titleTxt.frame.size.height, width, width / 8)
         
-        locationBtn.frame = CGRectMake(0, height / 2, width, width / 8)
+        currentLocationBtn.frame = CGRectMake(0, 200, width, width / 8)
+        selectLocationBtn.frame = CGRectMake(0, 280, width, width / 8)
         
         
         removeBtn.frame = CGRectMake(picImg.frame.origin.x, picImg.frame.origin.y + picImg.frame.size.height, picImg.frame.size.width, 20)
@@ -252,6 +317,11 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             
             if error == nil {
                 
+                locationName = nil
+                locationCity = nil
+                locationState = nil
+                locationCoordinates = nil
+                
                 //inform user post has been uploaded
                 NSNotificationCenter.defaultCenter().postNotificationName("uploaded", object: nil)
                 
@@ -270,10 +340,5 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         self.viewDidLoad()
         
     }
-    
-    
-    
-    
-    
     
 }

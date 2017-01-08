@@ -10,6 +10,7 @@ import UIKit
 import Parse
 import Bolts
 import CoreData
+import CoreLocation
 import FBSDKCoreKit
 import ParseFacebookUtilsV4
 
@@ -18,6 +19,9 @@ import ParseFacebookUtilsV4
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    var locationManager: CLLocationManager?
+    var coordinate: CLLocationCoordinate2D?
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -38,6 +42,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
+    
+    //MARK: LocationManager functions
+    
+    func locationManagerStart() {
+        if locationManager == nil {
+            print("init locationManager")
+            locationManager = CLLocationManager()
+//            locationManager!.delegate = self
+            locationManager!.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager!.requestWhenInUseAuthorization()
+        }
+        
+        print("have location manager")
+        locationManager!.startUpdatingLocation()
+        
+    }
+    
+    func locationManagerStop() {
+        locationManager!.stopUpdatingLocation()
+    }
+    
+    // MARK: CLLocation Delegate
+    
+    func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
+        
+        coordinate = newLocation.coordinate
+    }
+
     
     //MARK: FacebookLogin
     

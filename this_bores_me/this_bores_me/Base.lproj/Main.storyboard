@@ -177,10 +177,11 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Bc7-hc-gap">
-                                <rect key="frame" x="0.0" y="271" width="320" height="40"/>
+                                <rect key="frame" x="0.0" y="345" width="320" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0002203525641025772" green="0.0002203525641025772" blue="0.0002203525641025772" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="TAG LOCATION">
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="SELECT LOCATION">
                                     <color key="titleColor" red="0.38568380679999997" green="0.62147977190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
@@ -194,16 +195,29 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="QYB-1S-mNG">
+                                <rect key="frame" x="0.0" y="270" width="320" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.73197720239999997" green="0.77920674769999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="TAG CURRENT LOCATION">
+                                    <color key="titleColor" red="0.025861378210000001" green="0.025861378210000001" blue="0.025861378210000001" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="currentLocation_click:" destination="xa2-IG-nMF" eventType="touchUpInside" id="JIr-Y7-Vvc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="yJa-vm-j29"/>
                     <connections>
-                        <outlet property="locationBtn" destination="Bc7-hc-gap" id="Uc1-Ta-0sd"/>
+                        <outlet property="currentLocationBtn" destination="QYB-1S-mNG" id="Hgv-DV-vMO"/>
                         <outlet property="locationTxt" destination="9Vd-rb-SA7" id="2FM-37-gYc"/>
                         <outlet property="picImg" destination="e8y-d5-Grj" id="I42-LC-D9D"/>
                         <outlet property="publishBtn" destination="x1A-Zh-HJf" id="UfX-PT-XR6"/>
                         <outlet property="removeBtn" destination="owG-nR-vWR" id="BTP-7h-esN"/>
+                        <outlet property="selectLocationBtn" destination="Bc7-hc-gap" id="iMN-Gv-9wR"/>
                         <outlet property="titleTxt" destination="kMV-ht-2T4" id="Jod-n0-qK5"/>
                     </connections>
                 </viewController>
