@@ -86,6 +86,7 @@ class homeVC: UICollectionViewController {
                     self.uuidArray.append(object.valueForKey("uuid") as! String)
                     self.picArray.append(object.valueForKey("pic") as! PFFile)
                     print(self.picArray.count)
+                    print(self.uuidArray)
                 }
                 self.collectionView?.reloadData()
             } else {
@@ -245,6 +246,29 @@ class homeVC: UICollectionViewController {
             self.collectionView?.scrollToItemAtIndexPath(index, atScrollPosition: UICollectionViewScrollPosition.Top, animated: true)
         }
     }
+    
+    // tapped followers
+    func followersTap() {
+        
+        user = PFUser.currentUser()!.username!
+        
+        show = "followers"
+        
+        let followers = self.storyboard?.instantiateViewControllerWithIdentifier("followersVC") as! followersVC
+        
+        self.navigationController?.pushViewController(followers, animated: true)
+    }
+    
+    func followingsTap() {
+        
+        user = PFUser.currentUser()!.username!
+        
+        show = "following"
+        
+        let followings = self.storyboard?.instantiateViewControllerWithIdentifier("followersVC") as! followersVC
+        
+        self.navigationController?.pushViewController(followings, animated: true)
+    }
 
     
     
@@ -261,8 +285,8 @@ class homeVC: UICollectionViewController {
                 
                 NSUserDefaults.standardUserDefaults().removeObjectForKey("username")
                 NSUserDefaults.standardUserDefaults().synchronize()
-//                
-//                let signin = self.storyboard?.instantiateViewControllerWithIdentifier("signInVC") as! signInVC
+//
+//                let signin = self.storyboard?.instantiateViewControllerWithIdentifier("ViewController") as! ViewController
 //                let appDelegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 //                appDelegate.window?.rootViewController = signin
             }

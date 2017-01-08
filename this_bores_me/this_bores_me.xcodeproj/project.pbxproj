@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		E20E7DFD1DFE253500AF2275 /* imageSynch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20E7DFC1DFE253500AF2275 /* imageSynch.swift */; };
 		E20E7DFF1DFE26FB00AF2275 /* usernameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20E7DFE1DFE26FB00AF2275 /* usernameVC.swift */; };
+		E21123E31E21A34D00BC98CB /* editVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21123E21E21A34D00BC98CB /* editVC.swift */; };
+		E21123FE1E21F81100BC98CB /* KILabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E21123FD1E21F81100BC98CB /* KILabel.m */; };
 		E23044841E1B0CDE00E5C908 /* searchTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23044831E1B0CDE00E5C908 /* searchTableVC.swift */; };
 		E23044851E1B23C800E5C908 /* locationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23044811E1B0BEE00E5C908 /* locationVC.swift */; };
 		E23044871E1F07F500E5C908 /* followersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23044861E1F07F500E5C908 /* followersVC.swift */; };
@@ -39,7 +41,6 @@
 		E2323D091DFCD50A00F71B06 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2323D081DFCD50A00F71B06 /* FBSDKCoreKit.framework */; };
 		E2323D0B1DFCD51200F71B06 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2323D0A1DFCD51200F71B06 /* FBSDKLoginKit.framework */; };
 		E2323D0D1DFCD51B00F71B06 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2323D0C1DFCD51B00F71B06 /* FBSDKShareKit.framework */; };
-		E254DAB71E01143E002D0916 /* this-bores-me-Bridging-Header.m in Sources */ = {isa = PBXBuildFile; fileRef = E254DAB61E01143E002D0916 /* this-bores-me-Bridging-Header.m */; };
 		E255D1F61E0BBD3F003ED589 /* homeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E255D1F51E0BBD3F003ED589 /* homeVC.swift */; };
 		E255D1F81E0BC226003ED589 /* headerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E255D1F71E0BC226003ED589 /* headerVC.swift */; };
 		E255D1FA1E0BC8CD003ED589 /* pictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E255D1F91E0BC8CD003ED589 /* pictureCell.swift */; };
@@ -73,6 +74,10 @@
 /* Begin PBXFileReference section */
 		E20E7DFC1DFE253500AF2275 /* imageSynch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = imageSynch.swift; sourceTree = "<group>"; };
 		E20E7DFE1DFE26FB00AF2275 /* usernameVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = usernameVC.swift; sourceTree = "<group>"; };
+		E21123E21E21A34D00BC98CB /* editVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = editVC.swift; sourceTree = "<group>"; };
+		E21123FB1E21F80300BC98CB /* this_bores_me-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "this_bores_me-Bridging-Header.h"; sourceTree = "<group>"; };
+		E21123FC1E21F81100BC98CB /* KILabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KILabel.h; sourceTree = "<group>"; };
+		E21123FD1E21F81100BC98CB /* KILabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KILabel.m; sourceTree = "<group>"; };
 		E23044811E1B0BEE00E5C908 /* locationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = locationVC.swift; sourceTree = "<group>"; };
 		E23044831E1B0CDE00E5C908 /* searchTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = searchTableVC.swift; sourceTree = "<group>"; };
 		E23044861E1F07F500E5C908 /* followersVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = followersVC.swift; sourceTree = "<group>"; };
@@ -109,7 +114,6 @@
 		E2323D081DFCD50A00F71B06 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		E2323D0A1DFCD51200F71B06 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		E2323D0C1DFCD51B00F71B06 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
-		E254DAB61E01143E002D0916 /* this-bores-me-Bridging-Header.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "this-bores-me-Bridging-Header.m"; sourceTree = "<group>"; };
 		E255D1F51E0BBD3F003ED589 /* homeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = homeVC.swift; sourceTree = "<group>"; };
 		E255D1F71E0BC226003ED589 /* headerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = headerVC.swift; sourceTree = "<group>"; };
 		E255D1F91E0BC8CD003ED589 /* pictureCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pictureCell.swift; sourceTree = "<group>"; };
@@ -165,6 +169,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E21123E71E21EF7400BC98CB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E21123FC1E21F81100BC98CB /* KILabel.h */,
+				E21123FD1E21F81100BC98CB /* KILabel.m */,
+				E21123FB1E21F80300BC98CB /* this_bores_me-Bridging-Header.h */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E2323CB61DFCC4EB00F71B06 = {
 			isa = PBXGroup;
 			children = (
@@ -205,6 +219,7 @@
 		E2323CC11DFCC4EB00F71B06 /* this_bores_me */ = {
 			isa = PBXGroup;
 			children = (
+				E21123E71E21EF7400BC98CB /* Frameworks */,
 				E2323CC21DFCC4EB00F71B06 /* AppDelegate.swift */,
 				E2323CC41DFCC4EB00F71B06 /* ViewController.swift */,
 				E2323CC61DFCC4EB00F71B06 /* Main.storyboard */,
@@ -213,7 +228,6 @@
 				E2323CCE1DFCC4EB00F71B06 /* Info.plist */,
 				E20E7DFC1DFE253500AF2275 /* imageSynch.swift */,
 				E20E7DFE1DFE26FB00AF2275 /* usernameVC.swift */,
-				E254DAB61E01143E002D0916 /* this-bores-me-Bridging-Header.m */,
 				E255D1F71E0BC226003ED589 /* headerVC.swift */,
 				E255D1F91E0BC8CD003ED589 /* pictureCell.swift */,
 				E255D1FB1E0BD10F003ED589 /* uploadVC.swift */,
@@ -231,6 +245,7 @@
 				E23044921E1F20FC00E5C908 /* feedVC.swift */,
 				E25A8D731E1333A2008A1769 /* postCell.swift */,
 				E230448C1E1F11D400E5C908 /* postVC.swift */,
+				E21123E21E21A34D00BC98CB /* editVC.swift */,
 			);
 			path = this_bores_me;
 			sourceTree = "<group>";
@@ -390,6 +405,7 @@
 				E2323CC51DFCC4EB00F71B06 /* ViewController.swift in Sources */,
 				E2323CC31DFCC4EB00F71B06 /* AppDelegate.swift in Sources */,
 				E25A8D741E1333A2008A1769 /* postCell.swift in Sources */,
+				E21123FE1E21F81100BC98CB /* KILabel.m in Sources */,
 				E230448B1E1F097D00E5C908 /* guestVC.swift in Sources */,
 				E23044841E1B0CDE00E5C908 /* searchTableVC.swift in Sources */,
 				E255D1F61E0BBD3F003ED589 /* homeVC.swift in Sources */,
@@ -399,10 +415,10 @@
 				E255D1FA1E0BC8CD003ED589 /* pictureCell.swift in Sources */,
 				E23044871E1F07F500E5C908 /* followersVC.swift in Sources */,
 				E23044911E1F1B8600E5C908 /* commentCell.swift in Sources */,
+				E21123E31E21A34D00BC98CB /* editVC.swift in Sources */,
 				E23044931E1F20FC00E5C908 /* feedVC.swift in Sources */,
 				E23044891E1F085000E5C908 /* followersCell.swift in Sources */,
 				E255D1F81E0BC226003ED589 /* headerVC.swift in Sources */,
-				E254DAB71E01143E002D0916 /* this-bores-me-Bridging-Header.m in Sources */,
 				E20E7DFD1DFE253500AF2275 /* imageSynch.swift in Sources */,
 				E23044851E1B23C800E5C908 /* locationVC.swift in Sources */,
 				E230448F1E1F1A0A00E5C908 /* commentVC.swift in Sources */,
@@ -561,6 +577,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "esusslin.this-bores-me";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "this_bores_me/this_bores_me-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -578,6 +595,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "esusslin.this-bores-me";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "this_bores_me/this_bores_me-Bridging-Header.h";
 			};
 			name = Release;
 		};

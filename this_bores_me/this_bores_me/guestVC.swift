@@ -219,25 +219,25 @@ class guestVC: UICollectionViewController {
             }
         })
         
-//        //        //Step 2. show if current user follows guest
-//        let followQuery = PFQuery(className: "follow")
-//        followQuery.whereKey("follower", equalTo: PFUser.currentUser()!.username!)
-//        followQuery.whereKey("followed", equalTo: guestname.last!)
-//        followQuery.countObjectsInBackgroundWithBlock ({ (count:Int32, error:NSError?) in
-//            
-//            if error == nil {
-//                
-//                if count == 0 {
-//                    header.button.setTitle("FOLLOW", forState: .Normal)
-//                    header.button.backgroundColor = UIColor.lightGrayColor()
-//                } else {
-//                    header.button.setTitle("FOLLOWING", forState: UIControlState.Normal)
-//                    header.button.backgroundColor = UIColor.greenColor()
-//                }
-//            } else {
-//                print(error?.localizedDescription)
-//            }
-//        })
+        //        //Step 2. show if current user follows guest
+        let followQuery = PFQuery(className: "follow")
+        followQuery.whereKey("follower", equalTo: PFUser.currentUser()!.username!)
+        followQuery.whereKey("followed", equalTo: guestname.last!)
+        followQuery.countObjectsInBackgroundWithBlock ({ (count:Int32, error:NSError?) in
+            
+            if error == nil {
+                
+                if count == 0 {
+                    header.button.setTitle("FOLLOW", forState: .Normal)
+                    header.button.backgroundColor = UIColor.lightGrayColor()
+                } else {
+                    header.button.setTitle("FOLLOWING", forState: UIControlState.Normal)
+                    header.button.backgroundColor = UIColor.greenColor()
+                }
+            } else {
+                print(error?.localizedDescription)
+            }
+        })
         
         //STEP 3. Count statistics
         //count posts
@@ -258,7 +258,7 @@ class guestVC: UICollectionViewController {
         followers.whereKey("followed", equalTo: guestname.last!)
         followers.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) in
             if error == nil {
-                header.followersLbl.text = "\(count)"
+                header.followersNum.text = "\(count)"
             }
         }
         
@@ -267,7 +267,7 @@ class guestVC: UICollectionViewController {
         followed.whereKey("follower", equalTo: guestname.last!)
         followed.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) in
             if error == nil {
-                header.followingLbl.text = "\(count)"
+                header.followingNum.text = "\(count)"
             }
         }
         
@@ -280,14 +280,14 @@ class guestVC: UICollectionViewController {
         // tap followers
         let followersTap = UITapGestureRecognizer(target: self, action: "followersTap")
         followersTap.numberOfTapsRequired = 1
-        header.followersLbl.userInteractionEnabled = true
-        header.followersLbl.addGestureRecognizer(followersTap)
+        header.followersNum.userInteractionEnabled = true
+        header.followersNum.addGestureRecognizer(followersTap)
         
         // tap followings
         let followingsTap = UITapGestureRecognizer(target: self, action: "followingsTap")
         followingsTap.numberOfTapsRequired = 1
-        header.followingLbl.userInteractionEnabled = true
-        header.followingLbl.addGestureRecognizer(followingsTap)
+        header.followingNum.userInteractionEnabled = true
+        header.followingNum.addGestureRecognizer(followingsTap)
         
         return header
         

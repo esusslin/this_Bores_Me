@@ -347,44 +347,44 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
             }
         }
         
-        
-        // STEP 4. Send notification as @mention
-        var mentionCreated = Bool()
-        
-        for var word in words {
-            
-            // check @mentions for user
-            if word.hasPrefix("@") {
-                
-                // cut symbols
-                word = word.stringByTrimmingCharactersInSet(NSCharacterSet.punctuationCharacterSet())
-                word = word.stringByTrimmingCharactersInSet(NSCharacterSet.symbolCharacterSet())
-                
-                let newsObj = PFObject(className: "news")
-                newsObj["by"] = PFUser.currentUser()?.username
-                newsObj["ava"] = PFUser.currentUser()?.objectForKey("ava") as! PFFile
-                newsObj["to"] = word
-                newsObj["owner"] = commentowner.last
-                newsObj["uuid"] = commentuuid.last
-                newsObj["type"] = "mention"
-                newsObj["checked"] = "no"
-                newsObj.saveEventually()
-                mentionCreated = true
-            }
-        }
-        
-        // STEP 5. Send notification as comment
-        if commentowner.last != PFUser.currentUser()?.username && mentionCreated == false {
-            let newsObj = PFObject(className: "news")
-            newsObj["by"] = PFUser.currentUser()?.username
-            newsObj["ava"] = PFUser.currentUser()?.objectForKey("ava") as! PFFile
-            newsObj["to"] = commentowner.last
-            newsObj["owner"] = commentowner.last
-            newsObj["uuid"] = commentuuid.last
-            newsObj["type"] = "comment"
-            newsObj["checked"] = "no"
-            newsObj.saveEventually()
-        }
+//
+//        // STEP 4. Send notification as @mention
+//        var mentionCreated = Bool()
+//        
+//        for var word in words {
+//            
+//            // check @mentions for user
+//            if word.hasPrefix("@") {
+//                
+//                // cut symbols
+//                word = word.stringByTrimmingCharactersInSet(NSCharacterSet.punctuationCharacterSet())
+//                word = word.stringByTrimmingCharactersInSet(NSCharacterSet.symbolCharacterSet())
+//                
+//                let newsObj = PFObject(className: "news")
+//                newsObj["by"] = PFUser.currentUser()?.username
+//                newsObj["ava"] = PFUser.currentUser()?.objectForKey("ava") as! PFFile
+//                newsObj["to"] = word
+//                newsObj["owner"] = commentowner.last
+//                newsObj["uuid"] = commentuuid.last
+//                newsObj["type"] = "mention"
+//                newsObj["checked"] = "no"
+//                newsObj.saveEventually()
+//                mentionCreated = true
+//            }
+//        }
+//        
+//        // STEP 5. Send notification as comment
+//        if commentowner.last != PFUser.currentUser()?.username && mentionCreated == false {
+//            let newsObj = PFObject(className: "news")
+//            newsObj["by"] = PFUser.currentUser()?.username
+//            newsObj["ava"] = PFUser.currentUser()?.objectForKey("ava") as! PFFile
+//            newsObj["to"] = commentowner.last
+//            newsObj["owner"] = commentowner.last
+//            newsObj["uuid"] = commentuuid.last
+//            newsObj["type"] = "comment"
+//            newsObj["checked"] = "no"
+//            newsObj.saveEventually()
+//        }
         
         
         // scroll to bottom
@@ -450,30 +450,32 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
             cell.dateLbl.text = "\(difference.weekOfMonth)w."
         }
         
-//        // @mention is tapped
-//        cell.commentLbl.userHandleLinkTapHandler = { label, handle, rang in
-//            var mention = handle
-//            mention = String(mention.characters.dropFirst())
-//            
-//            // if tapped on @currentUser go home, else go guest
-//            if mention.lowercaseString == PFUser.currentUser()?.username {
-//                let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC
-//                self.navigationController?.pushViewController(home, animated: true)
-//            } else {
-//                guestname.append(mention.lowercaseString)
-//                let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
-//                self.navigationController?.pushViewController(guest, animated: true)
-//            }
-//        }
+        // @mention is tapped
+        cell.commentLbl.userHandleLinkTapHandler = { label, handle, rang in
+            var mention = handle
+            mention = String(mention.characters.dropFirst())
+            
+            // if tapped on @currentUser go home, else go guest
+            if mention.lowercaseString == PFUser.currentUser()?.username {
+                let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC
+                self.navigationController?.pushViewController(home, animated: true)
+                print("wtf")
+            } else {
+                guestname.append(mention.lowercaseString)
+                print("wtf2")
+                let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
+                self.navigationController?.pushViewController(guest, animated: true)
+            }
+        }
         
-        // #hashtag is tapped
-//        cell.commentLbl.hashtagLinkTapHandler = { label, handle, range in
-//            var mention = handle
-//            mention = String(mention.characters.dropFirst())
-//            hashtag.append(mention.lowercaseString)
-//            let hashvc = self.storyboard?.instantiateViewControllerWithIdentifier("hashtagsVC") as! hashtagsVC
-//            self.navigationController?.pushViewController(hashvc, animated: true)
-//        }
+//         #hashtag is tapped
+        cell.commentLbl.hashtagLinkTapHandler = { label, handle, range in
+            var mention = handle
+            mention = String(mention.characters.dropFirst())
+            hashtag.append(mention.lowercaseString)
+            let hashvc = self.storyboard?.instantiateViewControllerWithIdentifier("hashtagsVC") as! hashtagsVC
+            self.navigationController?.pushViewController(hashvc, animated: true)
+        }
         
         
         cell.usernameBtn.layer.setValue(indexPath, forKey: "index")
@@ -545,19 +547,19 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
                 }
             })
             
-            // STEP 3. Delete notification: mention comment
-            let newsQuery = PFQuery(className: "news")
-            newsQuery.whereKey("by", equalTo: cell.usernameBtn.titleLabel!.text!)
-            newsQuery.whereKey("to", equalTo: commentowner.last!)
-            newsQuery.whereKey("uuid", equalTo: commentuuid.last!)
-            newsQuery.whereKey("type", containedIn: ["comment", "mention"])
-            newsQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-                if error == nil {
-                    for object in objects! {
-                        object.deleteEventually()
-                    }
-                }
-            })
+//            // STEP 3. Delete notification: mention comment
+//            let newsQuery = PFQuery(className: "news")
+//            newsQuery.whereKey("by", equalTo: cell.usernameBtn.titleLabel!.text!)
+//            newsQuery.whereKey("to", equalTo: commentowner.last!)
+//            newsQuery.whereKey("uuid", equalTo: commentuuid.last!)
+//            newsQuery.whereKey("type", containedIn: ["comment", "mention"])
+//            newsQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+//                if error == nil {
+//                    for object in objects! {
+//                        object.deleteEventually()
+//                    }
+//                }
+//            })
             
             
             // close cell

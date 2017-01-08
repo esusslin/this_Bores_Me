@@ -36,7 +36,8 @@ class postCell: UITableViewCell {
 //    //labels
 
     @IBOutlet weak var boredscoreLbl: UILabel!
-    @IBOutlet weak var titleLbl: UILabel!
+    @IBOutlet weak var titleLbl: KILabel!
+  
     
     
     
