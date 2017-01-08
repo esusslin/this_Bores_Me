@@ -41,8 +41,8 @@ class headerVC: UICollectionReusableView {
         followersLbl.center = CGPointMake(followersNum.center.x, followersNum.center.y + 20)
         followingLbl.center = CGPointMake(followingNum.center.x, followingNum.center.y + 20)
         
-//        button.frame = CGRectMake(boredScoreLbl.frame.origin.x, boredScoreLbl.center.y + 20, width - boredScoreLbl.frame.origin.x - 10, 30)
-//        button.layer.cornerRadius = button.frame.size.width / 50
+        button.frame = CGRectMake(boredScoreLbl.frame.origin.x, boredScoreLbl.center.y + 20, width - boredScoreLbl.frame.origin.x - 10, 30)
+        button.layer.cornerRadius = button.frame.size.width / 50
         
         usernameLbl.frame = CGRectMake(avaImg.frame.origin.x, avaImg.frame.origin.y + avaImg.frame.size.height, width - 20, 20)
  

@@ -10,11 +10,6 @@ import UIKit
 import Parse
 
 class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    var locationName: String?
-    var locationCity: String?
-    var locationState: String?
-    var coordinates: CLLocationCoordinate2D?
 
     
     //UI objects
@@ -37,6 +32,8 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         
         //hide remove button
         removeBtn.hidden = true
+        
+        locationTxt.text = "no location selected yet"
         
 //        //standard UI containt
 //        picImg.image = UIImage(named: "grey.jpeg")
@@ -179,14 +176,6 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         removeBtn.frame = CGRectMake(picImg.frame.origin.x, picImg.frame.origin.y + picImg.frame.size.height, picImg.frame.size.width, 20)
     }
     
-    @IBAction func locationBtn_click(sender: AnyObject) {
-        
-        let location = self.storyboard?.instantiateViewControllerWithIdentifier("locationVC") as! locationVC
-        
-        self.navigationController?.pushViewController(location, animated: true)
-        
-    }
-    
     
     
     @IBAction func publishBtn_pressed(sender: AnyObject) {
@@ -201,14 +190,14 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         object["ava"] = PFUser.currentUser()!.valueForKey("ava") as! PFFile
         object["uuid"] = "\(PFUser.currentUser()!.username) \(NSUUID().UUIDString)"
         
-        if self.locationName != nil && self.locationCity != nil && self.locationState != nil && self.coordinates != nil {
+        if locationName != nil && locationCity != nil && locationState != nil && locationCoordinates != nil {
             
-            object["location"] = self.locationName!
-            object["city"] = self.locationCity!
-            object["state"] = self.locationState!
+            object["location"] = locationName!
+            object["city"] = locationCity!
+            object["state"] = locationState!
             
-            var lat = self.coordinates?.latitude
-            var long = self.coordinates?.longitude
+            var lat = locationCoordinates?.latitude
+            var long = locationCoordinates?.longitude
             
             object["coordinate"] = PFGeoPoint(latitude: lat!, longitude: long!)
 

@@ -14,6 +14,11 @@ protocol HandleMapSearch {
     func dropPinZoomIn(placemark:MKPlacemark)
 }
 
+var locationName: String?
+var locationCity: String?
+var locationState: String?
+var locationCoordinates: CLLocationCoordinate2D?
+
 class locationVC: UIViewController {
     
     var name: String?
@@ -24,9 +29,6 @@ class locationVC: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
     
-    @IBOutlet weak var selectBtn: UIButton!
-
-
     
     let locationManager = CLLocationManager()
     
@@ -38,7 +40,7 @@ class locationVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        selectBtn.hidden = true
+        
         
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -76,18 +78,36 @@ class locationVC: UIViewController {
         
 
     }
+    
+    //NAV bar buttons
+    
+    @IBAction func save_pressed(sender: AnyObject) {
+        
+        
+                locationName = self.name
+                print(locationName)
+                locationCity = self.city
+                print(locationCity)
+                locationState = self.state
+                print(locationState)
+                locationCoordinates = self.coordinates
+                print(locationCoordinates)
 
-    @IBAction func selectBtn_click(sender: AnyObject) {
-        
-        let upload = self.storyboard?.instantiateViewControllerWithIdentifier("uploadVC") as! uploadVC
-        upload.locationName = self.name
-        upload.locationCity = self.city
-        upload.locationState = self.state
-        upload.coordinates = self.coordinates
-        
-        self.navigationController?.pushViewController(upload, animated: true)
+                self.view.endEditing(true)
+                
+                self.dismissViewControllerAnimated(true, completion: nil)
+                
+                //send notification to homeVC to be reloaded.
+                NSNotificationCenter.defaultCenter().postNotificationName("reload", object: nil)
     }
     
+    @IBAction func cancel_pressed(sender: AnyObject) {
+        
+        self.view.endEditing(true)
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+
+ 
 }
 
 extension locationVC : CLLocationManagerDelegate {
@@ -117,7 +137,7 @@ extension locationVC: HandleMapSearch {
         // cache the pin
         selectedPin = placemark
         
-        selectBtn.hidden = false
+        
 
         // clear existing pins
         mapView.removeAnnotations(mapView.annotations)

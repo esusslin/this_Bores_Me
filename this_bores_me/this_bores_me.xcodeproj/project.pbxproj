@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		E20E7DFD1DFE253500AF2275 /* imageSynch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20E7DFC1DFE253500AF2275 /* imageSynch.swift */; };
 		E20E7DFF1DFE26FB00AF2275 /* usernameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20E7DFE1DFE26FB00AF2275 /* usernameVC.swift */; };
+		E21123E31E21A34D00BC98CB /* editVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21123E21E21A34D00BC98CB /* editVC.swift */; };
 		E23044841E1B0CDE00E5C908 /* searchTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23044831E1B0CDE00E5C908 /* searchTableVC.swift */; };
 		E23044851E1B23C800E5C908 /* locationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23044811E1B0BEE00E5C908 /* locationVC.swift */; };
 		E23044871E1F07F500E5C908 /* followersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23044861E1F07F500E5C908 /* followersVC.swift */; };
@@ -73,6 +74,7 @@
 /* Begin PBXFileReference section */
 		E20E7DFC1DFE253500AF2275 /* imageSynch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = imageSynch.swift; sourceTree = "<group>"; };
 		E20E7DFE1DFE26FB00AF2275 /* usernameVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = usernameVC.swift; sourceTree = "<group>"; };
+		E21123E21E21A34D00BC98CB /* editVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = editVC.swift; sourceTree = "<group>"; };
 		E23044811E1B0BEE00E5C908 /* locationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = locationVC.swift; sourceTree = "<group>"; };
 		E23044831E1B0CDE00E5C908 /* searchTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = searchTableVC.swift; sourceTree = "<group>"; };
 		E23044861E1F07F500E5C908 /* followersVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = followersVC.swift; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 				E23044921E1F20FC00E5C908 /* feedVC.swift */,
 				E25A8D731E1333A2008A1769 /* postCell.swift */,
 				E230448C1E1F11D400E5C908 /* postVC.swift */,
+				E21123E21E21A34D00BC98CB /* editVC.swift */,
 			);
 			path = this_bores_me;
 			sourceTree = "<group>";
@@ -399,6 +402,7 @@
 				E255D1FA1E0BC8CD003ED589 /* pictureCell.swift in Sources */,
 				E23044871E1F07F500E5C908 /* followersVC.swift in Sources */,
 				E23044911E1F1B8600E5C908 /* commentCell.swift in Sources */,
+				E21123E31E21A34D00BC98CB /* editVC.swift in Sources */,
 				E23044931E1F20FC00E5C908 /* feedVC.swift in Sources */,
 				E23044891E1F085000E5C908 /* followersCell.swift in Sources */,
 				E255D1F81E0BC226003ED589 /* headerVC.swift in Sources */,
