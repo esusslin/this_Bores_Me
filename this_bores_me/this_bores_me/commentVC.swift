@@ -347,44 +347,44 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
             }
         }
         
-//
-//        // STEP 4. Send notification as @mention
-//        var mentionCreated = Bool()
-//        
-//        for var word in words {
-//            
-//            // check @mentions for user
-//            if word.hasPrefix("@") {
-//                
-//                // cut symbols
-//                word = word.stringByTrimmingCharactersInSet(NSCharacterSet.punctuationCharacterSet())
-//                word = word.stringByTrimmingCharactersInSet(NSCharacterSet.symbolCharacterSet())
-//                
-//                let newsObj = PFObject(className: "news")
-//                newsObj["by"] = PFUser.currentUser()?.username
-//                newsObj["ava"] = PFUser.currentUser()?.objectForKey("ava") as! PFFile
-//                newsObj["to"] = word
-//                newsObj["owner"] = commentowner.last
-//                newsObj["uuid"] = commentuuid.last
-//                newsObj["type"] = "mention"
-//                newsObj["checked"] = "no"
-//                newsObj.saveEventually()
-//                mentionCreated = true
-//            }
-//        }
-//        
-//        // STEP 5. Send notification as comment
-//        if commentowner.last != PFUser.currentUser()?.username && mentionCreated == false {
-//            let newsObj = PFObject(className: "news")
-//            newsObj["by"] = PFUser.currentUser()?.username
-//            newsObj["ava"] = PFUser.currentUser()?.objectForKey("ava") as! PFFile
-//            newsObj["to"] = commentowner.last
-//            newsObj["owner"] = commentowner.last
-//            newsObj["uuid"] = commentuuid.last
-//            newsObj["type"] = "comment"
-//            newsObj["checked"] = "no"
-//            newsObj.saveEventually()
-//        }
+
+        // STEP 4. Send notification as @mention
+        var mentionCreated = Bool()
+        
+        for var word in words {
+            
+            // check @mentions for user
+            if word.hasPrefix("@") {
+                
+                // cut symbols
+                word = word.stringByTrimmingCharactersInSet(NSCharacterSet.punctuationCharacterSet())
+                word = word.stringByTrimmingCharactersInSet(NSCharacterSet.symbolCharacterSet())
+                
+                let newsObj = PFObject(className: "news")
+                newsObj["by"] = PFUser.currentUser()?.username
+                newsObj["ava"] = PFUser.currentUser()?.objectForKey("ava") as! PFFile
+                newsObj["to"] = word
+                newsObj["owner"] = commentowner.last
+                newsObj["uuid"] = commentuuid.last
+                newsObj["type"] = "mention"
+                newsObj["checked"] = "no"
+                newsObj.saveEventually()
+                mentionCreated = true
+            }
+        }
+        
+        // STEP 5. Send notification as comment
+        if commentowner.last != PFUser.currentUser()?.username && mentionCreated == false {
+            let newsObj = PFObject(className: "news")
+            newsObj["by"] = PFUser.currentUser()?.username
+            newsObj["ava"] = PFUser.currentUser()?.objectForKey("ava") as! PFFile
+            newsObj["to"] = commentowner.last
+            newsObj["owner"] = commentowner.last
+            newsObj["uuid"] = commentuuid.last
+            newsObj["type"] = "comment"
+            newsObj["checked"] = "no"
+            newsObj.saveEventually()
+        }
         
         
         // scroll to bottom
@@ -547,19 +547,19 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
                 }
             })
             
-//            // STEP 3. Delete notification: mention comment
-//            let newsQuery = PFQuery(className: "news")
-//            newsQuery.whereKey("by", equalTo: cell.usernameBtn.titleLabel!.text!)
-//            newsQuery.whereKey("to", equalTo: commentowner.last!)
-//            newsQuery.whereKey("uuid", equalTo: commentuuid.last!)
-//            newsQuery.whereKey("type", containedIn: ["comment", "mention"])
-//            newsQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-//                if error == nil {
-//                    for object in objects! {
-//                        object.deleteEventually()
-//                    }
-//                }
-//            })
+            // STEP 3. Delete notification: mention comment
+            let newsQuery = PFQuery(className: "news")
+            newsQuery.whereKey("by", equalTo: cell.usernameBtn.titleLabel!.text!)
+            newsQuery.whereKey("to", equalTo: commentowner.last!)
+            newsQuery.whereKey("uuid", equalTo: commentuuid.last!)
+            newsQuery.whereKey("type", containedIn: ["comment", "mention"])
+            newsQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+                if error == nil {
+                    for object in objects! {
+                        object.deleteEventually()
+                    }
+                }
+            })
             
             
             // close cell

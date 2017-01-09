@@ -34,15 +34,6 @@ class tabbarVC: UITabBarController {
         // disable translucent
         self.tabBar.translucent = false
         
-//        // custom button
-//        let itemWidth = self.view.frame.size.width / 5
-//        let itemHeight = self.tabBar.frame.size.height
-//        tabBarPostButton.frame = CGRectMake(itemWidth * 2, self.view.frame.size.height - itemHeight, itemWidth - 10, itemHeight)
-//        tabBarPostButton.setBackgroundImage(UIImage(named: "upload.png"), forState: .Normal)
-//        tabBarPostButton.adjustsImageWhenHighlighted = false
-//        tabBarPostButton.addTarget(self, action: #selector(tabbarVC.upload(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-//        self.view.addSubview(tabBarPostButton)
-        
         
         // create total icons
         icons.frame = CGRectMake(self.view.frame.size.width / 5 * 3 + 10, self.view.frame.size.height - self.tabBar.frame.size.height * 2 - 3, 50, 35)
@@ -64,10 +55,10 @@ class tabbarVC: UITabBarController {
         self.view.addSubview(dot)
         
         
-//        // call function of all type of notifications
-//        query(["like"], image: UIImage(named: "likeIcon.png")!)
-//        query(["follow"], image: UIImage(named: "followIcon.png")!)
-//        query(["mention", "comment"], image: UIImage(named: "commentIcon.png")!)
+        // call function of all type of notifications
+        query(["like"], image: UIImage(named: "likeIcon.png")!)
+        query(["follow"], image: UIImage(named: "followIcon.png")!)
+        query(["mention", "comment"], image: UIImage(named: "commentIcon.png")!)
         
         
         // hide icons objects
@@ -128,7 +119,7 @@ class tabbarVC: UITabBarController {
     
     // clicked upload button (go to upload)
     func upload(sender : UIButton) {
-        self.selectedIndex = 0
+        self.selectedIndex = 2
     }
     
 }
