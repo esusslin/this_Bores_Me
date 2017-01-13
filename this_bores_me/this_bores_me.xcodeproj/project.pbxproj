@@ -51,6 +51,8 @@
 		E25A8D6C1E130FAC008A1769 /* navVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25A8D6B1E130FAC008A1769 /* navVC.swift */; };
 		E25A8D6E1E132C64008A1769 /* tabbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25A8D6D1E132C64008A1769 /* tabbarVC.swift */; };
 		E25A8D741E1333A2008A1769 /* postCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25A8D731E1333A2008A1769 /* postCell.swift */; };
+		E283AB3D1E28A3720075DBEE /* Mapbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E283AB3C1E28A3720075DBEE /* Mapbox.framework */; };
+		E29CF2361E28B24A001E3AC3 /* Mapbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E29CF2351E28B24A001E3AC3 /* Mapbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E2F125591DFFD0CC00E12C72 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2F125581DFFD0CC00E12C72 /* Bolts.framework */; };
 		E2F1255B1DFFD0D400E12C72 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2F1255A1DFFD0D400E12C72 /* Parse.framework */; };
 		E2F1255D1DFFD0D800E12C72 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2F1255C1DFFD0D800E12C72 /* ParseFacebookUtils.framework */; };
@@ -73,6 +75,20 @@
 			remoteInfo = this_bores_me;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E283AB401E28A8200075DBEE /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E29CF2361E28B24A001E3AC3 /* Mapbox.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		E20E7DFC1DFE253500AF2275 /* imageSynch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = imageSynch.swift; sourceTree = "<group>"; };
@@ -127,6 +143,8 @@
 		E25A8D6B1E130FAC008A1769 /* navVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = navVC.swift; sourceTree = "<group>"; };
 		E25A8D6D1E132C64008A1769 /* tabbarVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tabbarVC.swift; sourceTree = "<group>"; };
 		E25A8D731E1333A2008A1769 /* postCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = postCell.swift; sourceTree = "<group>"; };
+		E283AB3C1E28A3720075DBEE /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mapbox.framework; path = /Users/emmetsusslin/Desktop/this_Bores_Me/this_bores_me/Mapbox.framework; sourceTree = "<absolute>"; };
+		E29CF2351E28B24A001E3AC3 /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mapbox.framework; sourceTree = "<group>"; };
 		E2F125581DFFD0CC00E12C72 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		E2F1255A1DFFD0D400E12C72 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		E2F1255C1DFFD0D800E12C72 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
@@ -155,6 +173,7 @@
 				E2F1255F1DFFD0DE00E12C72 /* ParseFacebookUtilsV4.framework in Frameworks */,
 				E2F1255D1DFFD0D800E12C72 /* ParseFacebookUtils.framework in Frameworks */,
 				E2F125591DFFD0CC00E12C72 /* Bolts.framework in Frameworks */,
+				E283AB3D1E28A3720075DBEE /* Mapbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,6 +207,7 @@
 		E2323CB61DFCC4EB00F71B06 = {
 			isa = PBXGroup;
 			children = (
+				E29CF2351E28B24A001E3AC3 /* Mapbox.framework */,
 				E2F1255E1DFFD0DE00E12C72 /* ParseFacebookUtilsV4.framework */,
 				E2F1255C1DFFD0D800E12C72 /* ParseFacebookUtils.framework */,
 				E2F1255A1DFFD0D400E12C72 /* Parse.framework */,
@@ -287,6 +307,8 @@
 				E2323CBB1DFCC4EB00F71B06 /* Sources */,
 				E2323CBC1DFCC4EB00F71B06 /* Frameworks */,
 				E2323CBD1DFCC4EB00F71B06 /* Resources */,
+				E283AB401E28A8200075DBEE /* Embed Frameworks */,
+				E29CF2321E28AB4D001E3AC3 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -405,6 +427,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E29CF2321E28AB4D001E3AC3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework/strip-frameworks.sh\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E2323CBB1DFCC4EB00F71B06 /* Sources */ = {

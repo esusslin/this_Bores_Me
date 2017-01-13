@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import Parse
+import Mapbox
 
 protocol HandleMapSearch {
     func dropPinZoomIn(placemark:MKPlacemark)
