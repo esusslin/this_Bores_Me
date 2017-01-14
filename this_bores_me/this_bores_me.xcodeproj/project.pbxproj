@@ -14,6 +14,8 @@
 		E21124001E22058E00BC98CB /* usersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21123FF1E22058E00BC98CB /* usersVC.swift */; };
 		E21124021E220D1800BC98CB /* newsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21124011E220D1800BC98CB /* newsVC.swift */; };
 		E21124041E220D2800BC98CB /* newsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21124031E220D2800BC98CB /* newsCell.swift */; };
+		E22EB16F1E29D14100314DC2 /* customCalloutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22EB16E1E29D14100314DC2 /* customCalloutVC.swift */; };
+		E22EB1711E29DD0E00314DC2 /* picAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22EB1701E29DD0E00314DC2 /* picAnnotation.swift */; };
 		E23044841E1B0CDE00E5C908 /* searchTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23044831E1B0CDE00E5C908 /* searchTableVC.swift */; };
 		E23044851E1B23C800E5C908 /* locationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23044811E1B0BEE00E5C908 /* locationVC.swift */; };
 		E23044871E1F07F500E5C908 /* followersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23044861E1F07F500E5C908 /* followersVC.swift */; };
@@ -53,6 +55,7 @@
 		E25A8D741E1333A2008A1769 /* postCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25A8D731E1333A2008A1769 /* postCell.swift */; };
 		E283AB3D1E28A3720075DBEE /* Mapbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E283AB3C1E28A3720075DBEE /* Mapbox.framework */; };
 		E29CF2361E28B24A001E3AC3 /* Mapbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E29CF2351E28B24A001E3AC3 /* Mapbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E29CF2381E28B73A001E3AC3 /* mapSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29CF2371E28B73A001E3AC3 /* mapSearchVC.swift */; };
 		E2F125591DFFD0CC00E12C72 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2F125581DFFD0CC00E12C72 /* Bolts.framework */; };
 		E2F1255B1DFFD0D400E12C72 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2F1255A1DFFD0D400E12C72 /* Parse.framework */; };
 		E2F1255D1DFFD0D800E12C72 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2F1255C1DFFD0D800E12C72 /* ParseFacebookUtils.framework */; };
@@ -100,6 +103,8 @@
 		E21123FF1E22058E00BC98CB /* usersVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = usersVC.swift; sourceTree = "<group>"; };
 		E21124011E220D1800BC98CB /* newsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = newsVC.swift; sourceTree = "<group>"; };
 		E21124031E220D2800BC98CB /* newsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = newsCell.swift; sourceTree = "<group>"; };
+		E22EB16E1E29D14100314DC2 /* customCalloutVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = customCalloutVC.swift; sourceTree = "<group>"; };
+		E22EB1701E29DD0E00314DC2 /* picAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = picAnnotation.swift; sourceTree = "<group>"; };
 		E23044811E1B0BEE00E5C908 /* locationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = locationVC.swift; sourceTree = "<group>"; };
 		E23044831E1B0CDE00E5C908 /* searchTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = searchTableVC.swift; sourceTree = "<group>"; };
 		E23044861E1F07F500E5C908 /* followersVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = followersVC.swift; sourceTree = "<group>"; };
@@ -145,6 +150,7 @@
 		E25A8D731E1333A2008A1769 /* postCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = postCell.swift; sourceTree = "<group>"; };
 		E283AB3C1E28A3720075DBEE /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mapbox.framework; path = /Users/emmetsusslin/Desktop/this_Bores_Me/this_bores_me/Mapbox.framework; sourceTree = "<absolute>"; };
 		E29CF2351E28B24A001E3AC3 /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mapbox.framework; sourceTree = "<group>"; };
+		E29CF2371E28B73A001E3AC3 /* mapSearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mapSearchVC.swift; sourceTree = "<group>"; };
 		E2F125581DFFD0CC00E12C72 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		E2F1255A1DFFD0D400E12C72 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		E2F1255C1DFFD0D800E12C72 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
@@ -275,6 +281,9 @@
 				E21123FF1E22058E00BC98CB /* usersVC.swift */,
 				E21124011E220D1800BC98CB /* newsVC.swift */,
 				E21124031E220D2800BC98CB /* newsCell.swift */,
+				E29CF2371E28B73A001E3AC3 /* mapSearchVC.swift */,
+				E22EB1701E29DD0E00314DC2 /* picAnnotation.swift */,
+				E22EB16E1E29D14100314DC2 /* customCalloutVC.swift */,
 			);
 			path = this_bores_me;
 			sourceTree = "<group>";
@@ -451,6 +460,7 @@
 			files = (
 				E2323CC51DFCC4EB00F71B06 /* ViewController.swift in Sources */,
 				E2323CC31DFCC4EB00F71B06 /* AppDelegate.swift in Sources */,
+				E29CF2381E28B73A001E3AC3 /* mapSearchVC.swift in Sources */,
 				E25A8D741E1333A2008A1769 /* postCell.swift in Sources */,
 				E21124001E22058E00BC98CB /* usersVC.swift in Sources */,
 				E21123FE1E21F81100BC98CB /* KILabel.m in Sources */,
@@ -468,10 +478,12 @@
 				E23044931E1F20FC00E5C908 /* feedVC.swift in Sources */,
 				E23044891E1F085000E5C908 /* followersCell.swift in Sources */,
 				E255D1F81E0BC226003ED589 /* headerVC.swift in Sources */,
+				E22EB16F1E29D14100314DC2 /* customCalloutVC.swift in Sources */,
 				E20E7DFD1DFE253500AF2275 /* imageSynch.swift in Sources */,
 				E23044851E1B23C800E5C908 /* locationVC.swift in Sources */,
 				E21124021E220D1800BC98CB /* newsVC.swift in Sources */,
 				E230448F1E1F1A0A00E5C908 /* commentVC.swift in Sources */,
+				E22EB1711E29DD0E00314DC2 /* picAnnotation.swift in Sources */,
 				E23044951E1F42E600E5C908 /* hashtagsVC.swift in Sources */,
 				E25A8D6C1E130FAC008A1769 /* navVC.swift in Sources */,
 				E20E7DFF1DFE26FB00AF2275 /* usernameVC.swift in Sources */,
