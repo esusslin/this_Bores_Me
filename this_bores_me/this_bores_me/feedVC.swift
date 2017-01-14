@@ -221,15 +221,16 @@ class feedVC: UITableViewController {
         cell.usernameBtn.setTitle(usernameArray[indexPath.row], forState: UIControlState.Normal)
         cell.usernameBtn.sizeToFit()
         cell.uuidLbl.text = uuidArray[indexPath.row]
-        cell.titleLbl.text = titleArray[indexPath.row]
+        cell.titleLbl.text = "loller"
+//            titleArray[indexPath.row]
         cell.titleLbl.sizeToFit()
         
-        // place profile picture
-        //        avaArray[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
-        //            cell.avaImg.image = UIImage(data: data!)
-        //        }
-        //
-        // place post picture
+//         place profile picture
+                avaArray[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
+                    cell.avatarImage.image = UIImage(data: data!)
+                }
+        
+
         picArray[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
             cell.picImg.image = UIImage(data: data!)
         }
@@ -290,30 +291,30 @@ class feedVC: UITableViewController {
         cell.moreBtn.layer.setValue(indexPath, forKey: "index")
         
         
-//        // @mention is tapped
-//        cell.titleLbl.userHandleLinkTapHandler = { label, handle, rang in
-//            var mention = handle
-//            mention = String(mention.characters.dropFirst())
-//            
-//            // if tapped on @currentUser go home, else go guest
-//            if mention.lowercaseString == PFUser.currentUser()?.username {
-//                let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC
-//                self.navigationController?.pushViewController(home, animated: true)
-//            } else {
-//                guestname.append(mention.lowercaseString)
-//                let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
-//                self.navigationController?.pushViewController(guest, animated: true)
-//            }
-//        }
-//        
+        // @mention is tapped
+        cell.titleLbl.userHandleLinkTapHandler = { label, handle, rang in
+            var mention = handle
+            mention = String(mention.characters.dropFirst())
+            
+            // if tapped on @currentUser go home, else go guest
+            if mention.lowercaseString == PFUser.currentUser()?.username {
+                let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC
+                self.navigationController?.pushViewController(home, animated: true)
+            } else {
+                guestname.append(mention.lowercaseString)
+                let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
+                self.navigationController?.pushViewController(guest, animated: true)
+            }
+        }
+        
 //         #hashtag is tapped
-//        cell.titleLbl.hashtagLinkTapHandler = { label, handle, range in
-//            var mention = handle
-//            mention = String(mention.characters.dropFirst())
-//            hashtag.append(mention.lowercaseString)
-//            let hashvc = self.storyboard?.instantiateViewControllerWithIdentifier("hashtagsVC") as! hashtagsVC
-//            self.navigationController?.pushViewController(hashvc, animated: true)
-//        }
+        cell.titleLbl.hashtagLinkTapHandler = { label, handle, range in
+            var mention = handle
+            mention = String(mention.characters.dropFirst())
+            hashtag.append(mention.lowercaseString)
+            let hashvc = self.storyboard?.instantiateViewControllerWithIdentifier("hashtagsVC") as! hashtagsVC
+            self.navigationController?.pushViewController(hashvc, animated: true)
+        }
         
         return cell
     }

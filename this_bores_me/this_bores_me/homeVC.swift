@@ -286,9 +286,9 @@ class homeVC: UICollectionViewController {
                 NSUserDefaults.standardUserDefaults().removeObjectForKey("username")
                 NSUserDefaults.standardUserDefaults().synchronize()
 //
-//                let signin = self.storyboard?.instantiateViewControllerWithIdentifier("ViewController") as! ViewController
-//                let appDelegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-//                appDelegate.window?.rootViewController = signin
+                let signin = self.storyboard?.instantiateViewControllerWithIdentifier("ViewController") as! ViewController
+                let appDelegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                appDelegate.window?.rootViewController = signin
             }
         }
         

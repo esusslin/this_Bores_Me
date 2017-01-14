@@ -35,6 +35,9 @@ class postVC: UITableViewController {
         let backBtn = UIBarButtonItem(title: "back", style: UIBarButtonItemStyle.Plain, target: self, action: "back:")
         self.navigationItem.leftBarButtonItem = backBtn
         
+        let mapBtn = UIBarButtonItem(title: "map", style: UIBarButtonItemStyle.Plain, target: self, action: "map:")
+        self.navigationItem.rightBarButtonItem = mapBtn
+        
         // swipe to go back
         let backSwipe = UISwipeGestureRecognizer(target: self, action: "back:")
         backSwipe.direction = UISwipeGestureRecognizerDirection.Right
@@ -177,31 +180,31 @@ class postVC: UITableViewController {
         cell.commentBtn.layer.setValue(indexPath, forKey: "index")
         cell.moreBtn.layer.setValue(indexPath, forKey: "index")
         
-//        // @mention is tapped
-//        cell.titleLbl.userHandleLinkTapHandler = { label, handle, rang in
-//            var mention = handle
-//            mention = String(mention.characters.dropFirst())
-//            
-//            // if tapped on @currentUser go home, else go guest
-//            if mention.lowercaseString == PFUser.currentUser()?.username {
-//                let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC
-//                self.navigationController?.pushViewController(home, animated: true)
-//            } else {
-//                guestname.append(mention.lowercaseString)
-//                let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
-//                self.navigationController?.pushViewController(guest, animated: true)
-//            }
-//        }
+        // @mention is tapped
+        cell.titleLbl.userHandleLinkTapHandler = { label, handle, rang in
+            var mention = handle
+            mention = String(mention.characters.dropFirst())
+            
+            // if tapped on @currentUser go home, else go guest
+            if mention.lowercaseString == PFUser.currentUser()?.username {
+                let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC
+                self.navigationController?.pushViewController(home, animated: true)
+            } else {
+                guestname.append(mention.lowercaseString)
+                let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
+                self.navigationController?.pushViewController(guest, animated: true)
+            }
+        }
         
-        // #hashtag is tapped
-//        cell.titleLbl.hashtagLinkTapHandler = { label, handle, range in
-//            var mention = handle
-//            mention = String(mention.characters.dropFirst())
-//            hashtag.append(mention.lowercaseString)
-//            let hashvc = self.storyboard?.instantiateViewControllerWithIdentifier("hashtagsVC") as! hashtagsVC
-//            self.navigationController?.pushViewController(hashvc, animated: true)
-//        }
-//        
+//         #hashtag is tapped
+        cell.titleLbl.hashtagLinkTapHandler = { label, handle, range in
+            var mention = handle
+            mention = String(mention.characters.dropFirst())
+            hashtag.append(mention.lowercaseString)
+            let hashvc = self.storyboard?.instantiateViewControllerWithIdentifier("hashtagsVC") as! hashtagsVC
+            self.navigationController?.pushViewController(hashvc, animated: true)
+        }
+        
         return cell
     }
     
@@ -384,6 +387,19 @@ class postVC: UITableViewController {
         if !postuuid.isEmpty {
             postuuid.removeLast()
         }
+    }
+    
+    // go back function
+    func map(sender: UIBarButtonItem) {
+        
+        print("lol")
+        // push back
+//        self.navigationController?.popViewControllerAnimated(true)
+        
+//        //clean post uuid from last hold
+//        if !postuuid.isEmpty {
+//            postuuid.removeLast()
+//        }
     }
     
     

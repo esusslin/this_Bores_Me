@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>MGLMapboxAccessToken</key>
+	<string>pk.eyJ1IjoiZXN1c3NsaW4iLCJhIjoiY2l4dmVibWp0MDAwMjMzcnl6eTlleWVlZCJ9.pHTuCedoK4N_h39qUZa8Og</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Boredom needs your location</string>
 	<key>CFBundleDevelopmentRegion</key>
