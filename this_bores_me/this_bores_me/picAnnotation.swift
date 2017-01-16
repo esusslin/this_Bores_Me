@@ -8,6 +8,7 @@
 
 import UIKit
 import Mapbox
+import Parse
 
 class picAnnotation: MGLPointAnnotation {
     
