@@ -9,6 +9,7 @@
 import UIKit
 import Mapbox
 import Parse
+import CoreLocation
 
 
 class mapSearchVC: UIViewController, MGLMapViewDelegate {
@@ -21,6 +22,8 @@ class mapSearchVC: UIViewController, MGLMapViewDelegate {
     var uuidArray = [String]()
     
     var followArray = [String]()
+    
+    var annotations: [picAnnotation] = []
     
     
     @IBOutlet var mapView: MGLMapView!
@@ -49,6 +52,8 @@ class mapSearchVC: UIViewController, MGLMapViewDelegate {
         self.navigationItem.hidesBackButton = true
         let backBtn = UIBarButtonItem(title: "back", style: .Plain, target: self, action: #selector(mapSearchVC.back(_:)))
         self.navigationItem.leftBarButtonItem = backBtn
+        
+        loadPosts()
 
         // Do any additional setup after loading the view.
     }
@@ -98,11 +103,49 @@ class mapSearchVC: UIViewController, MGLMapViewDelegate {
                             self.picArray.append(object.objectForKey("pic") as! PFFile)
                             self.titleArray.append(object.objectForKey("title") as! String)
                             self.uuidArray.append(object.objectForKey("uuid") as! String)
+                            
+//                            print(object.objectForKey("coordinate"))
+                            
+                            
+                            let location = object.objectForKey("coordinate")
+                            
+                            let latitude = location?.latitude!
+                            let longitude = location?.longitude!
+
+                            
+                            let picLocation = CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!)
+                            
+                            let pfPic = object.objectForKey("pic") as! PFFile
+                            
+                            let marker = picAnnotation()
+                            marker.coordinate = picLocation
+                            
+                            print(object.objectForKey("pic")!)
+
+                            
+                            if let pfPic = object.objectForKey("pic") as? PFFile {
+                                pfPic.getDataInBackgroundWithBlock {
+                                    (data: NSData?, error: NSError?) -> Void in
+                                    
+                                    if error == nil {
+                                        marker.image = UIImage(data: data!)
+                                    }else{
+                                        print("Error: \(error)")
+                                    }
+                                }
+                            }
+                            
+                            marker.title = ""
+
+                            
+                            self.annotations.append(marker)
+                            
+                            self.mapView.addAnnotations(self.annotations)
+                            
+                            print(picLocation)
                         }
                         
-                        // reload tableView & end spinning of refresher
-//                        self.tableView.reloadData()
-//                        self.refresher.endRefreshing()
+                        
                         
                     } else {
                         print(error!.localizedDescription)
@@ -144,29 +187,16 @@ class mapSearchVC: UIViewController, MGLMapViewDelegate {
         return true
     }
     
-    func mapView(mapView: MGLMapView, calloutViewForAnnotation annotation: MGLAnnotation) -> UIView? {
-        // Only show callouts for `Hello world!` annotation
-            
-            return CustomCalloutView(representedObject: annotation)
-       
-    }
+
+    
+    func mapView(mapView: MGLMapView, calloutViewFor annotation: picAnnotation) -> UIView? {
+
+        return customCalloutVC(representedObject: annotation)
+        
+        
+        }
     
     
-//    func mapView(mapView: MGLMapView, leftCalloutAccessoryViewForAnnotation annotation: MGLAnnotation) -> UIView? {
-//        
-//        let index = (self.annotations as NSArray).indexOfObject(annotation)
-//        print(self.annotations.count)
-//        print(self.annotations[0].toolPic)
-//        
-//        let leftView = UIImageView(image: annotations[index].toolPic as UIImage!)
-//        leftView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-//        leftView.layer.cornerRadius = 8.0
-//        leftView.layer.masksToBounds = true
-//        
-//        return leftView
-//        
-//        
-//    }
     
     func mapView(mapView: MGLMapView, rightCalloutAccessoryViewForAnnotation annotation: MGLAnnotation) -> UIView? {
         return UIButton(type: .DetailDisclosure)
@@ -174,12 +204,36 @@ class mapSearchVC: UIViewController, MGLMapViewDelegate {
     
     
     
+    func mapView(mapView: MGLMapView, leftCalloutAccessoryViewForAnnotation annotation: MGLAnnotation) -> UIView? {
+        
+        let index = (self.annotations as NSArray).indexOfObject(annotation)
+//        print(self.annotations.count)
+//        print(self.annotations[0].image)
+        
+        let leftView = UIImageView(image: annotations[index].image as UIImage!)
+        leftView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        leftView.layer.cornerRadius = leftView.frame.size.width / 2
+        leftView.layer.masksToBounds = true
+        leftView.clipsToBounds = true
+        
+        //round avatar - always
+//        leftView.layer.cornerRadius = avatarImage.frame.size.width / 2
+//        avatarImage.clipsToBounds = true
+        
+        return leftView
+        
+        
+    }
+    
+    
     func mapView(mapView: MGLMapView, annotation: MGLAnnotation, calloutAccessoryControlTapped control: UIControl) {
         // Hide the callout view.
         mapView.deselectAnnotation(annotation, animated: false)
         
-//        let index = (self.annotations as NSArray).indexOfObject(annotation)
-//        
+        let index = (self.annotations as NSArray).indexOfObject(annotation)
+        
+        print("BONER!")
+        
 //        print(annotations[index].toolId)
 //        
 //
@@ -191,6 +245,8 @@ class mapSearchVC: UIViewController, MGLMapViewDelegate {
     func mapView(mapView: MGLMapView, tapOnCalloutForAnnotation annotation: MGLAnnotation) {
         // Optionally handle taps on the callout
         print("Tapped the callout for: \(annotation)")
+        
+        annotation
         
         // Hide the callout
         mapView.deselectAnnotation(annotation, animated: true)
@@ -205,5 +261,6 @@ class mapSearchVC: UIViewController, MGLMapViewDelegate {
     }
     
 }
+
 
 

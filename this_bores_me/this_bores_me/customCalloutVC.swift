@@ -8,14 +8,14 @@
 
 import Mapbox
 
-class CustomCalloutView: UIView, MGLCalloutView {
+class customCalloutVC: UIView, MGLCalloutView {
+    
     var representedObject: MGLAnnotation
+    
     lazy var leftAccessoryView = UIView()/* unused */
     
-    //    let leftAccessoryView = UIImageView(image: UIImage())
-    //    leftView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-    //    leftView.backgroundColor = UIColor.redColor()
-    //    anView.leftCalloutAccessoryView = leftView
+    
+    
     lazy var rightAccessoryView = UIView()/* unused */
     weak var delegate: MGLCalloutViewDelegate?
     
@@ -24,18 +24,32 @@ class CustomCalloutView: UIView, MGLCalloutView {
     
     let mainBody: UIButton
     
-    required init(representedObject: MGLAnnotation) {
+    
+    
+    required init(representedObject: picAnnotation) {
+        
+        print("faggot")
+        
         self.representedObject = representedObject
         self.mainBody = UIButton(type: .System)
         
-        super.init(frame: CGRectZero)
+        super.init(frame: .zero)
+        
+//        let leftView = UIImageView(image: representedObject.image as UIImage!)
+//        leftView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+//        leftView.layer.cornerRadius = 8.0
+//        leftView.layer.masksToBounds = true
+        
+//        leftAccessoryView = leftView
         
         backgroundColor = UIColor.clearColor()
         
+        mainBody.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
+        
         mainBody.backgroundColor = backgroundColorForCallout()
         mainBody.tintColor = UIColor.whiteColor()
-        mainBody.contentEdgeInsets = UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0)
-        mainBody.layer.cornerRadius = 4.0
+        mainBody.contentEdgeInsets = UIEdgeInsetsMake(20.0, 20.0, 20.0, 20.0)
+        mainBody.layer.cornerRadius = 8.0
         
         addSubview(mainBody)
     }
@@ -47,11 +61,10 @@ class CustomCalloutView: UIView, MGLCalloutView {
     // MARK: - MGLCalloutView API
     
     func presentCalloutFromRect(rect: CGRect, inView view: UIView, constrainedToView constrainedView: UIView, animated: Bool) {
-        if !representedObject.respondsToSelector(Selector("title")) {
-            return
-        }
         
         view.addSubview(self)
+        
+        print("faggot2")
         
         // Prepare title label
         mainBody.setTitle(representedObject.title!, forState: .Normal)
@@ -59,18 +72,18 @@ class CustomCalloutView: UIView, MGLCalloutView {
         
         if isCalloutTappable() {
             // Handle taps and eventually try to send them to the delegate (usually the map view)
-            mainBody.addTarget(self, action: #selector(CustomCalloutView.calloutTapped), forControlEvents: .TouchUpInside)
+            mainBody.addTarget(self, action: #selector(customCalloutVC.calloutTapped), forControlEvents: .TouchUpInside)
         } else {
             // Disable tapping and highlighting
             mainBody.userInteractionEnabled = false
         }
         
         // Prepare our frame, adding extra space at the bottom for the tip
-        let frameWidth = mainBody.bounds.size.width
-        let frameHeight = mainBody.bounds.size.height + tipHeight
-        let frameOriginX = rect.origin.x + (rect.size.width/2.0) - (frameWidth/2.0)
-        let frameOriginY = rect.origin.y - frameHeight
-        frame = CGRectMake(frameOriginX, frameOriginY, frameWidth, frameHeight)
+//        let frameWidth = mainBody.bounds.size.width
+//        let frameHeight = mainBody.bounds.size.height + tipHeight
+//        let frameOriginX = rect.origin.x + (rect.size.width/2.0) - (frameWidth/2.0)
+//        let frameOriginY = rect.origin.y - frameHeight
+//        frame = CGRectMake(frameOriginX, frameOriginY, 500, 275)//500, 275
         
         if animated {
             alpha = 0
@@ -118,24 +131,24 @@ class CustomCalloutView: UIView, MGLCalloutView {
         return UIColor.darkGrayColor()
     }
     
-    override func drawRect(rect: CGRect) {
-        // Draw the pointed tip at the bottom
-        let fillColor = backgroundColorForCallout()
-        
-        let tipLeft = rect.origin.x + (rect.size.width / 2.0) - (tipWidth / 2.0)
-        let tipBottom = CGPointMake(rect.origin.x + (rect.size.width / 2.0), rect.origin.y + rect.size.height)
-        let heightWithoutTip = rect.size.height - tipHeight
-        
-        let currentContext = UIGraphicsGetCurrentContext()!
-        
-        let tipPath = CGPathCreateMutable()
-        CGPathMoveToPoint(tipPath, nil, tipLeft, heightWithoutTip)
-        CGPathAddLineToPoint(tipPath, nil, tipBottom.x, tipBottom.y)
-        CGPathAddLineToPoint(tipPath, nil, tipLeft + tipWidth, heightWithoutTip)
-        CGPathCloseSubpath(tipPath)
-        
-        fillColor.setFill()
-        CGContextAddPath(currentContext, tipPath)
-        CGContextFillPath(currentContext)
-    }
+//    override func drawRect(rect: CGRect) {
+//        // Draw the pointed tip at the bottom
+//        let fillColor = backgroundColorForCallout()
+//        
+//        let tipLeft = rect.origin.x + (rect.size.width / 2.0) - (tipWidth / 2.0)
+//        let tipBottom = CGPointMake(rect.origin.x + (rect.size.width / 2.0), rect.origin.y + rect.size.height)
+//        let heightWithoutTip = rect.size.height - tipHeight
+//        
+//        let currentContext = UIGraphicsGetCurrentContext()!
+//        
+//        let tipPath = CGPathCreateMutable()
+//        CGPathMoveToPoint(tipPath, nil, tipLeft, heightWithoutTip)
+//        CGPathAddLineToPoint(tipPath, nil, tipBottom.x, tipBottom.y)
+//        CGPathAddLineToPoint(tipPath, nil, tipLeft + tipWidth, heightWithoutTip)
+//        CGPathCloseSubpath(tipPath)
+//        
+//        fillColor.setFill()
+//        CGContextAddPath(currentContext, tipPath)
+//        CGContextFillPath(currentContext)
+//    }
 }
