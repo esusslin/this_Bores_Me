@@ -104,7 +104,7 @@ class mapSearchVC: UIViewController, MGLMapViewDelegate {
                             self.titleArray.append(object.objectForKey("title") as! String)
                             self.uuidArray.append(object.objectForKey("uuid") as! String)
                             
-//                            print(object.objectForKey("coordinate"))
+
                             
                             
                             let location = object.objectForKey("coordinate")
@@ -120,7 +120,7 @@ class mapSearchVC: UIViewController, MGLMapViewDelegate {
                             let marker = picAnnotation()
                             marker.coordinate = picLocation
                             
-                            print(object.objectForKey("pic")!)
+                           
 
                             
                             if let pfPic = object.objectForKey("pic") as? PFFile {
@@ -129,6 +129,8 @@ class mapSearchVC: UIViewController, MGLMapViewDelegate {
                                     
                                     if error == nil {
                                         marker.image = UIImage(data: data!)
+                                        print(marker.image!.size.height)
+                                        print(marker.image!.size.width)
                                     }else{
                                         print("Error: \(error)")
                                     }
@@ -142,7 +144,7 @@ class mapSearchVC: UIViewController, MGLMapViewDelegate {
                             
                             self.mapView.addAnnotations(self.annotations)
                             
-                            print(picLocation)
+                            
                         }
                         
                         
@@ -190,67 +192,71 @@ class mapSearchVC: UIViewController, MGLMapViewDelegate {
 
     
     func mapView(mapView: MGLMapView, calloutViewFor annotation: picAnnotation) -> UIView? {
+        
+//        print(customCalloutVC.frame)
+        
 
-        return customCalloutVC(representedObject: annotation)
+       return customCalloutVC(representedObject: annotation)
+//        return nil
         
         
         }
     
     
     
-    func mapView(mapView: MGLMapView, rightCalloutAccessoryViewForAnnotation annotation: MGLAnnotation) -> UIView? {
-        return UIButton(type: .DetailDisclosure)
-    }
-    
-    
-    
-    func mapView(mapView: MGLMapView, leftCalloutAccessoryViewForAnnotation annotation: MGLAnnotation) -> UIView? {
-        
-        let index = (self.annotations as NSArray).indexOfObject(annotation)
-//        print(self.annotations.count)
-//        print(self.annotations[0].image)
-        
-        let leftView = UIImageView(image: annotations[index].image as UIImage!)
-        leftView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-        leftView.layer.cornerRadius = leftView.frame.size.width / 2
-        leftView.layer.masksToBounds = true
-        leftView.clipsToBounds = true
-        
-        //round avatar - always
-//        leftView.layer.cornerRadius = avatarImage.frame.size.width / 2
-//        avatarImage.clipsToBounds = true
-        
-        return leftView
-        
-        
-    }
-    
-    
-    func mapView(mapView: MGLMapView, annotation: MGLAnnotation, calloutAccessoryControlTapped control: UIControl) {
-        // Hide the callout view.
-        mapView.deselectAnnotation(annotation, animated: false)
-        
-        let index = (self.annotations as NSArray).indexOfObject(annotation)
-        
-        print("BONER!")
-        
-//        print(annotations[index].toolId)
+//    func mapView(mapView: MGLMapView, rightCalloutAccessoryViewForAnnotation annotation: MGLAnnotation) -> UIView? {
+//        return UIButton(type: .DetailDisclosure)
+//    }
+//    
+//    
+//    
+//    func mapView(mapView: MGLMapView, leftCalloutAccessoryViewForAnnotation annotation: MGLAnnotation) -> UIView? {
 //        
-//
+//        let index = (self.annotations as NSArray).indexOfObject(annotation)
+////        print(self.annotations.count)
+////        print(self.annotations[0].image)
 //        
-//        self.navigationController!.pushViewController(vc, animated: true)
-        
-    }
+//        let leftView = UIImageView(image: annotations[index].image as UIImage!)
+//        leftView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+//        leftView.layer.cornerRadius = leftView.frame.size.width / 2
+//        leftView.layer.masksToBounds = true
+//        leftView.clipsToBounds = true
+//        
+//        //round avatar - always
+////        leftView.layer.cornerRadius = avatarImage.frame.size.width / 2
+////        avatarImage.clipsToBounds = true
+//        
+//        return leftView
+//        
+//        
+//    }
     
-    func mapView(mapView: MGLMapView, tapOnCalloutForAnnotation annotation: MGLAnnotation) {
-        // Optionally handle taps on the callout
-        print("Tapped the callout for: \(annotation)")
-        
-        annotation
-        
-        // Hide the callout
-        mapView.deselectAnnotation(annotation, animated: true)
-    }
+    
+//    func mapView(mapView: MGLMapView, annotation: MGLAnnotation, calloutAccessoryControlTapped control: UIControl) {
+//        // Hide the callout view.
+//        mapView.deselectAnnotation(annotation, animated: false)
+//        
+//        let index = (self.annotations as NSArray).indexOfObject(annotation)
+//        
+//        print("BONER!")
+//        
+////        print(annotations[index].toolId)
+////        
+////
+////        
+////        self.navigationController!.pushViewController(vc, animated: true)
+//        
+//    }
+//    
+//    func mapView(mapView: MGLMapView, tapOnCalloutForAnnotation annotation: MGLAnnotation) {
+//        // Optionally handle taps on the callout
+//        print("Tapped the callout for: \(annotation)")
+//        
+//        annotation
+//        
+//        // Hide the callout
+//        mapView.deselectAnnotation(annotation, animated: true)
+//    }
     
     
     

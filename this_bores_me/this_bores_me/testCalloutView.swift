@@ -1,19 +1,21 @@
 //
-//  customCalloutVC.swift
+//  testCalloutView.swift
 //  this_bores_me
 //
-//  Created by Emmet Susslin on 1/13/17.
+//  Created by Emmet Susslin on 1/16/17.
 //  Copyright © 2017 Emmet Susslin. All rights reserved.
 //
 
 import Mapbox
 
-class customCalloutVC: UIView, MGLCalloutView {
-    
+class testCalloutView: UIView, MGLCalloutView {
     var representedObject: MGLAnnotation
     
-    lazy var leftAccessoryView = UIView()/* unused */
+    var image: UIImage?
     
+    lazy var leftAccessoryView = UIView()
+    
+
     
     
     lazy var rightAccessoryView = UIView()/* unused */
@@ -28,25 +30,27 @@ class customCalloutVC: UIView, MGLCalloutView {
     
     
     
-    required init(representedObject: MGLAnnotation) {
-        
-        print("faggot")
-        
+    
+    
+    required init(representedObject: picAnnotation) {
         self.representedObject = representedObject
-        self.mainBody = UIButton(type: .System)
+        self.mainBody = UIButton(type: .Custom)
         
-        super.init(frame: .zero)
+        self.image = representedObject.image!
         
-//        self.drawRect(CGRect(x: 0, y: 0, width: 400, height: 400))
+//        var height = self.image?.size.height
+//        var width = self.image?.size.width
+    
+        
+        super.init(frame: CGRectZero)
         
         backgroundColor = UIColor.clearColor()
         
-        mainBody.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
-        
         mainBody.backgroundColor = backgroundColorForCallout()
         mainBody.tintColor = UIColor.whiteColor()
-        mainBody.contentEdgeInsets = UIEdgeInsetsMake(50.0, 50.0, 50.0, 50.0)
-        mainBody.layer.cornerRadius = 8.0
+        mainBody.contentEdgeInsets = UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0)
+        mainBody.layer.cornerRadius = 4.0
+        
         
         addSubview(mainBody)
     }
@@ -58,31 +62,60 @@ class customCalloutVC: UIView, MGLCalloutView {
     // MARK: - MGLCalloutView API
     
     func presentCalloutFromRect(rect: CGRect, inView view: UIView, constrainedToView constrainedView: UIView, animated: Bool) {
+        if !representedObject.respondsToSelector(Selector("title")) {
+            return
+        }
         
         view.addSubview(self)
         
-        print("faggot2")
+     
         
         // Prepare title label
-        mainBody.setTitle(representedObject.title!, forState: .Normal)
-        mainBody.sizeToFit()
+//        mainBody.setTitle(representedObject.title!, forState: .Normal)
+//        mainBody.sizeToFit()
+        
+        //        let leftView = UIImageView(image: annotations[index].image as UIImage!)
+        //        leftView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        //        leftView.layer.cornerRadius = leftView.frame.size.width / 2
+        //        leftView.layer.masksToBounds = true
+        //        leftView.clipsToBounds = true
         
         
+//        mainBody.frame.size.height = (self.image?.size.height)! + 20
+//        mainBody.frame.size.width = (self.image?.size.width)! + 20
+//        mainBody.frame.size.width = 100
+
+        mainBody.setImage(self.image!, forState: .Normal)
+        mainBody.imageView!.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        mainBody.imageView?.sizeToFit()
+        
+        mainBody.frame.size.height = 120
+        mainBody.frame.size.width = 120
+        
+
+        
+        
+
+        
+    
+        
+    
         
         if isCalloutTappable() {
             // Handle taps and eventually try to send them to the delegate (usually the map view)
-            mainBody.addTarget(self, action: #selector(customCalloutVC.calloutTapped), forControlEvents: .TouchUpInside)
+            mainBody.addTarget(self, action: #selector(testCalloutView.calloutTapped), forControlEvents: .TouchUpInside)
+            print("bone zone")
         } else {
             // Disable tapping and highlighting
             mainBody.userInteractionEnabled = false
         }
         
         // Prepare our frame, adding extra space at the bottom for the tip
-//        let frameWidth = mainBody.bounds.size.width
-//        let frameHeight = mainBody.bounds.size.height + tipHeight
-//        let frameOriginX = rect.origin.x + (rect.size.width/2.0) - (frameWidth/2.0)
-//        let frameOriginY = rect.origin.y - frameHeight
-//        frame = CGRectMake(frameOriginX, frameOriginY, 500, 275)//500, 275
+        let frameWidth = mainBody.bounds.size.width
+        let frameHeight = mainBody.bounds.size.height + tipHeight
+        let frameOriginX = rect.origin.x + (rect.size.width/2.0) - (frameWidth/2.0)
+        let frameOriginY = rect.origin.y - frameHeight
+        frame = CGRectMake(frameOriginX, frameOriginY, frameWidth, frameHeight)
         
         if animated {
             alpha = 0
@@ -151,3 +184,4 @@ class customCalloutVC: UIView, MGLCalloutView {
         CGContextFillPath(currentContext)
     }
 }
+

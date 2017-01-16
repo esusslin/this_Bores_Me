@@ -181,9 +181,7 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 if placemarks!.count > 0 {
                     let pm = placemarks![0] as! CLPlacemark
                     
-                    print(pm.locality)
-                    print(pm.administrativeArea)
-                    print(pm.country)
+                    
                     
                     
                     

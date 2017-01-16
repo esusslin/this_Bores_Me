@@ -128,10 +128,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="wHC-mZ-3g3" customClass="newsCell" customModule="this_bores_me" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wHC-mZ-3g3" id="fzk-kG-jap">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar_placeholder" id="yUA-6y-nwY">
@@ -192,10 +192,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="80" id="DHG-Gx-uZa" customClass="followersCell" customModule="this_bores_me" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="320" height="80"/>
+                                <rect key="frame" x="0.0" y="28" width="320" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DHG-Gx-uZa" id="ly3-td-LMg">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="79.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar_placeholder" id="oU3-48-Rhk">
@@ -584,6 +584,11 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="nrA-tu-txb">
+                        <barButtonItem key="leftBarButtonItem" title="Test" id="rHb-Cg-T1c">
+                            <connections>
+                                <segue destination="XdB-1C-8Lm" kind="modal" id="cdc-Km-hlR"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="stop" id="dQY-er-7w5">
                             <connections>
                                 <action selector="logout:" destination="JSG-OS-hsg" id="jYN-Td-Ykz"/>
@@ -649,7 +654,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jr5-DP-zOM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5773" y="1084"/>
+            <point key="canvasLocation" x="5791" y="1089"/>
+        </scene>
+        <!--TestVC-->
+        <scene sceneID="m81-ay-5cS">
+            <objects>
+                <viewController id="8VV-Wt-15j" customClass="testVC" customModule="this_bores_me" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="UPd-Ej-I83" customClass="MGLMapView">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="yNb-ct-R80"/>
+                    <connections>
+                        <outlet property="mapView" destination="UPd-Ej-I83" id="iJW-ef-zxg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5cv-F1-1W2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6766" y="1089"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="0vn-Pa-GNt">
@@ -1475,6 +1498,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r8b-iw-3Xa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2422" y="2337"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="eeO-Qp-yfn">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XdB-1C-8Lm" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="csk-cT-c7v">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="8VV-Wt-15j" kind="relationship" relationship="rootViewController" id="qqh-EY-YAB"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aJw-5m-qKW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6234" y="1089"/>
         </scene>
     </scenes>
     <resources>
