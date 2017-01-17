@@ -1,121 +1,69 @@
 //
-//  mapSearchVC.swift
+//  testVC.swift
 //  this_bores_me
 //
-//  Created by Emmet Susslin on 1/12/17.
+//  Created by Emmet Susslin on 1/16/17.
 //  Copyright © 2017 Emmet Susslin. All rights reserved.
 //
 
-import UIKit
 import Mapbox
 import Parse
 import CoreLocation
 
-class mapSearchVC: UIViewController, MGLMapViewDelegate {
+class testVC: UIViewController, MGLMapViewDelegate {
     
-    var usernameArray = [String]()
-    var avaArray = [PFFile]()
-    var dateArray = [NSDate?]()
-    var picArray = [PFFile]()
-    var titleArray = [String]()
-    var uuidArray = [String]()
+        var usernameArray = [String]()
+        var avaArray = [PFFile]()
+        var dateArray = [NSDate?]()
+        var picArray = [PFFile]()
+        var titleArray = [String]()
+        var uuidArray = [String]()
     
-    var followArray = [String]()
+        var annotations = [picAnnotation]()
     
-    var annotations: [picAnnotation] = []
-    
+        var followArray = [String]()
     
     @IBOutlet var mapView: MGLMapView!
     
-    let locationManager = CLLocationManager()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let currentLocation = locationManager.location
-        
-        mapView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        mapView.tintColor = UIColor.darkGrayColor()
-        
-        mapView.setCenterCoordinate(CLLocationCoordinate2D(latitude: (currentLocation!.coordinate.latitude), longitude: (currentLocation!.coordinate.longitude)), zoomLevel: 13, animated: false)
+        loadPosts()
+
         
         // Set the map view‘s delegate property
         mapView.delegate = self
         
+        // Initialize and add the marker annotation
+//        let marker = picAnnotation()
+//        marker.coordinate = CLLocationCoordinate2D(latitude: 0, longitude: 0)
+//        marker.image = UIImage(named: "bored1")
+//        marker.title = "Hello world!"
+//        
+//        annotations.append(marker)
         
+        
+//        self.mapView.addAnnotations(self.annotations)
+        
+//        addPins()
        
-        //title at the top
-        self.navigationItem.title = "Bored Map"
-        
-        
-        self.navigationItem.hidesBackButton = true
-        let backBtn = UIBarButtonItem(title: "back", style: .Plain, target: self, action: #selector(mapSearchVC.back(_:)))
-        self.navigationItem.leftBarButtonItem = backBtn
-        
-        loadPosts()
-
-        // Do any additional setup after loading the view.
+//        mapView.addAnnotation(marker)
     }
     
-
-    func mapView(mapView: MGLMapView, imageForAnnotation annotation: MGLAnnotation) -> MGLAnnotationImage? {
-        // Try to reuse the existing ‘pisa’ annotation image, if it exists.
-        var annotationImage = mapView.dequeueReusableAnnotationImageWithIdentifier("bored")
+    func addPins() {
         
-        if annotationImage == nil {
-            
-            var image = UIImage(named: "healthy")!
-            
-            
-            image = image.imageWithAlignmentRectInsets(UIEdgeInsetsMake(0, 0, image.size.height/2, 0))
-            
-            
-          annotationImage = MGLAnnotationImage(image: image, reuseIdentifier: "pisa")
-        }
+//        print(annotations[0].image)
+//        print(annotations[1].image)
+    
+        mapView.addAnnotations(annotations)
         
-        return annotationImage
     }
-    
-
-
-    
-    
-    
-    func mapView(mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
-        // Always allow callouts to popup when annotations are tapped
-        return true
-    }
-    
-
-    
-    func mapView(mapView: MGLMapView, calloutViewForAnnotation annotation: MGLAnnotation) -> UIView? {
-        
-        
-       return testCalloutView(representedObject: annotation as! picAnnotation)
-
-        }
-    
-    func mapView(mapView: MGLMapView, tapOnCalloutForAnnotation annotation: MGLAnnotation) {
-        // Optionally handle taps on the callout
-        print("Tapped the callout for: \(annotation.title)")
-        var uuid = (annotation.title!)! as String!
-        print(uuid)
-        
-        
-        postuuid.append(uuid!)
-        //
-        //          navigate to post view controller
-        let post = self.storyboard?.instantiateViewControllerWithIdentifier("postVC") as! postVC
-        self.navigationController?.pushViewController(post, animated: true)
-        
-        // Hide the callout
-        mapView.deselectAnnotation(annotation, animated: true)
-    }
-    
-
     
     // load posts
     func loadPosts() {
+        
+        print("hello?")
         
         // STEP 1. Find posts realted to people who we are following
         let followQuery = PFQuery(className: "follow")
@@ -161,28 +109,28 @@ class mapSearchVC: UIViewController, MGLMapViewDelegate {
                             self.uuidArray.append(object.objectForKey("uuid") as! String)
                             
                             
+                            
+                            
                             let location = object.objectForKey("coordinate")
                             
                             let latitude = location?.latitude!
                             let longitude = location?.longitude!
                             
-                            let uuid = object.objectForKey("uuid") as! String
                             
                             let picLocation = CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!)
                             
                             let pfPic = object.objectForKey("pic") as! PFFile
                             
+                            let mark = picAnnotation()
+                            mark.coordinate = picLocation
+                            mark.title = "Hello world!"
                             
-                            let marker = picAnnotation()
-                            marker.coordinate = picLocation
-                            marker.uuid = uuid
-                            marker.title = uuid
                             if let pfPic = object.objectForKey("pic") as? PFFile {
                                 pfPic.getDataInBackgroundWithBlock {
                                     (data: NSData?, error: NSError?) -> Void in
                                     
                                     if error == nil {
-                                        marker.image = UIImage(data: data!)
+                                        mark.image = UIImage(data: data!)
                                         
                                     }else{
                                         print("Error: \(error)")
@@ -190,11 +138,14 @@ class mapSearchVC: UIViewController, MGLMapViewDelegate {
                                 }
                             }
                             
+                            print(mark.image?.size)
                             
+                            self.annotations.append(mark)
                             
-                            self.annotations.append(marker)
+                            self.addPins()
                             
-                            self.mapView.addAnnotations(self.annotations)
+//                            self.mapView.addAnnotations(self.annotations)
+                            
                             
                         }
                         
@@ -210,14 +161,56 @@ class mapSearchVC: UIViewController, MGLMapViewDelegate {
         })
         
     }
-
     
     
-    // go back function
-    func back(sender: UIBarButtonItem) {
-        
-        self.dismissViewControllerAnimated(true, completion: nil)
+    func mapView(mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
+        // Always allow callouts to popup when annotations are tapped
+        return true
     }
     
-}
+    func mapView(mapView: MGLMapView, calloutViewForAnnotation annotation: MGLAnnotation) -> UIView? {
+        
 
+            return testCalloutView(representedObject: annotation as! picAnnotation)
+
+    }
+    
+//    func mapView(_ mapView: MGLMapView, tapOnCalloutFor annotation: MGLAnnotation) {
+//        // Optionally handle taps on the callout
+//        print("Tapped the callout for: \(annotation)")
+//        
+//        // Hide the callout
+//        mapView.deselectAnnotation(annotation, animated: true)
+//    }
+//    
+    
+        func mapView(mapView: MGLMapView, annotation: MGLAnnotation, calloutAccessoryControlTapped control: UIControl) {
+            // Hide the callout view.
+            mapView.deselectAnnotation(annotation, animated: false)
+    
+//            let index = (self.annotations as NSArray).indexOfObject(annotation)
+    
+            
+    
+    //        print(annotations[index].toolId)
+    //
+    //
+    //
+    //        self.navigationController!.pushViewController(vc, animated: true)
+    
+        }
+    
+        func mapView(mapView: MGLMapView, tapOnCalloutForAnnotation annotation: MGLAnnotation) {
+            // Optionally handle taps on the callout
+            print("Tapped the callout for: \(annotation)")
+    
+           
+    
+            // Hide the callout
+            mapView.deselectAnnotation(annotation, animated: true)
+        }
+    
+    
+
+
+}

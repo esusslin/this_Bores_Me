@@ -107,6 +107,7 @@ class feedVC: UITableViewController {
                             self.avaArray.append(object.objectForKey("ava") as! PFFile)
                             self.dateArray.append(object.createdAt)
                             self.picArray.append(object.objectForKey("pic") as! PFFile)
+                            
                             self.titleArray.append(object.objectForKey("title") as! String)
                             self.uuidArray.append(object.objectForKey("uuid") as! String)
                         }
@@ -184,6 +185,9 @@ class feedVC: UITableViewController {
                                 self.avaArray.append(object.objectForKey("ava") as! PFFile)
                                 self.dateArray.append(object.createdAt)
                                 self.picArray.append(object.objectForKey("pic") as! PFFile)
+                                
+                            
+                                    
                                 self.titleArray.append(object.objectForKey("title") as! String)
                                 self.uuidArray.append(object.objectForKey("uuid") as! String)
                             }

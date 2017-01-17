@@ -1,81 +1,40 @@
 //
-//  guestVC.swift
+//  guestMapVC.swift
 //  this_bores_me
 //
-//  Created by Emmet Susslin on 1/5/17.
+//  Created by Emmet Susslin on 1/16/17.
 //  Copyright © 2017 Emmet Susslin. All rights reserved.
 //
 
 import UIKit
+import Mapbox
 import Parse
+import CoreLocation
 
-var guestname = [String]()
 
-class guestVC: UICollectionViewController {
+private let reuseIdentifier = "Cell"
+
+class guestMapVC: UICollectionViewController {
     
-    var refresher : UIRefreshControl!
-    var page : Int = 12
+//    self.collectionView?.backgroundColor = UIColor.whiteColor()
+    
+    var latitude = Double?()
+    var longitude = Double?()
     
     var uuidArray = [String]()
     var picArray = [PFFile]()
     
+    var annotations: [picAnnotation] = []
+
     override func viewDidLoad() {
-        
-        
         super.viewDidLoad()
         
-        self.collectionView?.backgroundColor = UIColor.whiteColor()
-        
-        // allow vertical scroll
-        self.collectionView!.alwaysBounceVertical = true
-        
-        //background color
-        self.collectionView?.backgroundColor = UIColor.whiteColor()
-        
-        // top title
-        self.navigationItem.title = guestname.last?.uppercaseString
-        
-        // new back button
-        // new back button
-        self.navigationItem.hidesBackButton = true
-        let backBtn = UIBarButtonItem(image: UIImage(named: "back.png"), style: .Plain, target: self, action: #selector(guestVC.back(_:)))
-        self.navigationItem.leftBarButtonItem = backBtn
-        
-        self.navigationItem.hidesBackButton = true
-        let mapBtn = UIBarButtonItem(image: UIImage(named: "map.png"), style: .Plain, target: self, action: #selector(guestVC.map(_:)))
-        self.navigationItem.rightBarButtonItem = mapBtn
-        
-        //swipe to go back
-        let backSwipe = UISwipeGestureRecognizer(target: self, action: "back:")
-        backSwipe.direction = UISwipeGestureRecognizerDirection.Right
-        self.view.addGestureRecognizer(backSwipe)
-        
-        //pull to refresh
-        refresher = UIRefreshControl()
-        refresher.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
-        collectionView?.addSubview(refresher)
-        
-        // call load posts
         loadPosts()
-        
-    }
-    
-    // back function
-    func back(sender : UIBarButtonItem) {
-        
-        //push back
-        self.navigationController?.popViewControllerAnimated(true)
-        
-        //clean guest username or deduct the last guest username from guestname =Array
-        
-        if !guestname.isEmpty {
-            guestname.removeLast()
-        }
-    }
-    
-    func refresh() {
-        collectionView?.reloadData()
-        refresher.endRefreshing()
+
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Do any additional setup after loading the view.
     }
     
     func loadPosts() {
@@ -86,24 +45,61 @@ class guestVC: UICollectionViewController {
         //load posts
         let query = PFQuery(className: "posts")
         query.whereKey("username", equalTo: guestname.last!)
-        query.limit = page
+        query.limit = 25
         
         query.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) in
             
             if error == nil {
-                
-                //clean up
-                self.uuidArray.removeAll(keepCapacity: false)
-                self.picArray.removeAll(keepCapacity: false)
+
                 
                 //find related objects
                 for object in objects! {
                     
+                    let location = object.objectForKey("coordinate")
                     
-                    //hold pulled information in arrays
+                    print(location)
                     
-                    self.uuidArray.append(object.valueForKey("uuid") as! String)
-                    self.picArray.append(object.valueForKey("pic") as! PFFile)
+                    self.latitude = location?.latitude!
+                    self.longitude = location?.longitude!
+                    
+                    print(self.longitude)
+                    print(self.latitude)
+                    
+                    let uuid = object.objectForKey("uuid") as! String
+                    
+                    let picLocation = CLLocationCoordinate2D(latitude: self.latitude!, longitude: self.longitude!)
+                    
+                    let pfPic = object.objectForKey("pic") as! PFFile
+                    
+                    
+                    let marker = picAnnotation()
+                    marker.coordinate = picLocation
+                    marker.uuid = uuid
+                    marker.title = uuid
+                    if let pfPic = object.objectForKey("pic") as? PFFile {
+                        pfPic.getDataInBackgroundWithBlock {
+                            (data: NSData?, error: NSError?) -> Void in
+                            
+                            if error == nil {
+                                marker.image = UIImage(data: data!)
+                                
+                            }else{
+                                print("Error: \(error)")
+                            }
+                        }
+                    }
+                    
+                    
+                    self.annotations.append(marker)
+                    
+//                    self.mapView.addAnnotations(self.annotations)
+//                    
+//                    self.centerMap()
+                  
+//                    //hold pulled information in arrays
+//                    
+//                    self.uuidArray.append(object.valueForKey("uuid") as! String)
+//                    self.picArray.append(object.valueForKey("pic") as! PFFile)
                 }
                 
                 self.collectionView?.reloadData()
@@ -112,58 +108,21 @@ class guestVC: UICollectionViewController {
             }
         })
     }
-    
-    
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
-        
-        if scrollView.contentOffset.y >= scrollView.contentSize.height - self.view.frame.size.height {
-            self.loadMore()
-        }
+
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
-    
-    func loadMore() {
-        
-        if page <= picArray.count {
-            
-            //increase page size
-            page = page + 12
-            
-            //load more posts
-            let query = PFQuery(className: "posts")
-            query.whereKey("username", equalTo: guestname.last!)
-            query.limit = page
-            query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) in
-                if error == nil {
-                    
-                    //clean up
-                    self.uuidArray.removeAll(keepCapacity: false)
-                    self.picArray.removeAll(keepCapacity: false)
-                    
-                    // find related objects
-                    for object in objects! {
-                        self.uuidArray.append(object.valueForKey("uuid") as! String)
-                        self.picArray.append(object.valueForKey("pic") as! PFFile)
-                    }
-                    
-                    print("loaded +\(self.page)")
-                    self.collectionView?.reloadData()
-                } else {
-                    print(error?.localizedDescription)
-                }
-            })
-        }
-    }
-    
-    
-    
+
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return picArray.count
+        return 1
     }
     
     //cell size
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         
-        let size = CGSize(width: self.view.frame.size.width / 3, height: self.view.frame.size.width / 3)
+        let size = CGSize(width: self.view.frame.size.width, height: self.view.frame.size.width)
         return size
         
     }
@@ -171,19 +130,12 @@ class guestVC: UICollectionViewController {
     //cell config
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
+//        self.registerClass(guestMapCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        
         //define cell
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! pictureCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! guestMapCell
         
-        // connect data from array to picIMg object from pictureCell class
-        
-        picArray[indexPath.row].getDataInBackgroundWithBlock ({ (data:NSData?, error:NSError?) in
-            
-            if error == nil {
-                cell.picImg.image = UIImage(data: data!)
-            } else {
-                print(error!.localizedDescription)
-            }
-        })
+        cell.mapView.addAnnotations(annotations)
         
         return cell
     }
@@ -341,23 +293,16 @@ class guestVC: UICollectionViewController {
         self.navigationController?.pushViewController(post, animated: true)
     }
     
-
+    
     
     // go back function
     func map(sender: UIBarButtonItem) {
         
-        print("boner")
-        
         // go post
-//        let guestMap = self.storyboard?.instantiateViewControllerWithIdentifier("guestMapVC") as! guestMapVC
-//        self.navigationController?.pushViewController(guestMap, animated: true)
+        let guestMap = self.storyboard?.instantiateViewControllerWithIdentifier("guestMapVC") as! guestMapVC
+        self.navigationController?.pushViewController(guestMap, animated: true)
         
-        let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestMapVC") as! guestMapVC
-        
-        self.navigationController?.pushViewController(guest, animated: true)
         
     }
-    
-    
-    
+
 }

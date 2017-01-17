@@ -39,6 +39,11 @@ class hashtagsVC: UICollectionViewController {
         let backBtn = UIBarButtonItem(image: UIImage(named: "back.png"), style: .Plain, target: self, action: #selector(hashtagsVC.back(_:)))
         self.navigationItem.leftBarButtonItem = backBtn
         
+//        // new back button
+//        self.navigationItem.hidesBackButton = true
+//        let mapBtn = UIBarButtonItem(image: UIImage(named: "map.png"), style: .Plain, target: self, action: #selector(hashtagsVC.map(_:)))
+//        self.navigationItem.rightBarButtonItem = mapBtn
+        
         // swipe to go back
         let backSwipe = UISwipeGestureRecognizer(target: self, action: #selector(hashtagsVC.back(_:)))
         backSwipe.direction = UISwipeGestureRecognizerDirection.Right

@@ -1,22 +1,24 @@
 //
-//  customCalloutVC.swift
+//  testCalloutView.swift
 //  this_bores_me
 //
-//  Created by Emmet Susslin on 1/13/17.
+//  Created by Emmet Susslin on 1/16/17./Users/emmetsusslin/Desktop/this_Bores_Me/this_bores_me/this_bores_me/testVC.swift
 //  Copyright © 2017 Emmet Susslin. All rights reserved.
 //
 
 import Mapbox
 
-class customCalloutVC: UIView, MGLCalloutView {
+class testCalloutView: UIView, MGLCalloutView {
     
     var representedObject: MGLAnnotation
     
-    lazy var leftAccessoryView = UIView()/* unused */
+    var image: UIImage?
+    var uuid: String?
+    
+    lazy var leftAccessoryView = UIView()
     
     lazy var rightAccessoryView = UIView()/* unused */
     
-    var image: UIImage?
     
     weak var delegate: MGLCalloutViewDelegate?
     
@@ -27,18 +29,19 @@ class customCalloutVC: UIView, MGLCalloutView {
     
     
     
+    
+    
     required init(representedObject: picAnnotation) {
-        
-        
         self.representedObject = representedObject
         self.mainBody = UIButton(type: .Custom)
         
         self.image = representedObject.image!
+        self.uuid = representedObject.uuid!
+        
         print(self.image?.size.height)
         
+
         super.init(frame: CGRectZero)
-        
-//        self.drawRect(CGRect(x: 0, y: 0, width: 400, height: 400))
         
         backgroundColor = UIColor.clearColor()
         
@@ -46,6 +49,7 @@ class customCalloutVC: UIView, MGLCalloutView {
         mainBody.tintColor = UIColor.whiteColor()
         mainBody.contentEdgeInsets = UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0)
         mainBody.layer.cornerRadius = 4.0
+        
         
         addSubview(mainBody)
     }
@@ -60,18 +64,17 @@ class customCalloutVC: UIView, MGLCalloutView {
         
         view.addSubview(self)
         
-       
-        
         mainBody.setImage(self.image!, forState: .Normal)
 
         
-        mainBody.frame.size.height = self.image!.size.height / 2
-        mainBody.frame.size.width = self.image!.size.width / 2
+        mainBody.frame.size.height = self.image!.size.height / 4
+        mainBody.frame.size.width = self.image!.size.width / 4
+
         
-          
         if isCalloutTappable() {
             // Handle taps and eventually try to send them to the delegate (usually the map view)
-            mainBody.addTarget(self, action: #selector(customCalloutVC.calloutTapped), forControlEvents: .TouchUpInside)
+            mainBody.addTarget(self, action: #selector(testCalloutView.calloutTapped), forControlEvents: .TouchUpInside)
+            
         } else {
             // Disable tapping and highlighting
             mainBody.userInteractionEnabled = false
@@ -151,3 +154,4 @@ class customCalloutVC: UIView, MGLCalloutView {
         CGContextFillPath(currentContext)
     }
 }
+
