@@ -62,6 +62,10 @@
 		E2F1255B1DFFD0D400E12C72 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2F1255A1DFFD0D400E12C72 /* Parse.framework */; };
 		E2F1255D1DFFD0D800E12C72 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2F1255C1DFFD0D800E12C72 /* ParseFacebookUtils.framework */; };
 		E2F1255F1DFFD0DE00E12C72 /* ParseFacebookUtilsV4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2F1255E1DFFD0DE00E12C72 /* ParseFacebookUtilsV4.framework */; };
+		E2F2D3431E2DD02C009D336F /* hashMapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F2D3421E2DD02C009D336F /* hashMapVC.swift */; };
+		E2F2D3451E2DD44F009D336F /* postMapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F2D3441E2DD44F009D336F /* postMapVC.swift */; };
+		E2F2D3471E2DFF95009D336F /* guestMapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F2D3461E2DFF95009D336F /* guestMapVC.swift */; };
+		E2F2D3491E2DFFBC009D336F /* guestMapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F2D3481E2DFFBC009D336F /* guestMapCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -159,6 +163,10 @@
 		E2F1255A1DFFD0D400E12C72 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		E2F1255C1DFFD0D800E12C72 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
 		E2F1255E1DFFD0DE00E12C72 /* ParseFacebookUtilsV4.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtilsV4.framework; sourceTree = "<group>"; };
+		E2F2D3421E2DD02C009D336F /* hashMapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = hashMapVC.swift; sourceTree = "<group>"; };
+		E2F2D3441E2DD44F009D336F /* postMapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = postMapVC.swift; sourceTree = "<group>"; };
+		E2F2D3461E2DFF95009D336F /* guestMapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = guestMapVC.swift; sourceTree = "<group>"; };
+		E2F2D3481E2DFFBC009D336F /* guestMapCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = guestMapCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -273,7 +281,6 @@
 				E23044831E1B0CDE00E5C908 /* searchTableVC.swift */,
 				E23044861E1F07F500E5C908 /* followersVC.swift */,
 				E23044881E1F085000E5C908 /* followersCell.swift */,
-				E230448A1E1F097D00E5C908 /* guestVC.swift */,
 				E230448E1E1F1A0A00E5C908 /* commentVC.swift */,
 				E23044901E1F1B8600E5C908 /* commentCell.swift */,
 				E23044941E1F42E600E5C908 /* hashtagsVC.swift */,
@@ -290,6 +297,11 @@
 				E22EB1721E2D5EE100314DC2 /* testVC.swift */,
 				E22EB1781E2D635400314DC2 /* customCalloutVC.swift */,
 				E22EB1761E2D622500314DC2 /* testCalloutView.swift */,
+				E2F2D3421E2DD02C009D336F /* hashMapVC.swift */,
+				E2F2D3441E2DD44F009D336F /* postMapVC.swift */,
+				E230448A1E1F097D00E5C908 /* guestVC.swift */,
+				E2F2D3461E2DFF95009D336F /* guestMapVC.swift */,
+				E2F2D3481E2DFFBC009D336F /* guestMapCell.swift */,
 			);
 			path = this_bores_me;
 			sourceTree = "<group>";
@@ -476,6 +488,7 @@
 				E255D1FC1E0BD10F003ED589 /* uploadVC.swift in Sources */,
 				E25A8D6E1E132C64008A1769 /* tabbarVC.swift in Sources */,
 				E230448D1E1F11D400E5C908 /* postVC.swift in Sources */,
+				E2F2D3451E2DD44F009D336F /* postMapVC.swift in Sources */,
 				E255D1FA1E0BC8CD003ED589 /* pictureCell.swift in Sources */,
 				E21124041E220D2800BC98CB /* newsCell.swift in Sources */,
 				E23044871E1F07F500E5C908 /* followersVC.swift in Sources */,
@@ -483,16 +496,19 @@
 				E21123E31E21A34D00BC98CB /* editVC.swift in Sources */,
 				E23044931E1F20FC00E5C908 /* feedVC.swift in Sources */,
 				E23044891E1F085000E5C908 /* followersCell.swift in Sources */,
+				E2F2D3491E2DFFBC009D336F /* guestMapCell.swift in Sources */,
 				E255D1F81E0BC226003ED589 /* headerVC.swift in Sources */,
 				E20E7DFD1DFE253500AF2275 /* imageSynch.swift in Sources */,
 				E23044851E1B23C800E5C908 /* locationVC.swift in Sources */,
 				E22EB1771E2D622500314DC2 /* testCalloutView.swift in Sources */,
+				E2F2D3471E2DFF95009D336F /* guestMapVC.swift in Sources */,
 				E22EB1791E2D635400314DC2 /* customCalloutVC.swift in Sources */,
 				E21124021E220D1800BC98CB /* newsVC.swift in Sources */,
 				E230448F1E1F1A0A00E5C908 /* commentVC.swift in Sources */,
 				E22EB1711E29DD0E00314DC2 /* picAnnotation.swift in Sources */,
 				E22EB1731E2D5EE100314DC2 /* testVC.swift in Sources */,
 				E23044951E1F42E600E5C908 /* hashtagsVC.swift in Sources */,
+				E2F2D3431E2DD02C009D336F /* hashMapVC.swift in Sources */,
 				E25A8D6C1E130FAC008A1769 /* navVC.swift in Sources */,
 				E20E7DFF1DFE26FB00AF2275 /* usernameVC.swift in Sources */,
 			);

@@ -392,6 +392,9 @@ class postVC: UITableViewController {
     // go back function
     func map(sender: UIBarButtonItem) {
         
+        let post = self.storyboard?.instantiateViewControllerWithIdentifier("postMapVC") as! postMapVC
+        self.navigationController?.pushViewController(post, animated: true)
+        
         print("lol")
         // push back
 //        self.navigationController?.popViewControllerAnimated(true)

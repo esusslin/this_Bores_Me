@@ -1,8 +1,8 @@
 //
-//  mapSearchVC.swift
+//  mapVC.swift
 //  this_bores_me
 //
-//  Created by Emmet Susslin on 1/12/17.
+//  Created by Emmet Susslin on 1/16/17.
 //  Copyright © 2017 Emmet Susslin. All rights reserved.
 //
 
@@ -11,53 +11,57 @@ import Mapbox
 import Parse
 import CoreLocation
 
-class mapSearchVC: UIViewController, MGLMapViewDelegate {
+class hashMapVC: UIViewController, MGLMapViewDelegate {
     
-    var usernameArray = [String]()
-    var avaArray = [PFFile]()
-    var dateArray = [NSDate?]()
+     var annotations: [picAnnotation] = []
+    
+    var latitude = Double?()
+    var longitude = Double?()
+    
+    var page : Int = 100
+    
+    // arrays to hold data from server
     var picArray = [PFFile]()
-    var titleArray = [String]()
     var uuidArray = [String]()
-    
-    var followArray = [String]()
-    
-    var annotations: [picAnnotation] = []
+    var filterArray = [String]()
     
     
     @IBOutlet var mapView: MGLMapView!
-    
-    let locationManager = CLLocationManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let currentLocation = locationManager.location
-        
-        mapView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        mapView.tintColor = UIColor.darkGrayColor()
-        
-        mapView.setCenterCoordinate(CLLocationCoordinate2D(latitude: (currentLocation!.coordinate.latitude), longitude: (currentLocation!.coordinate.longitude)), zoomLevel: 13, animated: false)
-        
-        // Set the map view‘s delegate property
+
         mapView.delegate = self
-        
-        
-       
-        //title at the top
-        self.navigationItem.title = "Bored Map"
-        
-        
+
         self.navigationItem.hidesBackButton = true
-        let backBtn = UIBarButtonItem(title: "back", style: .Plain, target: self, action: #selector(mapSearchVC.back(_:)))
-        self.navigationItem.leftBarButtonItem = backBtn
+        let mapBtn = UIBarButtonItem(title: "back", style: .Plain, target: self, action: #selector(hashMapVC.back(_:)))
+        self.navigationItem.leftBarButtonItem = mapBtn
         
-        loadPosts()
+        loadHashtags()
 
         // Do any additional setup after loading the view.
     }
-    
 
+    func centerMap() {
+        
+            print("loller")
+        
+        
+//        
+//        self.mapView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+//        //        self.mapView.tintColor = UIColor.darkGrayColor()
+//        
+//        self.mapView.setCenterCoordinate(CLLocationCoordinate2D(latitude: 37.7879224062377, longitude: -122.407503426075), zoomLevel: 10, animated: true)
+        
+        self.mapView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        self.mapView.setCenterCoordinate(CLLocationCoordinate2D(latitude: 39.050781, longitude: -94.482266), zoomLevel: 2, animated: true)
+        
+        //        self.mapView.selectAnnotation(mapView.annotations![0], animated: true)
+        
+        
+    }
+    
     func mapView(mapView: MGLMapView, imageForAnnotation annotation: MGLAnnotation) -> MGLAnnotationImage? {
         // Try to reuse the existing ‘pisa’ annotation image, if it exists.
         var annotationImage = mapView.dequeueReusableAnnotationImageWithIdentifier("bored")
@@ -70,15 +74,11 @@ class mapSearchVC: UIViewController, MGLMapViewDelegate {
             image = image.imageWithAlignmentRectInsets(UIEdgeInsetsMake(0, 0, image.size.height/2, 0))
             
             
-          annotationImage = MGLAnnotationImage(image: image, reuseIdentifier: "pisa")
+            annotationImage = MGLAnnotationImage(image: image, reuseIdentifier: "pisa")
         }
         
         return annotationImage
     }
-    
-
-
-    
     
     
     func mapView(mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
@@ -86,14 +86,14 @@ class mapSearchVC: UIViewController, MGLMapViewDelegate {
         return true
     }
     
-
+    
     
     func mapView(mapView: MGLMapView, calloutViewForAnnotation annotation: MGLAnnotation) -> UIView? {
         
         
-       return testCalloutView(representedObject: annotation as! picAnnotation)
-
-        }
+        return testCalloutView(representedObject: annotation as! picAnnotation)
+        
+    }
     
     func mapView(mapView: MGLMapView, tapOnCalloutForAnnotation annotation: MGLAnnotation) {
         // Optionally handle taps on the callout
@@ -112,63 +112,50 @@ class mapSearchVC: UIViewController, MGLMapViewDelegate {
         mapView.deselectAnnotation(annotation, animated: true)
     }
     
-
-    
-    // load posts
-    func loadPosts() {
+    // load hashtags function
+    func loadHashtags() {
         
-        // STEP 1. Find posts realted to people who we are following
-        let followQuery = PFQuery(className: "follow")
-        followQuery.whereKey("follower", equalTo: PFUser.currentUser()!.username!)
-        followQuery.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) -> Void in
+        // STEP 1. Find poss related to hashtags
+        let hashtagQuery = PFQuery(className: "hashtags")
+        hashtagQuery.whereKey("hashtag", equalTo: hashtag.last!)
+        hashtagQuery.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) -> Void in
             if error == nil {
                 
                 // clean up
-                self.followArray.removeAll(keepCapacity: false)
+                self.filterArray.removeAll(keepCapacity: false)
                 
-                // find related objects
+                // store related posts in filterArray
                 for object in objects! {
-                    self.followArray.append(object.objectForKey("followed") as! String)
-                    
+                    self.filterArray.append(object.valueForKey("to") as! String)
                 }
                 
-                // append current user to see own posts in feed
-                self.followArray.append(PFUser.currentUser()!.username!)
-                
-                // STEP 2. Find posts made by people appended to followArray
+                //STEP 2. Find posts that have uuid appended to filterArray
                 let query = PFQuery(className: "posts")
-                query.whereKey("username", containedIn: self.followArray)
-                query.limit = 10
+                query.whereKey("uuid", containedIn: self.filterArray)
+                query.limit = self.page
                 query.addDescendingOrder("createdAt")
                 query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
                     if error == nil {
                         
                         // clean up
-                        self.usernameArray.removeAll(keepCapacity: false)
-                        self.avaArray.removeAll(keepCapacity: false)
-                        self.dateArray.removeAll(keepCapacity: false)
                         self.picArray.removeAll(keepCapacity: false)
-                        self.titleArray.removeAll(keepCapacity: false)
                         self.uuidArray.removeAll(keepCapacity: false)
                         
                         // find related objects
                         for object in objects! {
-                            self.usernameArray.append(object.objectForKey("username") as! String)
-                            self.avaArray.append(object.objectForKey("ava") as! PFFile)
-                            self.dateArray.append(object.createdAt)
-                            self.picArray.append(object.objectForKey("pic") as! PFFile)
-                            self.titleArray.append(object.objectForKey("title") as! String)
-                            self.uuidArray.append(object.objectForKey("uuid") as! String)
-                            
-                            
                             let location = object.objectForKey("coordinate")
                             
-                            let latitude = location?.latitude!
-                            let longitude = location?.longitude!
+                            print(location)
+                            
+                            self.latitude = location?.latitude!
+                            self.longitude = location?.longitude!
+                            
+                            print(self.longitude)
+                            print(self.latitude)
                             
                             let uuid = object.objectForKey("uuid") as! String
                             
-                            let picLocation = CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!)
+                            let picLocation = CLLocationCoordinate2D(latitude: self.latitude!, longitude: self.longitude!)
                             
                             let pfPic = object.objectForKey("pic") as! PFFile
                             
@@ -190,34 +177,38 @@ class mapSearchVC: UIViewController, MGLMapViewDelegate {
                                 }
                             }
                             
+                            print(marker)
+                            
                             
                             
                             self.annotations.append(marker)
                             
                             self.mapView.addAnnotations(self.annotations)
                             
+                            self.centerMap()
                         }
                         
-                        
+                        // reload
+                        self.centerMap()
                         
                     } else {
-                        print(error!.localizedDescription)
+                        print(error?.localizedDescription)
                     }
                 })
             } else {
-                print(error!.localizedDescription)
+                print(error?.localizedDescription)
             }
         })
         
     }
 
+
     
-    
+
     // go back function
     func back(sender: UIBarButtonItem) {
         
         self.dismissViewControllerAnimated(true, completion: nil)
     }
-    
-}
 
+}
