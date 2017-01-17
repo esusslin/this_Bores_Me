@@ -16,6 +16,8 @@ private let reuseIdentifier = "Cell"
 
 class guestMapVC: UICollectionViewController {
     
+//    self.collectionView?.backgroundColor = UIColor.whiteColor()
+    
     var latitude = Double?()
     var longitude = Double?()
     
@@ -48,10 +50,7 @@ class guestMapVC: UICollectionViewController {
         query.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) in
             
             if error == nil {
-                
-                //clean up
-                self.uuidArray.removeAll(keepCapacity: false)
-                self.picArray.removeAll(keepCapacity: false)
+
                 
                 //find related objects
                 for object in objects! {

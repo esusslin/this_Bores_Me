@@ -31,6 +31,8 @@ class hashMapVC: UIViewController, MGLMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.title = "#" + hashtag.last!
+        
 
         mapView.delegate = self
 
@@ -38,21 +40,109 @@ class hashMapVC: UIViewController, MGLMapViewDelegate {
         let mapBtn = UIBarButtonItem(title: "back", style: .Plain, target: self, action: #selector(hashMapVC.back(_:)))
         self.navigationItem.leftBarButtonItem = mapBtn
         
-        loadHashtags()
+//        loadHashtags()
 
         // Do any additional setup after loading the view.
     }
+    
+    @IBAction func hashTag_tapped(sender: AnyObject) {
+        loadHashtags()
+        
+    }
+    
+    
+    // load hashtags function
+    func loadHashtags() {
+        
+        // STEP 1. Find poss related to hashtags
+        let hashtagQuery = PFQuery(className: "hashtags")
+        hashtagQuery.whereKey("hashtag", equalTo: hashtag.last!)
+        hashtagQuery.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) -> Void in
+            if error == nil {
+                
+                // clean up
+                self.filterArray.removeAll(keepCapacity: false)
+                
+                // store related posts in filterArray
+                for object in objects! {
+                    self.filterArray.append(object.valueForKey("to") as! String)
+                }
+                
+                //STEP 2. Find posts that have uuid appended to filterArray
+                let query = PFQuery(className: "posts")
+                query.whereKey("uuid", containedIn: self.filterArray)
+                query.limit = self.page
+                query.addDescendingOrder("createdAt")
+                query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+                    if error == nil {
+                        
+                        // clean up
+                        self.picArray.removeAll(keepCapacity: false)
+                        self.uuidArray.removeAll(keepCapacity: false)
+                        
+                        // find related objects
+                        for object in objects! {
+                            
+                            
+                            let location = object.objectForKey("coordinate")
+                            
+                            print(location)
+                            
+                            self.latitude = location?.latitude!
+                            self.longitude = location?.longitude!
+                            
+                            print(self.longitude)
+                            print(self.latitude)
+                            
+                            let uuid = object.objectForKey("uuid") as! String
+                            
+                            let picLocation = CLLocationCoordinate2D(latitude: self.latitude!, longitude: self.longitude!)
+                            
+                            let pfPic = object.objectForKey("pic") as! PFFile
+                            
+                            
+                            let marker = picAnnotation()
+                            marker.coordinate = picLocation
+                            marker.uuid = uuid
+                            marker.title = uuid
+                            if let pfPic = object.objectForKey("pic") as? PFFile {
+                                pfPic.getDataInBackgroundWithBlock {
+                                    (data: NSData?, error: NSError?) -> Void in
+                                    
+                                    if error == nil {
+                                        marker.image = UIImage(data: data!)
+                                        
+                                    }else{
+                                        print("Error: \(error)")
+                                    }
+                                }
+                            }
+                            
+                            
+                            self.annotations.append(marker)
+                            
+                            self.centerMap()
+                            
+                            self.mapView.addAnnotations(self.annotations)
+                            
+                        }
+                        
+                    } else {
+                        print(error?.localizedDescription)
+                    }
+                })
+            } else {
+                print(error?.localizedDescription)
+            }
+        })
+        
+    }
+
 
     func centerMap() {
         
             print("loller")
-        
-        
-//        
-//        self.mapView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-//        //        self.mapView.tintColor = UIColor.darkGrayColor()
-//        
-//        self.mapView.setCenterCoordinate(CLLocationCoordinate2D(latitude: 37.7879224062377, longitude: -122.407503426075), zoomLevel: 10, animated: true)
+
         
         self.mapView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         self.mapView.setCenterCoordinate(CLLocationCoordinate2D(latitude: 39.050781, longitude: -94.482266), zoomLevel: 2, animated: true)
@@ -112,97 +202,6 @@ class hashMapVC: UIViewController, MGLMapViewDelegate {
         mapView.deselectAnnotation(annotation, animated: true)
     }
     
-    // load hashtags function
-    func loadHashtags() {
-        
-        // STEP 1. Find poss related to hashtags
-        let hashtagQuery = PFQuery(className: "hashtags")
-        hashtagQuery.whereKey("hashtag", equalTo: hashtag.last!)
-        hashtagQuery.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) -> Void in
-            if error == nil {
-                
-                // clean up
-                self.filterArray.removeAll(keepCapacity: false)
-                
-                // store related posts in filterArray
-                for object in objects! {
-                    self.filterArray.append(object.valueForKey("to") as! String)
-                }
-                
-                //STEP 2. Find posts that have uuid appended to filterArray
-                let query = PFQuery(className: "posts")
-                query.whereKey("uuid", containedIn: self.filterArray)
-                query.limit = self.page
-                query.addDescendingOrder("createdAt")
-                query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-                    if error == nil {
-                        
-                        // clean up
-                        self.picArray.removeAll(keepCapacity: false)
-                        self.uuidArray.removeAll(keepCapacity: false)
-                        
-                        // find related objects
-                        for object in objects! {
-                            let location = object.objectForKey("coordinate")
-                            
-                            print(location)
-                            
-                            self.latitude = location?.latitude!
-                            self.longitude = location?.longitude!
-                            
-                            print(self.longitude)
-                            print(self.latitude)
-                            
-                            let uuid = object.objectForKey("uuid") as! String
-                            
-                            let picLocation = CLLocationCoordinate2D(latitude: self.latitude!, longitude: self.longitude!)
-                            
-                            let pfPic = object.objectForKey("pic") as! PFFile
-                            
-                            
-                            let marker = picAnnotation()
-                            marker.coordinate = picLocation
-                            marker.uuid = uuid
-                            marker.title = uuid
-                            if let pfPic = object.objectForKey("pic") as? PFFile {
-                                pfPic.getDataInBackgroundWithBlock {
-                                    (data: NSData?, error: NSError?) -> Void in
-                                    
-                                    if error == nil {
-                                        marker.image = UIImage(data: data!)
-                                        
-                                    }else{
-                                        print("Error: \(error)")
-                                    }
-                                }
-                            }
-                            
-                            print(marker)
-                            
-                            
-                            
-                            self.annotations.append(marker)
-                            
-                            self.mapView.addAnnotations(self.annotations)
-                            
-                            self.centerMap()
-                        }
-                        
-                        // reload
-                        self.centerMap()
-                        
-                    } else {
-                        print(error?.localizedDescription)
-                    }
-                })
-            } else {
-                print(error?.localizedDescription)
-            }
-        })
-        
-    }
-
-
     
 
     // go back function
