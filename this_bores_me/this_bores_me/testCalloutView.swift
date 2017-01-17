@@ -2,21 +2,20 @@
 //  testCalloutView.swift
 //  this_bores_me
 //
-//  Created by Emmet Susslin on 1/16/17.
+//  Created by Emmet Susslin on 1/16/17./Users/emmetsusslin/Desktop/this_Bores_Me/this_bores_me/this_bores_me/testVC.swift
 //  Copyright © 2017 Emmet Susslin. All rights reserved.
 //
 
 import Mapbox
 
 class testCalloutView: UIView, MGLCalloutView {
+    
     var representedObject: MGLAnnotation
     
     var image: UIImage?
+    var uuid: String?
     
     lazy var leftAccessoryView = UIView()
-    
-
-    
     
     lazy var rightAccessoryView = UIView()/* unused */
     
@@ -37,11 +36,11 @@ class testCalloutView: UIView, MGLCalloutView {
         self.mainBody = UIButton(type: .Custom)
         
         self.image = representedObject.image!
+        self.uuid = representedObject.uuid!
         
-//        var height = self.image?.size.height
-//        var width = self.image?.size.width
-    
+        print(self.image?.size.height)
         
+
         super.init(frame: CGRectZero)
         
         backgroundColor = UIColor.clearColor()
@@ -62,49 +61,20 @@ class testCalloutView: UIView, MGLCalloutView {
     // MARK: - MGLCalloutView API
     
     func presentCalloutFromRect(rect: CGRect, inView view: UIView, constrainedToView constrainedView: UIView, animated: Bool) {
-        if !representedObject.respondsToSelector(Selector("title")) {
-            return
-        }
         
         view.addSubview(self)
         
-     
-        
-        // Prepare title label
-//        mainBody.setTitle(representedObject.title!, forState: .Normal)
-//        mainBody.sizeToFit()
-        
-        //        let leftView = UIImageView(image: annotations[index].image as UIImage!)
-        //        leftView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-        //        leftView.layer.cornerRadius = leftView.frame.size.width / 2
-        //        leftView.layer.masksToBounds = true
-        //        leftView.clipsToBounds = true
-        
-        
-//        mainBody.frame.size.height = (self.image?.size.height)! + 20
-//        mainBody.frame.size.width = (self.image?.size.width)! + 20
-//        mainBody.frame.size.width = 100
-
         mainBody.setImage(self.image!, forState: .Normal)
-        mainBody.imageView!.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-        mainBody.imageView?.sizeToFit()
-        
-        mainBody.frame.size.height = 120
-        mainBody.frame.size.width = 120
-        
 
         
-        
+        mainBody.frame.size.height = self.image!.size.height / 4
+        mainBody.frame.size.width = self.image!.size.width / 4
 
-        
-    
-        
-    
         
         if isCalloutTappable() {
             // Handle taps and eventually try to send them to the delegate (usually the map view)
             mainBody.addTarget(self, action: #selector(testCalloutView.calloutTapped), forControlEvents: .TouchUpInside)
-            print("bone zone")
+            
         } else {
             // Disable tapping and highlighting
             mainBody.userInteractionEnabled = false

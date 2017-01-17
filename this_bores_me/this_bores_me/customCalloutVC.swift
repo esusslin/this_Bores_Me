@@ -14,10 +14,9 @@ class customCalloutVC: UIView, MGLCalloutView {
     
     lazy var leftAccessoryView = UIView()/* unused */
     
-    
-    
     lazy var rightAccessoryView = UIView()/* unused */
     
+    var image: UIImage?
     
     weak var delegate: MGLCalloutViewDelegate?
     
@@ -28,25 +27,25 @@ class customCalloutVC: UIView, MGLCalloutView {
     
     
     
-    required init(representedObject: MGLAnnotation) {
+    required init(representedObject: picAnnotation) {
         
-        print("faggot")
         
         self.representedObject = representedObject
-        self.mainBody = UIButton(type: .System)
+        self.mainBody = UIButton(type: .Custom)
         
-        super.init(frame: .zero)
+        self.image = representedObject.image!
+        print(self.image?.size.height)
+        
+        super.init(frame: CGRectZero)
         
 //        self.drawRect(CGRect(x: 0, y: 0, width: 400, height: 400))
         
         backgroundColor = UIColor.clearColor()
         
-        mainBody.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
-        
         mainBody.backgroundColor = backgroundColorForCallout()
         mainBody.tintColor = UIColor.whiteColor()
-        mainBody.contentEdgeInsets = UIEdgeInsetsMake(50.0, 50.0, 50.0, 50.0)
-        mainBody.layer.cornerRadius = 8.0
+        mainBody.contentEdgeInsets = UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0)
+        mainBody.layer.cornerRadius = 4.0
         
         addSubview(mainBody)
     }
@@ -61,14 +60,15 @@ class customCalloutVC: UIView, MGLCalloutView {
         
         view.addSubview(self)
         
-        print("faggot2")
+       
         
-        // Prepare title label
-        mainBody.setTitle(representedObject.title!, forState: .Normal)
-        mainBody.sizeToFit()
+        mainBody.setImage(self.image!, forState: .Normal)
+
         
+        mainBody.frame.size.height = self.image!.size.height / 2
+        mainBody.frame.size.width = self.image!.size.width / 2
         
-        
+          
         if isCalloutTappable() {
             // Handle taps and eventually try to send them to the delegate (usually the map view)
             mainBody.addTarget(self, action: #selector(customCalloutVC.calloutTapped), forControlEvents: .TouchUpInside)
@@ -78,11 +78,11 @@ class customCalloutVC: UIView, MGLCalloutView {
         }
         
         // Prepare our frame, adding extra space at the bottom for the tip
-//        let frameWidth = mainBody.bounds.size.width
-//        let frameHeight = mainBody.bounds.size.height + tipHeight
-//        let frameOriginX = rect.origin.x + (rect.size.width/2.0) - (frameWidth/2.0)
-//        let frameOriginY = rect.origin.y - frameHeight
-//        frame = CGRectMake(frameOriginX, frameOriginY, 500, 275)//500, 275
+        let frameWidth = mainBody.bounds.size.width
+        let frameHeight = mainBody.bounds.size.height + tipHeight
+        let frameOriginX = rect.origin.x + (rect.size.width/2.0) - (frameWidth/2.0)
+        let frameOriginY = rect.origin.y - frameHeight
+        frame = CGRectMake(frameOriginX, frameOriginY, frameWidth, frameHeight)
         
         if animated {
             alpha = 0

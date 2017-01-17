@@ -14,8 +14,10 @@
 		E21124001E22058E00BC98CB /* usersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21123FF1E22058E00BC98CB /* usersVC.swift */; };
 		E21124021E220D1800BC98CB /* newsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21124011E220D1800BC98CB /* newsVC.swift */; };
 		E21124041E220D2800BC98CB /* newsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21124031E220D2800BC98CB /* newsCell.swift */; };
-		E22EB16F1E29D14100314DC2 /* customCalloutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22EB16E1E29D14100314DC2 /* customCalloutVC.swift */; };
 		E22EB1711E29DD0E00314DC2 /* picAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22EB1701E29DD0E00314DC2 /* picAnnotation.swift */; };
+		E22EB1731E2D5EE100314DC2 /* testVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22EB1721E2D5EE100314DC2 /* testVC.swift */; };
+		E22EB1771E2D622500314DC2 /* testCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22EB1761E2D622500314DC2 /* testCalloutView.swift */; };
+		E22EB1791E2D635400314DC2 /* customCalloutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22EB1781E2D635400314DC2 /* customCalloutVC.swift */; };
 		E23044841E1B0CDE00E5C908 /* searchTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23044831E1B0CDE00E5C908 /* searchTableVC.swift */; };
 		E23044851E1B23C800E5C908 /* locationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23044811E1B0BEE00E5C908 /* locationVC.swift */; };
 		E23044871E1F07F500E5C908 /* followersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23044861E1F07F500E5C908 /* followersVC.swift */; };
@@ -103,8 +105,10 @@
 		E21123FF1E22058E00BC98CB /* usersVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = usersVC.swift; sourceTree = "<group>"; };
 		E21124011E220D1800BC98CB /* newsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = newsVC.swift; sourceTree = "<group>"; };
 		E21124031E220D2800BC98CB /* newsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = newsCell.swift; sourceTree = "<group>"; };
-		E22EB16E1E29D14100314DC2 /* customCalloutVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = customCalloutVC.swift; sourceTree = "<group>"; };
 		E22EB1701E29DD0E00314DC2 /* picAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = picAnnotation.swift; sourceTree = "<group>"; };
+		E22EB1721E2D5EE100314DC2 /* testVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = testVC.swift; sourceTree = "<group>"; };
+		E22EB1761E2D622500314DC2 /* testCalloutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = testCalloutView.swift; sourceTree = "<group>"; };
+		E22EB1781E2D635400314DC2 /* customCalloutVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = customCalloutVC.swift; sourceTree = "<group>"; };
 		E23044811E1B0BEE00E5C908 /* locationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = locationVC.swift; sourceTree = "<group>"; };
 		E23044831E1B0CDE00E5C908 /* searchTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = searchTableVC.swift; sourceTree = "<group>"; };
 		E23044861E1F07F500E5C908 /* followersVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = followersVC.swift; sourceTree = "<group>"; };
@@ -283,7 +287,9 @@
 				E21124031E220D2800BC98CB /* newsCell.swift */,
 				E29CF2371E28B73A001E3AC3 /* mapSearchVC.swift */,
 				E22EB1701E29DD0E00314DC2 /* picAnnotation.swift */,
-				E22EB16E1E29D14100314DC2 /* customCalloutVC.swift */,
+				E22EB1721E2D5EE100314DC2 /* testVC.swift */,
+				E22EB1781E2D635400314DC2 /* customCalloutVC.swift */,
+				E22EB1761E2D622500314DC2 /* testCalloutView.swift */,
 			);
 			path = this_bores_me;
 			sourceTree = "<group>";
@@ -478,12 +484,14 @@
 				E23044931E1F20FC00E5C908 /* feedVC.swift in Sources */,
 				E23044891E1F085000E5C908 /* followersCell.swift in Sources */,
 				E255D1F81E0BC226003ED589 /* headerVC.swift in Sources */,
-				E22EB16F1E29D14100314DC2 /* customCalloutVC.swift in Sources */,
 				E20E7DFD1DFE253500AF2275 /* imageSynch.swift in Sources */,
 				E23044851E1B23C800E5C908 /* locationVC.swift in Sources */,
+				E22EB1771E2D622500314DC2 /* testCalloutView.swift in Sources */,
+				E22EB1791E2D635400314DC2 /* customCalloutVC.swift in Sources */,
 				E21124021E220D1800BC98CB /* newsVC.swift in Sources */,
 				E230448F1E1F1A0A00E5C908 /* commentVC.swift in Sources */,
 				E22EB1711E29DD0E00314DC2 /* picAnnotation.swift in Sources */,
+				E22EB1731E2D5EE100314DC2 /* testVC.swift in Sources */,
 				E23044951E1F42E600E5C908 /* hashtagsVC.swift in Sources */,
 				E25A8D6C1E130FAC008A1769 /* navVC.swift in Sources */,
 				E20E7DFF1DFE26FB00AF2275 /* usernameVC.swift in Sources */,
