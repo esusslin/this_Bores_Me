@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -17,20 +18,59 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Copyright (c) 2017 Emmet Susslin. All rights reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kG0-me-9Ef">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright (c) 2017 Emmet Susslin. All rights reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kG0-me-9Ef">
                                 <rect key="frame" x="20" y="442" width="560" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="P6h-cG-oWU"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="this Bores Me." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U3y-GY-PAp">
-                                <rect key="frame" x="20" y="158" width="560" height="164"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="this " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U3y-GY-PAp">
+                                <rect key="frame" x="20" y="108" width="560" height="75"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="lme-Ky-qKo"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="50"/>
+                                <color key="textColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bores " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DjB-TF-Fvo">
+                                <rect key="frame" x="20" y="216" width="560" height="75"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="5zN-i8-aY7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="50"/>
+                                <color key="textColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Me." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mgd-Hj-F0d">
+                                <rect key="frame" x="20" y="321" width="560" height="75"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="50"/>
+                                <color key="textColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Mgd-Hj-F0d" firstAttribute="trailing" secondItem="kG0-me-9Ef" secondAttribute="trailing" id="2k9-nj-Ydc"/>
+                            <constraint firstItem="Mgd-Hj-F0d" firstAttribute="leading" secondItem="kG0-me-9Ef" secondAttribute="leading" id="4ua-RW-36r"/>
+                            <constraint firstItem="Mgd-Hj-F0d" firstAttribute="top" secondItem="DjB-TF-Fvo" secondAttribute="bottom" constant="30" id="AkB-Bw-SqK"/>
+                            <constraint firstItem="U3y-GY-PAp" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" id="Awe-Wg-Ytv"/>
+                            <constraint firstItem="U3y-GY-PAp" firstAttribute="trailing" secondItem="DjB-TF-Fvo" secondAttribute="trailing" id="FIU-Pa-BbS"/>
+                            <constraint firstItem="U3y-GY-PAp" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailingMargin" id="Kde-lo-DXA"/>
+                            <constraint firstItem="DjB-TF-Fvo" firstAttribute="top" secondItem="U3y-GY-PAp" secondAttribute="bottom" constant="33" id="PPD-nz-nAC"/>
+                            <constraint firstItem="kG0-me-9Ef" firstAttribute="top" secondItem="Mgd-Hj-F0d" secondAttribute="bottom" constant="46" id="QJ3-CI-MMV"/>
+                            <constraint firstItem="DjB-TF-Fvo" firstAttribute="trailing" secondItem="Mgd-Hj-F0d" secondAttribute="trailing" id="Zoj-tG-fuP"/>
+                            <constraint firstItem="U3y-GY-PAp" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="88" id="dJX-Qq-O5q"/>
+                            <constraint firstItem="DjB-TF-Fvo" firstAttribute="leading" secondItem="Mgd-Hj-F0d" secondAttribute="leading" id="fjN-1J-A85"/>
+                            <constraint firstItem="U3y-GY-PAp" firstAttribute="leading" secondItem="DjB-TF-Fvo" secondAttribute="leading" id="lip-o3-H8s"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="kG0-me-9Ef" secondAttribute="bottom" constant="118" id="tyY-hI-kxJ"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
