@@ -15,13 +15,24 @@ import ParseFacebookUtilsV4
 
 
 
+
 class ViewController: UIViewController {
     
 
-    @IBOutlet weak var nonFBBtn: UIButton!
+    @IBOutlet weak var signInBtn: FBSDKLoginButton!
+    
+    @IBOutlet weak var thisBoresMe: UILabel!
+    
+    @IBOutlet weak var lbl2: UILabel!
+    
+    @IBOutlet weak var lbl3: UILabel!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        alignment()
         
         if FBSDKAccessToken.currentAccessToken() != nil {
                        print(FBSDKAccessToken.currentAccessToken())
@@ -33,8 +44,30 @@ class ViewController: UIViewController {
                 self.presentViewController(vc, animated: true, completion: nil)
             }
         }
+        
+        
 
 
+    }
+    
+    func alignment() {
+    
+        
+        let width = self.view.frame.size.width
+        let height = self.view.frame.size.height
+        
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-10-[thisBoresMe]-10-[lbl2]-10-[lbl3]-10-[signIn]-10-|", options: [], metrics: nil, views: ["thisBoresMe":thisBoresMe, "lbl2":lbl2, "lbl3":lbl3, "signIn":signInBtn]))
+        
+        
+        thisBoresMe.center.x = self.view.center.x
+        
+        lbl2.center.x = self.view.center.x
+        
+        lbl3.center.x = self.view.center.x
+        
+        signInBtn.center.x = self.view.center.x
+        
+        
     }
    
     @IBAction func signInBtn_click(sender: AnyObject) {
