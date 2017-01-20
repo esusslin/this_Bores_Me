@@ -27,7 +27,7 @@ class newsVC: UITableViewController {
         tableView.estimatedRowHeight = 60
         
         // title at the top
-        self.navigationItem.title = "NOTIFICATIONS"
+        self.navigationItem.title = "NEWS"
         
         // request notifications
         let query = PFQuery(className: "news")
@@ -35,6 +35,8 @@ class newsVC: UITableViewController {
         query.limit = 30
         query.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) -> Void in
             if error == nil {
+                
+                print("query")
                 
                 // clean up
                 self.usernameArray.removeAll(keepCapacity: false)
@@ -46,12 +48,20 @@ class newsVC: UITableViewController {
                 
                 // found related objects
                 for object in objects! {
+                    
+                    
                     self.usernameArray.append(object.objectForKey("by") as! String)
                     self.avaArray.append(object.objectForKey("ava") as! PFFile)
                     self.typeArray.append(object.objectForKey("type") as! String)
                     self.dateArray.append(object.createdAt)
                     self.uuidArray.append(object.objectForKey("uuid") as! String)
                     self.ownerArray.append(object.objectForKey("owner") as! String)
+                    
+                            UIView.animateWithDuration(1, delay: 8, options: [], animations: { () -> Void in
+                                icons.alpha = 0
+                                corner.alpha = 0
+                                dot.alpha = 0
+                                }, completion: nil)
                     
                     
                     // save notifications as checked
@@ -125,7 +135,7 @@ class newsVC: UITableViewController {
             cell.infoLbl.text = "now following you."
         }
         if typeArray[indexPath.row] == "like" {
-            cell.infoLbl.text = "likes your post."
+            cell.infoLbl.text = "finds your post boring."
         }
         
         
@@ -203,7 +213,7 @@ class newsVC: UITableViewController {
         
         
         // going to liked post
-        if cell.infoLbl.text == "likes your post." {
+        if cell.infoLbl.text == "finds your post boring" {
             
             // take post uuid
             postuuid.append(uuidArray[indexPath.row])

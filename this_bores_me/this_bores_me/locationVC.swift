@@ -28,7 +28,9 @@ class locationVC: UIViewController {
     var coordinates: CLLocationCoordinate2D?
 //    var coordinate:
     
+    
     @IBOutlet weak var mapView: MKMapView!
+
     
     
     let locationManager = CLLocationManager()
