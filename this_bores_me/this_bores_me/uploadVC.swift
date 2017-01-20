@@ -27,6 +27,11 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     @IBOutlet weak var removeBtn: UIButton!
     @IBOutlet weak var locationTxt: UILabel!
     
+    var locationCoordinates: CLLocationCoordinate2D?
+    var locationName: String?
+    var locationCity: String?
+    var locationState: String?
+    
     
     
     override func viewDidLoad() {
@@ -185,10 +190,12 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                     
                     
                     
-                    locationName = nil
-                    locationCity = pm.locality
-                    locationState = pm.administrativeArea
-                    locationCoordinates = CLLocationCoordinate2D(latitude: (currentLocation!.coordinate.latitude), longitude: (currentLocation!.coordinate.longitude))
+                    self.locationName = nil
+                    self.locationCity = pm.locality
+                    self.locationState = pm.administrativeArea
+                    self.locationCoordinates = CLLocationCoordinate2D(latitude: (currentLocation!.coordinate.latitude), longitude: (currentLocation!.coordinate.longitude))
+                    
+                    print(self.locationCoordinates)
                     
                     self.alignment()
                     
@@ -253,19 +260,52 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         object["ava"] = PFUser.currentUser()!.valueForKey("ava") as! PFFile
         object["uuid"] = "\(PFUser.currentUser()!.username) \(NSUUID().UUIDString)"
         
-        if locationName != nil && locationCity != nil && locationState != nil && locationCoordinates != nil {
+        var lat = locationCoordinates?.latitude
+        var long = locationCoordinates?.longitude
+        
+        
+        if locationName != nil {
             
             object["location"] = locationName!
-            object["city"] = locationCity!
-            object["state"] = locationState!
+        } else {
             
-            var lat = locationCoordinates?.latitude
-            var long = locationCoordinates?.longitude
+        }
+        
+        if locationState != nil {
+            
+            object["state"] = locationState!
+        } else {
+            object["state"] = nil
+        }
+        
+        if locationCity != nil {
+            
+            object["city"] = locationCity!
+        } else {
+            object["city"] = nil
+        }
+        
+
+        object["coordinate"] = PFGeoPoint(latitude: lat!, longitude: long!)
+
+            
+            
+//            && locationCity != nil && locationState != nil && locationCoordinates != nil {
+//        
+//            object["location"] = locationName!
+//            object["city"] = locationCity!
+//            object["state"] = locationState!
+        
+           
+            
+
+            
+             print(lat)
             
             object["coordinate"] = PFGeoPoint(latitude: lat!, longitude: long!)
 
-        }
-        
+//        }
+         print(object["coordinate"])
         
         let uuid = NSUUID().UUIDString
         object["uuid"] = "\(PFUser.currentUser()!.username) \(uuid)"
@@ -315,10 +355,10 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             
             if error == nil {
                 
-                locationName = nil
-                locationCity = nil
-                locationState = nil
-                locationCoordinates = nil
+                self.locationName = nil
+                self.locationCity = nil
+                self.locationState = nil
+                self.locationCoordinates = nil
                 
                 //inform user post has been uploaded
                 NSNotificationCenter.defaultCenter().postNotificationName("uploaded", object: nil)
