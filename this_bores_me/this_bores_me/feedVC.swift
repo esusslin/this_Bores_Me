@@ -265,28 +265,82 @@ class feedVC: UITableViewController {
             cell.dateLbl.text = "\(difference.weekOfMonth)w."
         }
         
+        //color the bored buttons
         
-        // manipulate like button depending on did user like it or not
-        let didLike = PFQuery(className: "likes")
-        didLike.whereKey("by", equalTo: PFUser.currentUser()!.username!)
-        didLike.whereKey("to", equalTo: cell.uuidLbl.text!)
-        didLike.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) -> Void in
-            // if no any likes are found, else found likes
-            if count == 0 {
-                cell.boredBtn.setTitle("unlike", forState: .Normal)
-                cell.boredBtn.setBackgroundImage(UIImage(named: "unlike.png"), forState: .Normal)
+        let didBored = PFQuery(className: "boreds")
+        didBored.whereKey("by", equalTo: PFUser.currentUser()!.username!)
+        didBored.whereKey("to", equalTo: cell.uuidLbl!.text!)
+        didBored.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) in
+            
+            if objects?.count == 0 {
+                cell.bored3Btn.setTitle("blank3", forState: .Normal)
+                cell.bored3Btn.setBackgroundImage(UIImage(named: "grey3"), forState: .Normal)
+                cell.bored2Btn.setTitle("blank2", forState: .Normal)
+                cell.bored2Btn.setBackgroundImage(UIImage(named: "grey2"), forState: .Normal)
+                cell.bored1Btn.setTitle("blank1", forState: .Normal)
+                cell.bored1Btn.setBackgroundImage(UIImage(named: "grey1"), forState: .Normal)
             } else {
-                cell.boredBtn.setTitle("like", forState: .Normal)
-                cell.boredBtn.setBackgroundImage(UIImage(named: "like.png"), forState: .Normal)
+                for me in objects! {
+                    if me.objectForKey("score") as! Int == 3 {
+                        cell.bored3Btn.setTitle("bored3", forState: .Normal)
+                        cell.bored3Btn.setBackgroundImage(UIImage(named: "red3"), forState: .Normal)
+                    } else if me.objectForKey("score") as! Int == 2 {
+                        cell.bored2Btn.setTitle("bored2", forState: .Normal)
+                        cell.bored2Btn.setBackgroundImage(UIImage(named: "red2"), forState: .Normal)
+                    }  else if me.objectForKey("score") as! Int == 1 {
+                        cell.bored1Btn.setTitle("bored1", forState: .Normal)
+                        cell.bored1Btn.setBackgroundImage(UIImage(named: "red1"), forState: .Normal)
+                    }
+                    
+                }
+                
             }
-        }
+            
+        })
+
         
-        // count total likes of shown post
-        let countLikes = PFQuery(className: "likes")
-        countLikes.whereKey("to", equalTo: cell.uuidLbl.text!)
-        countLikes.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) -> Void in
-            cell.boredscoreLbl.text = "\(count)"
-        }
+//        
+//        // manipulate like button depending on did user like it or not
+//        let didLike = PFQuery(className: "likes")
+//        didLike.whereKey("by", equalTo: PFUser.currentUser()!.username!)
+//        didLike.whereKey("to", equalTo: cell.uuidLbl.text!)
+//        didLike.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) -> Void in
+//            // if no any likes are found, else found likes
+//            if count == 0 {
+//                cell.bored3Btn.setTitle("unlike", forState: .Normal)
+//                cell.bored3Btn.setBackgroundImage(UIImage(named: "grey3"), forState: .Normal)
+//            } else {
+//                cell.bored3Btn.setTitle("like", forState: .Normal)
+//                cell.bored3Btn.setBackgroundImage(UIImage(named: "red3"), forState: .Normal)
+//            }
+//        }
+        
+//        // count total likes of shown post
+//        let countLikes = PFQuery(className: "likes")
+//        countLikes.whereKey("to", equalTo: cell.uuidLbl.text!)
+//        countLikes.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) -> Void in
+//            cell.boredscoreLbl.text = "\(count)"
+//        }
+        
+        // count bored score
+        let countBoreds = PFQuery(className: "boreds")
+        countBoreds.whereKey("to", equalTo: cell.uuidLbl.text!)
+        countBoreds.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) in
+            
+            if error == nil {
+                
+                var sum = 0
+                
+                for me in objects! {
+                    sum += me.objectForKey("score") as! Int
+                    
+                }
+                cell.boredscoreLbl.text = "\(sum)"
+                
+            }
+            
+        })
+
         
         
         // asign index

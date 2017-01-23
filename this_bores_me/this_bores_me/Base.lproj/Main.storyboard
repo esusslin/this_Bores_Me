@@ -147,10 +147,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="wHC-mZ-3g3" customClass="newsCell" customModule="this_bores_me" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wHC-mZ-3g3" id="fzk-kG-jap">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar_placeholder" id="yUA-6y-nwY">
@@ -397,7 +397,7 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="56"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Sf0-ag-2fe" id="jFl-kw-qbA">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="55.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5Tq-cN-Llr">
@@ -441,7 +441,7 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lxV-7X-jbO" id="bug-N8-e8u">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="79.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="FD9-Gc-t3R">
@@ -500,7 +500,7 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="cU6-Uh-lVH" userLabel="Cell" customClass="pictureCell" customModule="this_bores_me" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="279" width="106" height="106"/>
+                                <rect key="frame" x="0.0" y="215" width="106" height="106"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
@@ -519,7 +519,7 @@
                             </collectionViewCell>
                         </cells>
                         <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Header" id="s9W-6g-SEj" customClass="headerVC" customModule="this_bores_me" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="64" width="320" height="215"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="215"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar_placeholder" id="bwo-Mb-WsY">
@@ -749,6 +749,33 @@
             </objects>
             <point key="canvasLocation" x="2690" y="2960"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="3iV-qd-hU4">
+            <objects>
+                <viewController id="oco-u2-lzP" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jDR-rx-D6z">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="WAv-O8-L18">
+                                <rect key="frame" x="33" y="154" width="120" height="80"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="whitefollow" id="efg-Ns-i07">
+                                        <rect key="frame" x="0.0" y="15" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.3875052432885906" green="0.74410130033557043" blue="0.71964135906040272" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="81i-E5-nuQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3882" y="-748"/>
+        </scene>
         <!--PostVC-->
         <scene sceneID="XQk-8Y-EHQ">
             <objects>
@@ -795,16 +822,24 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="he6-B2-ZrG">
-                                            <rect key="frame" x="8" y="354" width="30" height="30"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="O8f-HG-Hn3">
+                                            <rect key="frame" x="57" y="352" width="32" height="32"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" backgroundImage="dislike.png"/>
+                                            <state key="normal" title="blank3" image="grey3"/>
                                             <connections>
-                                                <action selector="likeBtn_click:" destination="1lS-3P-7ay" eventType="touchUpInside" id="8wP-xc-7ND"/>
+                                                <action selector="bored3Btn_click:" destination="1lS-3P-7ay" eventType="touchUpInside" id="wgB-v4-FVU"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="psm-cc-4nR">
+                                            <rect key="frame" x="183" y="359" width="20" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="blank1" image="grey1"/>
+                                            <connections>
+                                                <action selector="bored1Btn_click:" destination="1lS-3P-7ay" eventType="touchUpInside" id="lzR-qh-TIz"/>
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="h8Y-nB-gmo">
-                                            <rect key="frame" x="107" y="354" width="30" height="30"/>
+                                            <rect key="frame" x="235" y="353" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" image="comment"/>
                                             <connections>
@@ -812,7 +847,7 @@
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cm1-aG-4wb">
-                                            <rect key="frame" x="64" y="354" width="22" height="30"/>
+                                            <rect key="frame" x="10" y="354" width="22" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -833,11 +868,21 @@
                                                 <action selector="moreBtn_click:" destination="RnQ-OT-QWZ" eventType="touchUpInside" id="o6K-Dl-a80"/>
                                             </connections>
                                         </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="he6-B2-ZrG">
+                                            <rect key="frame" x="119" y="357" width="24" height="24"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="blank2" image="grey2"/>
+                                            <connections>
+                                                <action selector="bored2Btn_click:" destination="1lS-3P-7ay" eventType="touchUpInside" id="IoS-LF-hrd"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="avatarImage" destination="CxS-OD-pVU" id="KYm-3F-f8g"/>
-                                    <outlet property="boredBtn" destination="he6-B2-ZrG" id="HI9-Pu-mrR"/>
+                                    <outlet property="bored1Btn" destination="psm-cc-4nR" id="7aD-Yf-h0H"/>
+                                    <outlet property="bored2Btn" destination="he6-B2-ZrG" id="z44-zI-JPA"/>
+                                    <outlet property="bored3Btn" destination="O8f-HG-Hn3" id="glc-yv-Joh"/>
                                     <outlet property="boredscoreLbl" destination="cm1-aG-4wb" id="EQE-Ek-bs5"/>
                                     <outlet property="commentBtn" destination="h8Y-nB-gmo" id="EiL-GD-phi"/>
                                     <outlet property="dateLbl" destination="4UL-aZ-arc" id="mZv-Rn-7RH"/>
@@ -1106,15 +1151,23 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="GXA-uc-bbQ">
-                                            <rect key="frame" x="8" y="354" width="30" height="30"/>
+                                            <rect key="frame" x="54" y="354" width="32" height="32"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" title="bored" backgroundImage="dislike.png"/>
+                                            <state key="normal" title="blank3" backgroundImage="grey3"/>
                                             <connections>
-                                                <action selector="likeBtn_click:" destination="Lrw-qM-Lhi" eventType="touchUpInside" id="QxC-9a-Chx"/>
+                                                <action selector="bored3Btn_click:" destination="Lrw-qM-Lhi" eventType="touchUpInside" id="B35-vF-PZC"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="YVw-9V-yMj">
+                                            <rect key="frame" x="177" y="359" width="20" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="blank1" backgroundImage="grey1"/>
+                                            <connections>
+                                                <action selector="bored1Btn_click:" destination="Lrw-qM-Lhi" eventType="touchUpInside" id="sT1-BS-WgZ"/>
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="M2c-eK-TsD">
-                                            <rect key="frame" x="107" y="354" width="30" height="30"/>
+                                            <rect key="frame" x="235" y="354" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" image="comment"/>
                                             <connections>
@@ -1122,7 +1175,7 @@
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="brl-Do-n30">
-                                            <rect key="frame" x="64" y="354" width="22" height="30"/>
+                                            <rect key="frame" x="10" y="354" width="22" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1143,11 +1196,21 @@
                                                 <action selector="moreBtn_click:" destination="dYt-sW-iPF" eventType="touchUpInside" id="j92-c9-ihm"/>
                                             </connections>
                                         </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="YNL-cl-09q">
+                                            <rect key="frame" x="119" y="358" width="24" height="24"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="blank2" backgroundImage="grey2"/>
+                                            <connections>
+                                                <action selector="bored2Btn_click:" destination="Lrw-qM-Lhi" eventType="touchUpInside" id="503-BO-I9C"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="avatarImage" destination="U4i-KL-YV0" id="5Xr-U9-XPf"/>
-                                    <outlet property="boredBtn" destination="GXA-uc-bbQ" id="yXh-iH-OeS"/>
+                                    <outlet property="bored1Btn" destination="YVw-9V-yMj" id="P3k-nY-2bP"/>
+                                    <outlet property="bored2Btn" destination="YNL-cl-09q" id="SpE-99-B6w"/>
+                                    <outlet property="bored3Btn" destination="GXA-uc-bbQ" id="TEG-zD-zED"/>
                                     <outlet property="boredscoreLbl" destination="brl-Do-n30" id="Nf2-TG-WUl"/>
                                     <outlet property="commentBtn" destination="M2c-eK-TsD" id="bmt-eZ-0mJ"/>
                                     <outlet property="dateLbl" destination="yuQ-Yk-MJ4" id="Gev-Wn-DzG"/>
@@ -1479,7 +1542,7 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="d48-my-oV1" userLabel="Cell" customClass="guestMapCell" customModule="this_bores_me" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="279" width="320" height="270"/>
+                                <rect key="frame" x="0.0" y="215" width="320" height="270"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="270"/>
@@ -1502,7 +1565,7 @@
                             </collectionViewCell>
                         </cells>
                         <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Header" id="IvF-YP-fwz" customClass="headerVC" customModule="this_bores_me" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="64" width="320" height="215"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="215"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar_placeholder" id="wCL-g0-yrb">
@@ -1762,9 +1825,11 @@
     <resources>
         <image name="avatar_placeholder" width="240" height="240"/>
         <image name="comment" width="795" height="765"/>
-        <image name="dislike.png" width="240" height="240"/>
         <image name="fbook" width="288" height="62"/>
         <image name="grey" width="200" height="200"/>
+        <image name="grey1" width="16" height="16"/>
+        <image name="grey2" width="24" height="24"/>
+        <image name="grey3" width="32" height="32"/>
         <image name="home-1" width="24" height="24"/>
         <image name="magnifying-glass-1" width="24" height="24"/>
         <image name="map" width="24" height="24"/>
@@ -1773,5 +1838,6 @@
         <image name="upload" width="24" height="24"/>
         <image name="user" width="24" height="24"/>
         <image name="users" width="24" height="24"/>
+        <image name="whitefollow" width="64" height="64"/>
     </resources>
 </document>
