@@ -208,14 +208,6 @@ class postVC: UITableViewController {
             })
 
         
-        
-//        countLikes.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) in
-//            
-//            
-//            cell.boredscoreLbl.text = "\(count)"
-//        }
-//        
-        
         cell.usernameBtn.layer.setValue(indexPath, forKey: "index")
         cell.commentBtn.layer.setValue(indexPath, forKey: "index")
         cell.moreBtn.layer.setValue(indexPath, forKey: "index")
@@ -336,7 +328,7 @@ class postVC: UITableViewController {
             })
             
             // STEP 2. Delete likes of post from server
-            let likeQuery = PFQuery(className: "likes")
+            let likeQuery = PFQuery(className: "boreds")
             likeQuery.whereKey("to", equalTo: cell.uuidLbl.text!)
             likeQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
                 if error == nil {

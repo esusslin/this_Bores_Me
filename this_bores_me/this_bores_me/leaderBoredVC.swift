@@ -1,15 +1,15 @@
 //
-//  feedVC.swift
+//  leaderBoredVC.swift
 //  this_bores_me
 //
-//  Created by Emmet Susslin on 1/5/17.
+//  Created by Emmet Susslin on 1/22/17.
 //  Copyright © 2017 Emmet Susslin. All rights reserved.
 //
 
 import UIKit
 import Parse
 
-class feedVC: UITableViewController {
+class leaderBoredVC: UITableViewController {
     
     
     //UI objects
@@ -36,8 +36,14 @@ class feedVC: UITableViewController {
         
         
         //automatic row height = dynamic cell
-        self.navigationItem.title = "Boredom Bulletin"
+        self.navigationItem.title = "LEADERBORED"
         tableView.estimatedRowHeight = 450
+        
+        let mapBtn = UIBarButtonItem(title: "back", style: .Plain, target: self, action: #selector(leaderBoredVC.back(_:)))
+        self.navigationItem.leftBarButtonItem = mapBtn
+        
+        
+
         
         //pull to refresh feed
         refresher.addTarget(self, action: #selector(feedVC.loadPosts), forControlEvents: UIControlEvents.ValueChanged)
@@ -52,7 +58,7 @@ class feedVC: UITableViewController {
         // indicator's x(horizontal) center
         indicator.center.x = tableView.center.x
         
-        loadPosts()
+        loadTopPosts()
     }
     
     // refreshign function after like to update degit
@@ -62,68 +68,35 @@ class feedVC: UITableViewController {
     
     //reload function
     func uploaded(notification:NSNotification) {
-        loadPosts()
+        loadTopPosts()
     }
     
     // load posts
-    func loadPosts() {
+    func loadTopPosts() {
         
         // STEP 1. Find posts realted to people who we are following
-        let followQuery = PFQuery(className: "follow")
-        followQuery.whereKey("follower", equalTo: PFUser.currentUser()!.username!)
-        followQuery.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) -> Void in
-            if error == nil {
+        let query = PFQuery(className: "posts")
+        query.orderByDescending("boredScore")
+        query.limit = page
+        query.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) -> Void in
+            
+            // find related objects
+            for object in objects! {
+                self.usernameArray.append(object.objectForKey("username") as! String)
+                self.avaArray.append(object.objectForKey("ava") as! PFFile)
+                self.dateArray.append(object.createdAt)
+                self.picArray.append(object.objectForKey("pic") as! PFFile)
                 
-                // clean up
-                self.followArray.removeAll(keepCapacity: false)
                 
-                // find related objects
-                for object in objects! {
-                    self.followArray.append(object.objectForKey("followed") as! String)
-                    print(self.followArray.count)
-                }
                 
-                // append current user to see own posts in feed
-                self.followArray.append(PFUser.currentUser()!.username!)
-                
-                // STEP 2. Find posts made by people appended to followArray
-                let query = PFQuery(className: "posts")
-                query.whereKey("username", containedIn: self.followArray)
-                query.limit = self.page
-                query.addDescendingOrder("createdAt")
-                query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-                    if error == nil {
-                        
-                        // clean up
-                        self.usernameArray.removeAll(keepCapacity: false)
-                        self.avaArray.removeAll(keepCapacity: false)
-                        self.dateArray.removeAll(keepCapacity: false)
-                        self.picArray.removeAll(keepCapacity: false)
-                        self.titleArray.removeAll(keepCapacity: false)
-                        self.uuidArray.removeAll(keepCapacity: false)
-                        
-                        // find related objects
-                        for object in objects! {
-                            self.usernameArray.append(object.objectForKey("username") as! String)
-                            self.avaArray.append(object.objectForKey("ava") as! PFFile)
-                            self.dateArray.append(object.createdAt)
-                            self.picArray.append(object.objectForKey("pic") as! PFFile)
-                            
-                            self.titleArray.append(object.objectForKey("title") as! String)
-                            self.uuidArray.append(object.objectForKey("uuid") as! String)
-                        }
-                        
-                        // reload tableView & end spinning of refresher
-                        self.tableView.reloadData()
-                        self.refresher.endRefreshing()
-                        
-                    } else {
-                        print(error!.localizedDescription)
-                    }
-                })
-            } else {
-                print(error!.localizedDescription)
+                self.titleArray.append(object.objectForKey("title") as! String)
+                self.uuidArray.append(object.objectForKey("uuid") as! String)
             }
+            
+            // reload tableView & stop animating indicator
+            self.tableView.reloadData()
+            self.indicator.stopAnimating()
+            
         })
         
     }
@@ -148,47 +121,21 @@ class feedVC: UITableViewController {
             page = page + 10
             
             // STEP 1. Find posts realted to people who we are following
-            let followQuery = PFQuery(className: "follow")
-            followQuery.whereKey("follower", equalTo: PFUser.currentUser()!.username!)
-            followQuery.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) -> Void in
-                if error == nil {
-                    
-                    // clean up
-                    self.followArray.removeAll(keepCapacity: false)
-                    
-                    // find related objects
-                    for object in objects! {
-                        self.followArray.append(object.objectForKey("following") as! String)
-                    }
-                    
-                    // append current user to see own posts in feed
-                    self.followArray.append(PFUser.currentUser()!.username!)
-                    
-                    // STEP 2. Find posts made by people appended to followArray
-                    let query = PFQuery(className: "posts")
-                    query.whereKey("username", containedIn: self.followArray)
-                    query.limit = self.page
-                    query.addDescendingOrder("createdAt")
-                    query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-                        if error == nil {
-                            
-                            // clean up
-                            self.usernameArray.removeAll(keepCapacity: false)
-                            self.avaArray.removeAll(keepCapacity: false)
-                            self.dateArray.removeAll(keepCapacity: false)
-                            self.picArray.removeAll(keepCapacity: false)
-                            self.titleArray.removeAll(keepCapacity: false)
-                            self.uuidArray.removeAll(keepCapacity: false)
-                            
-                            // find related objects
+            let query = PFQuery(className: "posts")
+            query.orderByDescending("boredScore")
+            query.limit = page
+            query.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) -> Void in
+                
+                
+                                           // find related objects
                             for object in objects! {
                                 self.usernameArray.append(object.objectForKey("username") as! String)
                                 self.avaArray.append(object.objectForKey("ava") as! PFFile)
                                 self.dateArray.append(object.createdAt)
                                 self.picArray.append(object.objectForKey("pic") as! PFFile)
                                 
-                            
-                                    
+                                
+                                
                                 self.titleArray.append(object.objectForKey("title") as! String)
                                 self.uuidArray.append(object.objectForKey("uuid") as! String)
                             }
@@ -196,14 +143,7 @@ class feedVC: UITableViewController {
                             // reload tableView & stop animating indicator
                             self.tableView.reloadData()
                             self.indicator.stopAnimating()
-                            
-                        } else {
-                            print(error!.localizedDescription)
-                        }
-                    })
-                } else {
-                    print(error!.localizedDescription)
-                }
+
             })
             
         }
@@ -227,15 +167,15 @@ class feedVC: UITableViewController {
         cell.usernameBtn.sizeToFit()
         cell.uuidLbl.text = uuidArray[indexPath.row]
         cell.titleLbl.text = "loller"
-//            titleArray[indexPath.row]
+        //            titleArray[indexPath.row]
         cell.titleLbl.sizeToFit()
         
-//         place profile picture
-                avaArray[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
-                    cell.avatarImage.image = UIImage(data: data!)
-                }
+        //         place profile picture
+        avaArray[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
+            cell.avatarImage.image = UIImage(data: data!)
+        }
         
-
+        
         picArray[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
             cell.picImg.image = UIImage(data: data!)
         }
@@ -298,7 +238,7 @@ class feedVC: UITableViewController {
             }
             
         })
-
+        
         
         
         // count bored score
@@ -319,7 +259,7 @@ class feedVC: UITableViewController {
             }
             
         })
-
+        
         
         
         // asign index
@@ -344,7 +284,7 @@ class feedVC: UITableViewController {
             }
         }
         
-//         #hashtag is tapped
+        //         #hashtag is tapped
         cell.titleLbl.hashtagLinkTapHandler = { label, handle, range in
             var mention = handle
             mention = String(mention.characters.dropFirst())
@@ -522,6 +462,12 @@ class feedVC: UITableViewController {
         let ok = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
         alert.addAction(ok)
         presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    // go back function
+    func back(sender: UIBarButtonItem) {
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     

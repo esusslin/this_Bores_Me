@@ -202,8 +202,6 @@ class hashMapVC: UIViewController, MGLMapViewDelegate {
         mapView.deselectAnnotation(annotation, animated: true)
     }
     
-    
-
     // go back function
     func back(sender: UIBarButtonItem) {
         

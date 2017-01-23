@@ -259,9 +259,13 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         object["username"] = PFUser.currentUser()!.username
         object["ava"] = PFUser.currentUser()!.valueForKey("ava") as! PFFile
         object["uuid"] = "\(PFUser.currentUser()!.username) \(NSUUID().UUIDString)"
+        object["boredScore"] = 0
+        object["loredOfTheBored"] = false
+        object["boardWalkEmperor"] = false
+        object["chairmanOfTheBored"] = false
         
-        var lat = locationCoordinates?.latitude
-        var long = locationCoordinates?.longitude
+        let lat = locationCoordinates?.latitude
+        let long = locationCoordinates?.longitude
         
         
         if locationName != nil {

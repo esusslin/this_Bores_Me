@@ -152,6 +152,8 @@ class postCell: UITableViewCell {
                     object.deleteInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
                         if success {
                             print("no longer bored!")
+                            
+                            self.updateBoredScore()
                         
                             self.bored1Btn.setTitle("blank1", forState: .Normal)
                             self.bored1Btn.setBackgroundImage(UIImage(named: "grey1"), forState: .Normal)
@@ -181,7 +183,7 @@ class postCell: UITableViewCell {
                             news2Query.whereKey("by", equalTo: PFUser.currentUser()!.username!)
                             news2Query.whereKey("to", equalTo: self.usernameBtn.titleLabel!.text!)
                             news2Query.whereKey("uuid", equalTo: self.uuidLbl.text!)
-                            news2Query.whereKey("type", equalTo: "bored3")
+                            news2Query.whereKey("type", equalTo: "bored2")
                             news2Query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
                                 if error == nil {
                                     for object in objects! {
@@ -365,6 +367,21 @@ class postCell: UITableViewCell {
                 
                 if success {
                     print("bored3")
+                    self.updateBoredScore()
+                    
+                    let likePic = UIImageView(image: UIImage(named: "zzz.png"))
+                    likePic.frame.size.width = self.picImg.frame.size.width / 1.5
+                    likePic.frame.size.height = self.picImg.frame.size.width / 1.5
+                    likePic.center = self.picImg.center
+                    likePic.alpha = 0.8
+                    self.addSubview(likePic)
+                    
+                    // hide likePic with animation and transform to be smaller
+                    
+                    UIView.animateWithDuration(2) {
+                        likePic.alpha = 0
+                        likePic.transform = CGAffineTransformMakeScale(0.1, 0.1)
+                    }
                     
                     self.updateBoredScore()
                     self.bored3Btn.setTitle("bored3", forState: .Normal)
@@ -389,6 +406,8 @@ class postCell: UITableViewCell {
             
             // to dislike
         } else {
+            
+            print("bored3 else?")
             
             // request existing likes of current user to show post
             let query = PFQuery(className: "boreds")
@@ -456,15 +475,14 @@ class postCell: UITableViewCell {
                     // delete found like(s)
                     object.deleteInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
                         if success {
+                            
+                            self.updateBoredScore()
                             print("no longer bored!")
                             self.bored1Btn.setTitle("blank1", forState: .Normal)
                             self.bored1Btn.setBackgroundImage(UIImage(named: "grey1"), forState: .Normal)
                             
                             self.bored3Btn.setTitle("blank3", forState: .Normal)
                             self.bored3Btn.setBackgroundImage(UIImage(named: "grey3"), forState: .Normal)
-                            
-                            // send notification if we liked to refresh TableView
-                            NSNotificationCenter.defaultCenter().postNotificationName("blank2", object: nil)
                             
                             
                             // delete like notification
@@ -517,6 +535,25 @@ class postCell: UITableViewCell {
             object.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) in
                 
                 if success {
+                    
+                    self.updateBoredScore()
+                    
+                    let likePic = UIImageView(image: UIImage(named: "zzz.png"))
+                    likePic.frame.size.width = self.picImg.frame.size.width / 1.5
+                    likePic.frame.size.height = self.picImg.frame.size.width / 1.5
+                    likePic.center = self.picImg.center
+                    likePic.alpha = 0.8
+                    self.addSubview(likePic)
+                    
+                    // hide likePic with animation and transform to be smaller
+                    
+                    UIView.animateWithDuration(2) {
+                        likePic.alpha = 0
+                        likePic.transform = CGAffineTransformMakeScale(0.1, 0.1)
+                    }
+
+                    
+                    
                     self.updateBoredScore()
                     
                     print("bored2 saved")
@@ -678,6 +715,22 @@ class postCell: UITableViewCell {
             object.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) in
                 
                 if success {
+                    
+                    let likePic = UIImageView(image: UIImage(named: "zzz.png"))
+                    likePic.frame.size.width = self.picImg.frame.size.width / 1.5
+                    likePic.frame.size.height = self.picImg.frame.size.width / 1.5
+                    likePic.center = self.picImg.center
+                    likePic.alpha = 0.8
+                    self.addSubview(likePic)
+                    
+                    // hide likePic with animation and transform to be smaller
+                    
+                    UIView.animateWithDuration(2) {
+                        likePic.alpha = 0
+                        likePic.transform = CGAffineTransformMakeScale(0.1, 0.1)
+                    }
+
+                    
                     print("bored1")
                     self.bored1Btn.setTitle("bored1", forState: .Normal)
                     self.bored1Btn.setBackgroundImage(UIImage(named: "red1"), forState: .Normal)
@@ -703,7 +756,7 @@ class postCell: UITableViewCell {
             
             // to dislike
         } else {
-            
+            print("bored 1 else??")
             // request existing likes of current user to show post
             let query = PFQuery(className: "boreds")
             query.whereKey("by", equalTo: PFUser.currentUser()!.username!)
@@ -765,12 +818,72 @@ class postCell: UITableViewCell {
     
     }
     self.boredscoreLbl.text = "\(sum)"
-    
+    self.updatePostBoredScore(sum)
+    self.reAnnoint()
     }
     
     })
     }
+    
+    
+    func updatePostBoredScore(num: Int) {
+        
+        self.reAnnoint()
+        
+        let countBoreds = PFQuery(className: "posts")
+        countBoreds.whereKey("uuid", equalTo: self.uuidLbl.text!)
+        countBoreds.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) in
+            
+            if error == nil {
+                
+                let sum = 0
+                
+                for me in objects! {
+                    me["boredScore"] = num
+                    me.saveEventually()
+                    
+                }
+                
+            }
+            
+        })
+    }
+    
+    func reAnnoint() {
+        
+        // STEP 1. Find posts realted to people who we are following
+        let query = PFQuery(className: "posts")
+        query.orderByDescending("boredScore")
+        query.limit = 20
+        query.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) -> Void in
+            
+            
+            // find related objects
+            for me in objects! {
+                if me == objects![0] {
+                    me["loredOfTheBored"] = true
+                     me.saveEventually()
+                } else if me == objects![1] {
+                    me["boredWalkEmperor"] = true
+                     me.saveEventually()
+                } else if me == objects![2] {
+                    me["chairmanOfTheBored"] = true
+                     me.saveEventually()
+                } else {
+                    me["loredOfTheBored"] = false
+                    me["boredWalkEmperor"] = false
+                    me["chairmanOfTheBored"] = false
+                    me.saveEventually()
+                }
+            }
+            
+        })
+        
+    }
 
     
 }
+
+
+
 
