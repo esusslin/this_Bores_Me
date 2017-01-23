@@ -40,7 +40,33 @@ class usernameVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         avaTap.numberOfTapsRequired = 1
         avatarImg.userInteractionEnabled = true
         avatarImg.addGestureRecognizer(avaTap)
+        
+        alignment()
     }
+    
+    func alignment() {
+        
+        
+        let width = self.view.frame.size.width
+        let height = self.view.frame.size.height
+        
+
+        
+        signupBtn.center.x = self.view.center.x
+        
+        avatarImg.center.x = self.view.center.x
+        
+        welcomeTxt.center.x = self.view.center.x
+        
+        nameTxt.center.x = self.view.center.x
+        
+        signupBtn.center.x = self.view.center.x
+        
+        usernameTxt.center.x = self.view.center.x
+        
+        
+    }
+
     
 
     func loadImg(recognizer:UITapGestureRecognizer) {
@@ -94,7 +120,7 @@ class usernameVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
                 
                 print("3")
                 
-                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("tabVC") as! tabbarVC
+                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("tabbarVC") as! tabbarVC
                 vc.selectedIndex = 1
                 
                 self.presentViewController(vc, animated: true, completion: nil)

@@ -42,9 +42,6 @@ class leaderBoredVC: UITableViewController {
         let mapBtn = UIBarButtonItem(title: "back", style: .Plain, target: self, action: #selector(leaderBoredVC.back(_:)))
         self.navigationItem.leftBarButtonItem = mapBtn
         
-        
-
-        
         //pull to refresh feed
         refresher.addTarget(self, action: #selector(feedVC.loadPosts), forControlEvents: UIControlEvents.ValueChanged)
         tableView.addSubview(refresher)
