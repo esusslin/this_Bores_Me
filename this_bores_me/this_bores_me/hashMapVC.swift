@@ -80,6 +80,8 @@ class hashMapVC: UIViewController, MGLMapViewDelegate {
                         self.picArray.removeAll(keepCapacity: false)
                         self.uuidArray.removeAll(keepCapacity: false)
                         
+                        print(objects?.count)
+                        
                         // find related objects
                         for object in objects! {
                             
@@ -143,9 +145,9 @@ class hashMapVC: UIViewController, MGLMapViewDelegate {
         
             print("loller")
 
-        
+//        37.781297, -122.289743
         self.mapView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        self.mapView.setCenterCoordinate(CLLocationCoordinate2D(latitude: 39.050781, longitude: -94.482266), zoomLevel: 2, animated: true)
+        self.mapView.setCenterCoordinate(CLLocationCoordinate2D(latitude: 37.781297, longitude: -122.289743), zoomLevel: 8, animated: true)
         
         //        self.mapView.selectAnnotation(mapView.annotations![0], animated: true)
         

@@ -70,6 +70,23 @@ class guestMapCell: UICollectionViewCell, MGLMapViewDelegate {
         return true
     }
     
+//    func mapView(mapView: MGLMapView, tapOnCalloutForAnnotation annotation: MGLAnnotation) {
+//        // Optionally handle taps on the callout
+//        print("Tapped the callout for: \(annotation.title)")
+//        var uuid = (annotation.title!)! as String!
+//        print(uuid)
+//        
+//        
+//        postuuid.append(uuid!)
+// 
+//        let post = self.storyboard?.instantiateViewControllerWithIdentifier("postVC") as! postVC
+//        self.navigationController?.pushViewController(post, animated: true)
+//        
+//        // Hide the callout
+//        mapView.deselectAnnotation(annotation, animated: true)
+//    }
+
+    
     
     
     func mapView(mapView: MGLMapView, calloutViewForAnnotation annotation: MGLAnnotation) -> UIView? {
