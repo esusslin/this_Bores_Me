@@ -37,6 +37,8 @@ class mapSearchVC: UIViewController, MGLMapViewDelegate {
         mapView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         mapView.tintColor = UIColor.darkGrayColor()
         
+        print(currentLocation!.coordinate.latitude)
+        
         mapView.setCenterCoordinate(CLLocationCoordinate2D(latitude: (currentLocation!.coordinate.latitude), longitude: (currentLocation!.coordinate.longitude)), zoomLevel: 13, animated: false)
         
         // Set the map view‘s delegate property

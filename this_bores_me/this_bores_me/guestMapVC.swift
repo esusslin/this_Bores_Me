@@ -29,6 +29,9 @@ class guestMapVC: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //background color
+        self.collectionView?.backgroundColor = UIColor.whiteColor()
+        
         loadPosts()
 
         // Uncomment the following line to preserve selection between presentations

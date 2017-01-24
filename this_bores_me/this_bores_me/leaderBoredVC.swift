@@ -25,7 +25,7 @@ class leaderBoredVC: UITableViewController {
     var uuidArray = [String]()
     
     
-    var followArray = [String]()
+  
     
     // page size
     var page : Int = 10
@@ -63,19 +63,24 @@ class leaderBoredVC: UITableViewController {
         tableView.reloadData()
     }
     
-    //reload function
-    func uploaded(notification:NSNotification) {
-        loadTopPosts()
-    }
+//    //reload function
+//    func uploaded(notification:NSNotification) {
+//        loadTopPosts()
+//    }
     
     // load posts
     func loadTopPosts() {
         
         // STEP 1. Find posts realted to people who we are following
         let query = PFQuery(className: "posts")
+        query.whereKey("boredScore", greaterThanOrEqualTo: 6)
         query.orderByDescending("boredScore")
-        query.limit = page
+//        query.limit = page
         query.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) -> Void in
+            
+            print("********")
+            print(objects?.count)
+            print("********")
             
             // find related objects
             for object in objects! {
@@ -98,54 +103,54 @@ class leaderBoredVC: UITableViewController {
         
     }
     
-    // scrolled down
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
-        if scrollView.contentOffset.y >= scrollView.contentSize.height - self.view.frame.size.height * 2 {
-            loadMore()
-        }
-    }
+//    // scrolled down
+//    override func scrollViewDidScroll(scrollView: UIScrollView) {
+//        if scrollView.contentOffset.y >= scrollView.contentSize.height - self.view.frame.size.height * 2 {
+//            loadMore()
+//        }
+//    }
+//    
+//    // pagination
+//    func loadMore() {
+//        
+//        // if posts on the server are more than shown
+//        if page <= uuidArray.count {
+//            
+//            // start animating indicator
+//            indicator.startAnimating()
+//            
+//            // increase page size to load +10 posts
+//            page = page + 10
+//            
+//            // STEP 1. Find posts realted to people who we are following
+//            let query = PFQuery(className: "posts")
+//            query.orderByDescending("boredScore")
+//            query.limit = page
+//            query.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) -> Void in
+//                
+//                
+//                                           // find related objects
+//                            for object in objects! {
+//                                self.usernameArray.append(object.objectForKey("username") as! String)
+//                                self.avaArray.append(object.objectForKey("ava") as! PFFile)
+//                                self.dateArray.append(object.createdAt)
+//                                self.picArray.append(object.objectForKey("pic") as! PFFile)
+//                                
+//                                
+//                                
+//                                self.titleArray.append(object.objectForKey("title") as! String)
+//                                self.uuidArray.append(object.objectForKey("uuid") as! String)
+//                            }
+//                            
+//                            // reload tableView & stop animating indicator
+//                            self.tableView.reloadData()
+//                            self.indicator.stopAnimating()
+//
+//            })
+//            
+//        }
     
-    // pagination
-    func loadMore() {
-        
-        // if posts on the server are more than shown
-        if page <= uuidArray.count {
-            
-            // start animating indicator
-            indicator.startAnimating()
-            
-            // increase page size to load +10 posts
-            page = page + 10
-            
-            // STEP 1. Find posts realted to people who we are following
-            let query = PFQuery(className: "posts")
-            query.orderByDescending("boredScore")
-            query.limit = page
-            query.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) -> Void in
-                
-                
-                                           // find related objects
-                            for object in objects! {
-                                self.usernameArray.append(object.objectForKey("username") as! String)
-                                self.avaArray.append(object.objectForKey("ava") as! PFFile)
-                                self.dateArray.append(object.createdAt)
-                                self.picArray.append(object.objectForKey("pic") as! PFFile)
-                                
-                                
-                                
-                                self.titleArray.append(object.objectForKey("title") as! String)
-                                self.uuidArray.append(object.objectForKey("uuid") as! String)
-                            }
-                            
-                            // reload tableView & stop animating indicator
-                            self.tableView.reloadData()
-                            self.indicator.stopAnimating()
-
-            })
-            
-        }
-        
-    }
+//    }
     
     
     // cell numb
