@@ -31,6 +31,12 @@ Once logged in the main application interface is split and accessible via a navi
 
 ![alt text](bored1gif1.gif)
 
+# Home NewsFeed
+
+The first tab / the initial home page is a chronological news feed of posts by users who are followed by the current user.  Rather than 'likes' the user has the ability to give posts on his newsfeed a 'boredScore' - on a scale of 1-3 the user can rate his level of boredom concerning each post.  Rather than the 'likecount' tallies of Facebook and Instagram popularity is measured in boredom at thisBoresMe.
+
+![alt text](bored6.gif)
+
 # Searching and browsing posts
 
 A new user can easily search for his friends by searching by username.  The searching interface allows the user to type in a username or word and browse the matches.
@@ -43,7 +49,7 @@ The user can browse the pages of other users and follow them as desired. A user'
 
 # Uploading an image with its location
 
-The user can upload her own materi
+Contributing to thisBoresMe is as easy as uploading an image from your 
 
 #Hashtags
 

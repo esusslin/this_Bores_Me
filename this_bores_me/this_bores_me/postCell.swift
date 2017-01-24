@@ -804,12 +804,16 @@ class postCell: UITableViewCell {
     }
     
     func updateBoredScore() {
+        
+        print("bored score updated")
     // count bored score
     let countBoreds = PFQuery(className: "boreds")
     countBoreds.whereKey("to", equalTo: self.uuidLbl.text!)
     countBoreds.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) in
     
     if error == nil {
+        
+        print(objects?.count)
     
     var sum = 0
     
@@ -828,6 +832,10 @@ class postCell: UITableViewCell {
     
     func updatePostBoredScore(num: Int) {
         
+        print(num)
+        
+        print("update post's bored score")
+        
         self.reAnnoint()
         
         let countBoreds = PFQuery(className: "posts")
@@ -839,8 +847,11 @@ class postCell: UITableViewCell {
                 let sum = 0
                 
                 for me in objects! {
+                    
                     me["boredScore"] = num
-                    me.saveEventually()
+                    
+                    me.saveInBackground()
+                    
                     
                 }
                 
@@ -851,6 +862,8 @@ class postCell: UITableViewCell {
     
     func reAnnoint() {
         
+        print("reannointed")
+        
         // STEP 1. Find posts realted to people who we are following
         let query = PFQuery(className: "posts")
         query.orderByDescending("boredScore")
@@ -860,6 +873,8 @@ class postCell: UITableViewCell {
             
             // find related objects
             for me in objects! {
+                
+                
                 if me == objects![0] {
                     me["loredOfTheBored"] = true
                      me.saveEventually()
