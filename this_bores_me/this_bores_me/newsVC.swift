@@ -22,6 +22,8 @@ class newsVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        tabBar.barTintColor = UIColor(red: 37.0 / 255.0, green: 39.0 / 255.0, blue: 42.0 / 255.0, alpha: 1)
+        
         // dynamic tableView height - dynamic cell
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 60

@@ -59,8 +59,12 @@ class tabbarVC: UITabBarController {
             if error == nil {
                 if count > 0 {
                     self.placeIcon(image, text: "\(count)")
+                    self.tabBar.tintColorDidChange()
+                   self.tabBar.tintColor = UIColor(red: 0.0 / 255.0, green: 199.0 / 255.0, blue: 140.0 / 255.0, alpha: 1)
                 }
             } else {
+//                self.tabBar.barTintColor = UIColor(red: 37.0 / 255.0, green: 39.0 / 255.0, blue: 42.0 / 255.0, alpha: 1)
+                self.tabBar.tintColor = .whiteColor()
                 print(error!.localizedDescription)
             }
         })
@@ -88,7 +92,7 @@ class tabbarVC: UITabBarController {
         icons.frame.size.width = icons.frame.size.width + view.frame.size.width - 4
         icons.contentSize.width = icons.contentSize.width + view.frame.size.width - 4
         icons.center.x = self.view.frame.size.width / 5 * 4 - (self.view.frame.size.width / 5) / 4
-       icons.layer.cornerRadius = icons.frame.size.width / 10
+//       icons.layer.cornerRadius = icons.frame.size.width / 10
         
         // unhide elements
         corner.hidden = false

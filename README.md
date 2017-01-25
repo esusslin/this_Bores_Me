@@ -30,6 +30,8 @@ Facebook grants a specific authorization key which is stored with the user data 
 Once logged in the main application interface is split and accessible via a navigation tab bar on the bottom of the screen.  The tabs include a home button - or a common news feed, a search button for searching for other users and browsing pics, an upload button for contributing posted pics to thisBoresMe, a news tab for all news pertinent to the current user, and finally a 'my profile' tab
 
 ![alt text](gif.gif)
+--
+
 
 # Home NewsFeed
 
@@ -42,12 +44,15 @@ By accessing the tab on the upper left the user can also browse the LEADERBORED 
 ![alt text](gifB.gif)
 --
 ![alt text](tshirt.png)
+--
 
 Beyond the newsfeed options, thisBoresMe provides users with the unique experience of browsing posts via an interactive map.  Users can look to see what people are posting in their own proximity and rate the posted material as they see fit.
 
 ![alt text](gifA.gif)
+--
 
-# Searching and browsing posts
+
+# Searching and browsing 
 
 A user can easily search for his friends by searching by username.  The searching interface allows the user to type in a username or word and browse the matches.
 
@@ -56,12 +61,16 @@ A user can easily search for his friends by searching by username.  The searchin
 The user can browse the pages of other users and follow them as desired. A user's pics can be browsed via a collection view like Instagram or, unique to thisBoresMe, a user's posts can be browsed via an interactive geo-location map.
 
 ![alt text](gif3.gif)
+--
+
 
 # Uploading an image with its location
 
 Contributing to thisBoresMe is as easy as uploading an image from your local photo collection, adding comments or titles (including #hashtags and @mentions of other users), and finally tagging the location of your post.
 
 ![alt text](gif7.gif)
+--
+
 
 # @mentions and #hashtags
 
@@ -103,9 +112,20 @@ Here is a simple code sample for recognizing and storing hashtags within post de
 Hashtags can also be used to browse posts via the hashtag collection or by location.  In this example the user is browsing pictures locally hashtagged with #golf
 
 ![alt text](gif4.gif)
+--
+
+
+# News Alerts	
+
+When another user finds one of your posts boring, very boring, or extremely boring (1-3 scale) thisBoresMe provides you with the good news!  Likewise if another user begins to follow you, or you are mentioned in a post or comment thisBoresMe makes this immediately known.  All three types of news are stored on the backend and the user recieves a notification much like she would via Instagram or Facebook:
+
+Solarized dark             |  Solarized Ocean
+:-------------------------:|:-------------------------:
+![alt text](gif4.gif)	   |  Hashtags can also be used to browse posts via 						   |  the hashtag collection or by location.  In 							   |  this example the user is browsing pictures 							   |  locally hashtagged with #golf
 
 
 
+\
 
 
 
