@@ -120,7 +120,7 @@ Hashtags can also be used to browse posts via the hashtag collection or by locat
 When another user finds one of your posts boring, very boring, or extremely boring (1-3 scale) thisBoresMe provides you with the good news!  Likewise if another user begins to follow you, or you are mentioned in a post or comment thisBoresMe makes this immediately known.  All three types of news are stored on the backend and the user recieves a notification much like she would via Instagram or Facebook:
 
 Solarized dark             |  Solarized Ocean
-:-------------------------:|:-------------------------:
+:-------------------------:|:-----------------------------------------------:
 ![alt text](gif4.gif)	   |  Hashtags can also be used to browse posts via 						   |  the hashtag collection or by location.  In 							   |  this example the user is browsing pictures 							   |  locally hashtagged with #golf
 
 
