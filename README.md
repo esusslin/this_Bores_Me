@@ -35,7 +35,7 @@ Once logged in the main application interface is split and accessible via a navi
 
 The first tab / the initial home page is a chronological news feed of posts by users who are followed by the current user.  Rather than 'likes' the user has the ability to give posts on his newsfeed a 'boredScore' - on a scale of 1-3 the user can rate his level of boredom concerning each post.  Rather than the 'likecount' tallies of Facebook and Instagram popularity is measured in boredom at thisBoresMe.
 
-![alt text](gif6.gif)
+![alt text](gif5.gif)
 
 # Searching and browsing posts
 
