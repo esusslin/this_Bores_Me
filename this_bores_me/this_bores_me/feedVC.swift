@@ -316,6 +316,19 @@ class feedVC: UITableViewController {
                 }
                 cell.boredscoreLbl.text = "\(sum)"
                 
+                let countBoreds = PFQuery(className: "posts")
+                countBoreds.whereKey("uuid", equalTo: cell.uuidLbl.text!)
+                countBoreds.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) in
+                    
+                    for me in objects! {
+                        me["boredScore"] = sum
+                        me.saveInBackground()
+                    }
+                    
+                    })
+                
+                
+                
             }
             
         })
