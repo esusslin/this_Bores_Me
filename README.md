@@ -41,7 +41,7 @@ By accessing the tab on the upper left the user can also browse the LEADERBORED 
 
 ![alt text](gifB.gif)
 --
-![alt text](rsz_tshirt.png)
+![alt text](tshirt.png)
 
 Beyond the newsfeed options, thisBoresMe provides users with the unique experience of browsing posts via an interactive map.  Users can look to see what people are posting in their own proximity and rate the posted material as they see fit.
 
@@ -49,7 +49,7 @@ Beyond the newsfeed options, thisBoresMe provides users with the unique experien
 
 # Searching and browsing posts
 
-A new user can easily search for his friends by searching by username.  The searching interface allows the user to type in a username or word and browse the matches.
+A user can easily search for his friends by searching by username.  The searching interface allows the user to type in a username or word and browse the matches.
 
 ![alt text](gif2.gif)
 
@@ -61,9 +61,46 @@ The user can browse the pages of other users and follow them as desired. A user'
 
 Contributing to thisBoresMe is as easy as uploading an image from your local photo collection, adding comments or titles (including #hashtags and @mentions of other users), and finally tagging the location of your post.
 
-#Hashtags
+![alt text](gif7.gif)
 
-Like the major social media platforms, thisBoresMe provides #hashtags as a means of organizing, promoting and browsing pics.  Just as a user can browse another user's pics by location, a hashtag can be explored the same way.  In this example the user is browsing pictures locally hashtagged with #golf
+# @mentions and #hashtags
+
+Like all major social media platforms thisBoresMe provides users with the ability to user hashtags and mention other users. I used [KILabel](https://github.com/Krelborn/KILabel) to set up simple hashtag/mention recognizance based on strings beginning with '@' or '#'.  Hashtags are stored as instances of the Hashtag class on the backend while mentions are hyperlinked to the mentioned user's page and delivered to the mentioned's user as a news alert (see news feature below).
+
+Here is a simple code sample for recognizing and storing hashtags within post descriptions or subsequent comments:
+
+
+
+```swift
+ // define hashtag'd word
+        for var word in words {
+            
+            // save #hasthag in server
+            if word.hasPrefix("#") {
+                
+                // cut symbold
+                word = word.stringByTrimmingCharactersInSet(NSCharacterSet.punctuationCharacterSet())
+                word = word.stringByTrimmingCharactersInSet(NSCharacterSet.symbolCharacterSet())
+                
+                let hashtagObj = PFObject(className: "hashtags")
+                hashtagObj["to"] = commentuuid.last
+                hashtagObj["by"] = PFUser.currentUser()?.username
+                hashtagObj["hashtag"] = word.lowercaseString
+                hashtagObj["comment"] = commentTxt.text
+                hashtagObj.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
+                    if success {
+                        print("hashtag \(word) is created")
+                    } else {
+                        print(error!.localizedDescription)
+                    }
+                })
+            }
+        }
+```
+
+![alt text](gif8.gif)
+
+Hashtags can also be used to browse posts via the hashtag collection or by location.  In this example the user is browsing pictures locally hashtagged with #golf
 
 ![alt text](gif4.gif)
 

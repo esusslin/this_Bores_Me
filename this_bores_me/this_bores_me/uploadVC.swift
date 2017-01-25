@@ -27,10 +27,10 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     @IBOutlet weak var removeBtn: UIButton!
     @IBOutlet weak var locationTxt: UILabel!
     
-    var locationCoordinates: CLLocationCoordinate2D?
-    var locationName: String?
-    var locationCity: String?
-    var locationState: String?
+//    var locationCoordinates: CLLocationCoordinate2D?
+//    var locationName: String?
+//    var locationCity: String?
+//    var locationState: String?
     
     
     
@@ -190,12 +190,12 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                     
                     
                     
-                    self.locationName = nil
-                    self.locationCity = pm.locality
-                    self.locationState = pm.administrativeArea
-                    self.locationCoordinates = CLLocationCoordinate2D(latitude: (currentLocation!.coordinate.latitude), longitude: (currentLocation!.coordinate.longitude))
+                    locationName = nil
+                    locationCity = pm.locality
+                    locationState = pm.administrativeArea
+                    locationCoordinates = CLLocationCoordinate2D(latitude: (currentLocation!.coordinate.latitude), longitude: (currentLocation!.coordinate.longitude))
                     
-                    print(self.locationCoordinates)
+//                    print(locationCoordinates)
                     
                     self.alignment()
                     
@@ -259,10 +259,10 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         object["username"] = PFUser.currentUser()!.username
         object["ava"] = PFUser.currentUser()!.valueForKey("ava") as! PFFile
         object["uuid"] = "\(PFUser.currentUser()!.username) \(NSUUID().UUIDString)"
-        object["boredScore"] = 0
-        object["loredOfTheBored"] = false
-        object["boardWalkEmperor"] = false
-        object["chairmanOfTheBored"] = false
+//        object["boredScore"] = 0
+//        object["loredOfTheBored"] = false
+//        object["boardWalkEmperor"] = false
+//        object["chairmanOfTheBored"] = false
         
         let lat = locationCoordinates?.latitude
         let long = locationCoordinates?.longitude
@@ -272,7 +272,7 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             
             object["location"] = locationName!
         } else {
-            
+            object["location"] = nil
         }
         
         if locationState != nil {
@@ -359,10 +359,10 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             
             if error == nil {
                 
-                self.locationName = nil
-                self.locationCity = nil
-                self.locationState = nil
-                self.locationCoordinates = nil
+                locationName = nil
+                locationCity = nil
+                locationState = nil
+                locationCoordinates = nil
                 
                 //inform user post has been uploaded
                 NSNotificationCenter.defaultCenter().postNotificationName("uploaded", object: nil)
