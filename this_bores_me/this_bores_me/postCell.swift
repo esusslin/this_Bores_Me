@@ -421,7 +421,7 @@ class postCell: UITableViewCell {
                     // delete found like(s)
                     object.deleteInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
                         if success {
-                            
+
                             self.updateBoredScore()
                             print("no longer bored!")
                             self.bored3Btn.setTitle("blank3", forState: .Normal)
@@ -476,7 +476,7 @@ class postCell: UITableViewCell {
                     object.deleteInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
                         if success {
                             
-                            self.updateBoredScore()
+                           self.updateBoredScore()
                             print("no longer bored!")
                             self.bored1Btn.setTitle("blank1", forState: .Normal)
                             self.bored1Btn.setBackgroundImage(UIImage(named: "grey1"), forState: .Normal)
@@ -536,7 +536,7 @@ class postCell: UITableViewCell {
                 
                 if success {
                     
-                    self.updateBoredScore()
+                   self.updateBoredScore()
                     
                     let likePic = UIImageView(image: UIImage(named: "zzz.png"))
                     likePic.frame.size.width = self.picImg.frame.size.width / 1.5
@@ -554,7 +554,7 @@ class postCell: UITableViewCell {
 
                     
                     
-                    self.updateBoredScore()
+                   self.updateBoredScore()
                     
                     print("bored2 saved")
                     self.bored2Btn.setTitle("bored2", forState: .Normal)
@@ -596,7 +596,7 @@ class postCell: UITableViewCell {
                             self.bored2Btn.setTitle("blank2", forState: .Normal)
                             self.bored2Btn.setBackgroundImage(UIImage(named: "grey2"), forState: .Normal)
                             
-                            self.updateBoredScore()
+                           self.updateBoredScore()
                             
                             // send notification if we liked to refresh TableView
                             NSNotificationCenter.defaultCenter().postNotificationName("blank2", object: nil)
@@ -651,7 +651,7 @@ class postCell: UITableViewCell {
                         if success {
                             print("no longer bored!")
                             
-                            self.updateBoredScore()
+                           self.updateBoredScore()
                             self.bored2Btn.setTitle("blank2", forState: .Normal)
                             self.bored2Btn.setBackgroundImage(UIImage(named: "grey2"), forState: .Normal)
                             
@@ -734,7 +734,7 @@ class postCell: UITableViewCell {
                     print("bored1")
                     self.bored1Btn.setTitle("bored1", forState: .Normal)
                     self.bored1Btn.setBackgroundImage(UIImage(named: "red1"), forState: .Normal)
-                    
+
                     self.updateBoredScore()
                     
                     NSNotificationCenter.defaultCenter().postNotificationName("bored1", object: nil)
@@ -773,7 +773,7 @@ class postCell: UITableViewCell {
                             self.bored1Btn.setTitle("blank1", forState: .Normal)
                             self.bored1Btn.setBackgroundImage(UIImage(named: "grey1"), forState: .Normal)
                             
-                            self.updateBoredScore()
+                           self.updateBoredScore()
                             
                             // send notification if we liked to refresh TableView
                             NSNotificationCenter.defaultCenter().postNotificationName("blank1", object: nil)
@@ -823,7 +823,7 @@ class postCell: UITableViewCell {
     }
     self.boredscoreLbl.text = "\(sum)"
     self.updatePostBoredScore(sum)
-    self.reAnnoint()
+
     }
     
     })
@@ -836,7 +836,7 @@ class postCell: UITableViewCell {
         
         print("update post's bored score")
         
-        self.reAnnoint()
+//        self.reAnnoint()
         
         let countBoreds = PFQuery(className: "posts")
         countBoreds.whereKey("uuid", equalTo: self.uuidLbl.text!)
@@ -860,42 +860,6 @@ class postCell: UITableViewCell {
         })
     }
     
-    func reAnnoint() {
-        
-        print("reannointed")
-        
-        // STEP 1. Find posts realted to people who we are following
-        let query = PFQuery(className: "posts")
-        query.orderByDescending("boredScore")
-        query.limit = 20
-        query.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) -> Void in
-            
-            
-            // find related objects
-            for me in objects! {
-                
-                
-                if me == objects![0] {
-                    me["loredOfTheBored"] = true
-                     me.saveEventually()
-                } else if me == objects![1] {
-                    me["boredWalkEmperor"] = true
-                     me.saveEventually()
-                } else if me == objects![2] {
-                    me["chairmanOfTheBored"] = true
-                     me.saveEventually()
-                } else {
-                    me["loredOfTheBored"] = false
-                    me["boredWalkEmperor"] = false
-                    me["chairmanOfTheBored"] = false
-                    me.saveEventually()
-                }
-            }
-            
-        })
-        
-    }
-
     
 }
 

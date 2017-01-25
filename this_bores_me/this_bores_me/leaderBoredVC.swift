@@ -71,11 +71,13 @@ class leaderBoredVC: UITableViewController {
     // load posts
     func loadTopPosts() {
         
-        // STEP 1. Find posts realted to people who we are following
+//        let query = PFQuery(className: "boreds")
+        
+        
         let query = PFQuery(className: "posts")
-        query.whereKey("boredScore", greaterThanOrEqualTo: 6)
-        query.orderByDescending("boredScore")
-//        query.limit = page
+        query.whereKey("boredScore", greaterThan: 6)
+        query.addDescendingOrder("boredScore")
+
         query.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) -> Void in
             
             print("********")
@@ -84,6 +86,12 @@ class leaderBoredVC: UITableViewController {
             
             // find related objects
             for object in objects! {
+                
+                print("********")
+                print(object.objectForKey("boredScore"))
+                print("********")
+                
+                
                 self.usernameArray.append(object.objectForKey("username") as! String)
                 self.avaArray.append(object.objectForKey("ava") as! PFFile)
                 self.dateArray.append(object.createdAt)
@@ -257,6 +265,18 @@ class leaderBoredVC: UITableViewController {
                     
                 }
                 cell.boredscoreLbl.text = "\(sum)"
+                
+                let countBoreds = PFQuery(className: "posts")
+                countBoreds.whereKey("uuid", equalTo: cell.uuidLbl.text!)
+                countBoreds.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) in
+                    
+                    for me in objects! {
+                        me["boredScore"] = sum
+                        me.saveInBackground()
+                    }
+                    
+                })
+
                 
             }
             
