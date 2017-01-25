@@ -322,7 +322,7 @@ class commentVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITa
         // STEP 3. Send #hashtag to server
         let words:[String] = commentTxt.text!.componentsSeparatedByCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         
-        // define taged word
+        // define hashtag'd word
         for var word in words {
             
             // save #hasthag in server

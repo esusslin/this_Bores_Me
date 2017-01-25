@@ -106,7 +106,7 @@ class postMapVC: UIViewController, MGLMapViewDelegate {
         print(self.longitude!)
         
        
-        self.mapView.setCenterCoordinate(CLLocationCoordinate2D(latitude: 37.7879224062377, longitude: -122.407503426075), zoomLevel: 14, animated: true)
+        self.mapView.setCenterCoordinate(CLLocationCoordinate2D(latitude: 37.7879224062377, longitude: -122.407503426075), zoomLevel: 10, animated: true)
         
 //        self.mapView.selectAnnotation(mapView.annotations![0], animated: true)
         
