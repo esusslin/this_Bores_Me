@@ -41,9 +41,10 @@ The first tab and initial home page - the BOREDOM BULLETIN - is a chronological 
 
 By accessing the tab on the upper left the user can also browse the LEADERBORED which or the top rated boring posts of the day.  At the end of each day the post with the highest day-of BoredScore is retired as 'Lord of the Bored' - the most sought after title in the history of social media.
 
-![alt text](gifB.gif)
---
-![alt text](tshirt.png)
+
+:-------------------------:|:-------------------------:
+![alt text](gifB.gif)      |  ![alt text](tshirt.png)
+
 --
 
 Beyond the newsfeed options, thisBoresMe provides users with the unique experience of browsing posts via an interactive map.  Users can look to see what people are posting in their own proximity and rate the posted material as they see fit.
@@ -119,13 +120,15 @@ Hashtags can also be used to browse posts via the hashtag collection or by locat
 
 When another user finds one of your posts boring, very boring, or extremely boring (1-3 scale) thisBoresMe provides you with the good news!  Likewise if another user begins to follow you, or you are mentioned in a post or comment thisBoresMe makes this immediately known.  All three types of news are stored on the backend and the user recieves a notification much like she would via Instagram or Facebook:
 
-Solarized dark             |  Solarized Ocean
-:-------------------------:|:-----------------------------------------------:
-![alt text](gif4.gif)	   |  Hashtags can also be used to browse posts via 						   |  the hashtag collection or by location.  In 							   |  this example the user is browsing pictures 							   |  locally hashtagged with #golf
+![alt text](gif9.gif)
 
 
 
-\
+# Quality Control
+
+Like any responsible social media app it is very important to thisBoresMe that erroneously posted content can be taken down immediately and complaints can be made about posts or comments that a user may find offensive.  Beyond the obvious protocols in place to provide 'boring feedback' to other users, it is vital that cruelty and harrassment are not permitted on thisBoresMe and that the application experience is one of lighthearted humor and entertainment.
+
+![alt text](gif10.gif)
 
 
 
