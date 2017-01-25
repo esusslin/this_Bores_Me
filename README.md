@@ -33,9 +33,19 @@ Once logged in the main application interface is split and accessible via a navi
 
 # Home NewsFeed
 
-The first tab / the initial home page is a chronological news feed of posts by users who are followed by the current user.  Rather than 'likes' the user has the ability to give posts on his newsfeed a 'boredScore' - on a scale of 1-3 the user can rate his level of boredom concerning each post.  Rather than the 'likecount' tallies of Facebook and Instagram popularity is measured in boredom at thisBoresMe.
+The first tab and initial home page - the BOREDOM BULLETIN - is a chronological news feed of posts by followed users.  Rather than 'likes' the user has the ability to give posts on his newsfeed a 'boredScore' - on a scale of 1-3 the user can effectively let the post's author and that 'this Bores Me.'  Rather than the 'likecount' tallies of Facebook and Instagram popularity is measured in boredom at thisBoresMe.
 
 ![alt text](gif5.gif)
+
+By accessing the tab on the upper left the user can also browse the LEADERBORED which or the top rated boring posts of the day.  At the end of each day the post with the highest day-of BoredScore is retired as 'Lord of the Bored' - the most sought after title in the history of social media.
+
+![alt text](gifB.gif)
+--
+![alt text](rsz_tshirt.png)
+
+Beyond the newsfeed options, thisBoresMe provides users with the unique experience of browsing posts via an interactive map.  Users can look to see what people are posting in their own proximity and rate the posted material as they see fit.
+
+![alt text](gifA.gif)
 
 # Searching and browsing posts
 
@@ -49,7 +59,7 @@ The user can browse the pages of other users and follow them as desired. A user'
 
 # Uploading an image with its location
 
-Contributing to thisBoresMe is as easy as uploading an image from your 
+Contributing to thisBoresMe is as easy as uploading an image from your local photo collection, adding comments or titles (including #hashtags and @mentions of other users), and finally tagging the location of your post.
 
 #Hashtags
 

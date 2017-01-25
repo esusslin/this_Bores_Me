@@ -293,7 +293,6 @@
 				E21123FF1E22058E00BC98CB /* usersVC.swift */,
 				E21124011E220D1800BC98CB /* newsVC.swift */,
 				E21124031E220D2800BC98CB /* newsCell.swift */,
-				E29CF2371E28B73A001E3AC3 /* mapSearchVC.swift */,
 				E22EB1701E29DD0E00314DC2 /* picAnnotation.swift */,
 				E22EB1721E2D5EE100314DC2 /* testVC.swift */,
 				E22EB1781E2D635400314DC2 /* customCalloutVC.swift */,
@@ -303,6 +302,7 @@
 				E2F2D3441E2DD44F009D336F /* postMapVC.swift */,
 				E230448A1E1F097D00E5C908 /* guestVC.swift */,
 				E2F2D3461E2DFF95009D336F /* guestMapVC.swift */,
+				E29CF2371E28B73A001E3AC3 /* mapSearchVC.swift */,
 				E2F2D3481E2DFFBC009D336F /* guestMapCell.swift */,
 				E22F5E6E1E359CED00A64FCA /* leaderBoredVC.swift */,
 			);
